@@ -30,7 +30,7 @@
 - [ ] **M-04 Peer-review pass** — numerical cross-check, citation audit, handwavium traceability
 - [ ] **M-05 Figures FINAL** — publication-ready figures
 - [ ] **M-07 PDF build v1** — first Typst-built PDF
-- [ ] **M-12 GitHub public push** — remote created via `gh repo create`, first push complete, README landing visible
+- [x] **M-12 GitHub public push** — completed 2026-04-22. Public repo at https://github.com/doublegate/DS-1_Plans. 2 commits on `main`. 12 topics set. License shown as "Other" (expected — GitHub's licensee library does not auto-classify Creative Commons licenses; canonical CC-BY-NC-4.0 text is in `LICENSE`).
 - [ ] **M-08 Release** — tagged final artifact
 
 ## Current deliverables (docs/ tree)
