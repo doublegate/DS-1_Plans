@@ -1,0 +1,78 @@
+name: Peer Review
+description: Numerical correction, citation fix, canon reconciliation, or handwavium-trace issue.
+title: "[Peer Review] "
+labels: ["peer-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for peer-reviewing. The most useful feedback at this stage is **specific** — point at a file and a line, quote the claim, state the correction.
+
+        Before filing, please check that the claim isn't already marked as a concession in `docs/10-handwavium-ledger.md` (HW-1..HW-10). Concession-class claims are intentional physics waivers, not bugs.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Numerical inconsistency (value disagrees with design basis or another section)
+        - Citation issue (source doesn't support the claim or is missing)
+        - Canon reconciliation (spec contradicts an authoritative canon source)
+        - Handwavium trace gap (physics-violating claim without an HW-ID cite)
+        - Unit / dimension error
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: file
+    attributes:
+      label: File
+      placeholder: "docs/03-power-generation.md"
+      description: The specific file with the issue. Use paths from the repo root.
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Section or line
+      placeholder: "§3.3 table row 2, or line 127"
+    validations:
+      required: true
+
+  - type: textarea
+    id: claim
+    attributes:
+      label: The claim as written
+      placeholder: "Quote the exact text from the spec."
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: Your correction or concern
+      description: What's wrong, why, and what the claim should say instead. Cite your source.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Supporting source
+      placeholder: "Wookieepedia entry / arXiv paper / observational dataset — include a link or DOI."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: I checked `docs/10-handwavium-ledger.md` and this isn't a documented concession.
+          required: true
+        - label: I checked the design basis (`docs/01-design-basis.md`) and any referenced appendices.
+          required: true

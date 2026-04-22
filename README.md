@@ -94,7 +94,7 @@ The spec uses a deliberate **honest-accounting** pattern. Every claim that excee
 
 ## Rights
 
-© 2026, all rights reserved — see `NOTICE.md`. A formal license (probably CC-BY-4.0 or CC-BY-NC-4.0) will be committed before first public distribution of the final PDF.
+Licensed under [CC-BY-NC-4.0](LICENSE) — attribution required, non-commercial use. See [NOTICE.md](NOTICE.md) for plain-English terms, third-party acknowledgements (Star Wars IP, real-physics program names, software dependencies), and the contact channel for commercial / rights inquiries.
 
 ## Contributing / feedback
 

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Project status and phase plan
+    url: https://github.com/doublegate/DS-1_Plans/blob/main/to-dos/PROJECT-STATUS.md
+    about: Check live project status before filing an issue — the item may already be tracked.
+  - name: Handwavium ledger
+    url: https://github.com/doublegate/DS-1_Plans/blob/main/docs/10-handwavium-ledger.md
+    about: The ten documented physics concessions. Concession-class claims are intentional, not bugs.

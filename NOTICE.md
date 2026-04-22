@@ -5,26 +5,26 @@
 
 ---
 
-## Rights
+## License
 
-© 2026, all rights reserved.
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License (CC-BY-NC-4.0)**. See [LICENSE](LICENSE) for the full legal text.
 
-This project is being prepared for formal technical-fiction publication. Until a formal license is committed (tracked as risk R-5 in `to-dos/PROJECT-STATUS.md`), **no grant of reuse, redistribution, or modification rights is made**. The repository is publicly readable on GitHub for visibility, discussion, and peer-review purposes; this does not imply any transfer of rights.
+**In plain English:**
+- You may **read**, **copy**, **modify**, and **redistribute** this work for any **non-commercial** purpose, including academic citation, fan-community engagement, and derivative analysis.
+- You must provide **attribution** (credit the project and author, and link back to this repository).
+- You **may not use** this work for **commercial purposes** without separate written permission. "Commercial" includes paid-for-access distribution, bundling into paid products, or use in a context whose primary purpose is commercial advantage or monetary compensation.
+- Derivative works must be distributed under compatible terms and must not impose additional restrictions.
 
-If you want to reference, cite, fork, or republish portions of this work, please open a GitHub issue to coordinate.
+For a summary deed, see <https://creativecommons.org/licenses/by-nc/4.0/>.
+
+The final formal publication artifact (PDF) is expected to ship under the same terms. If a commercial publisher picks this work up, a separate rights agreement will be negotiated at that time and this file will be updated.
 
 ## Third-party content acknowledgements
 
-- **Star Wars** names, places, characters, canon figures, and trademarks are property of **Lucasfilm Ltd. / The Walt Disney Company**. Their use here is in the tradition of speculative fan engineering analysis (*Incredible Cross-Sections*, *Death Star Technical Companion*, etc.) and is not a claim of ownership.
+- **Star Wars** names, places, characters, canon figures, and trademarks are property of **Lucasfilm Ltd. / The Walt Disney Company**. Their use here is in the tradition of speculative fan engineering analysis (*Incredible Cross-Sections*, *Death Star Technical Companion*, etc.) and is not a claim of ownership. Nothing in this CC-BY-NC-4.0 license purports to grant rights over underlying Star Wars IP.
 - **Real-world program names** referenced in the spec (NIF, TAE Technologies, Epirus Leonidas, HELIOS, NASA Psyche, CERN ALPHA, NEXT-C, VASIMR, Lentz soliton, MARAUDER, etc.) refer to actual research and operational programs and are used only as real-physics analog references. No endorsement by those organizations is implied.
-- **Third-party dependencies** used in `proj-code/` (React, Recharts, lucide-react, Vite, TypeScript) ship under their own permissive licenses; see each project's own LICENSE.
+- **Third-party software dependencies** used in `proj-code/` (React, Recharts, lucide-react, Vite, TypeScript, Tailwind) and `typeset/` (Typst, pandoc) ship under their own permissive licenses; see each project's own LICENSE. Nothing here modifies or restricts those licenses.
 
-## Intent
+## Contact
 
-Once the published artifact (PDR-register PDF) is finalized via Phase 5 (`to-dos/phase-5-publication.md`), the rights notice will be revisited. Options under consideration:
-
-- **CC-BY-4.0** (attribution, commercial use allowed) — most compatible with academic citation
-- **CC-BY-NC-4.0** (non-commercial) — keeps commercial publication path open
-- **All rights reserved** (current placeholder) — preserves maximum flexibility until formal publisher engagement
-
-The decision is tracked as D-11 in `to-dos/PROJECT-STATUS.md` and should be committed before any first public push to GitHub.
+For rights or publication inquiries outside the scope of CC-BY-NC-4.0, open a GitHub issue labeled `question` with the subject line "Rights inquiry" and the repository owner will follow up.

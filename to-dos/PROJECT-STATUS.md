@@ -30,7 +30,7 @@
 - [ ] **M-04 Peer-review pass** — numerical cross-check, citation audit, handwavium traceability
 - [ ] **M-05 Figures FINAL** — publication-ready figures
 - [ ] **M-07 PDF build v1** — first Typst-built PDF
-- [ ] **M-12 GitHub public push** — user creates remote, first push, README landing (blocked on LICENSE decision)
+- [ ] **M-12 GitHub public push** — remote created via `gh repo create`, first push complete, README landing visible
 - [ ] **M-08 Release** — tagged final artifact
 
 ## Current deliverables (docs/ tree)
@@ -66,7 +66,7 @@
 | R-2 | Figure production path | — | — | **Closed 2026-04-22 via D-7:** mixed — Mermaid/Graphviz/matplotlib for stubbable, Nano Banana 2 for custom figures via `docs/appendix-D2-figure-prompts.md` |
 | R-3 | Typesetting path | — | — | **Closed 2026-04-22 via D-8:** Typst |
 | R-4 | HW-4, HW-6, HW-8, HW-9 without explicit DR | — | — | **Closed 2026-04-22 via Phase 2 S2.4:** DR-13..DR-16 added |
-| R-5 | LICENSE not yet committed (NOTICE placeholder in place) | Low (blocks public-release clarity) | — | Open — user call before first public push |
+| R-5 | LICENSE not yet committed (NOTICE placeholder in place) | — | — | **Closed 2026-04-22 via D-11:** CC-BY-NC-4.0 adopted; LICENSE file + NOTICE.md updated |
 | R-6 | Vite build output parity with CDN distributable HTML | Low (two build paths diverge without discipline) | — | Open — track during proj-code Vite build verification |
 
 ## Decision log
@@ -83,6 +83,7 @@
 | D-8 | 2026-04-22 | Typesetting = Typst | User-specified. Build pipeline under `typeset/`; pandoc → Typst conversion for docs markdown |
 | D-9 | 2026-04-22 | Git init + public GitHub repo; forward goal = formal technical-fiction publication | User-specified. Project initialized as local git repo; remote to be created by user |
 | D-10 | 2026-04-22 | proj-code full refactor now: TS types + module split + Vite scaffold + print CSS | User-specified (all four). Monolithic .tsx retired; src/ tree authoritative; CDN-HTML kept as distributable |
+| D-11 | 2026-04-22 | License = CC-BY-NC-4.0 | User-specified. Canonical text in LICENSE; NOTICE.md updated; README Rights section updated; compatible with future commercial-publication negotiation |
 
 ## Next actions
 

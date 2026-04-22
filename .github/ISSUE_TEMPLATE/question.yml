@@ -1,0 +1,26 @@
+name: Question
+description: Clarification or open-ended question about the spec or project.
+title: "[Question] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For specific numerical / citation / canon issues, please use the **Peer Review** template instead — it captures what's needed to triage efficiently.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What section you're reading, what you're trying to figure out, what you've already checked.
+      render: markdown
+    validations:
+      required: false

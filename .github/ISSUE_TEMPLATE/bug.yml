@@ -1,0 +1,66 @@
+name: Bug report
+description: Console (`proj-code/`) or Typst build (`typeset/`) misbehaves.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bugs in code-artifacts (`proj-code/` or `typeset/`). For content issues (numbers, citations, canon), use the **Peer Review** template instead.
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected component
+      options:
+        - proj-code (Vite source in src/)
+        - proj-code (CDN HTML distributable)
+        - typeset (Typst build)
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. `cd proj-code && npm install`
+        2. `npm run dev`
+        3. Open the Ledger tab
+        4. ...
+      render: markdown
+    validations:
+      required: true
+
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: "OS / browser / Node / pandoc / Typst versions as relevant"
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console output / stack trace
+      render: shell
+    validations:
+      required: false
