@@ -1,0 +1,92 @@
+# PROJECT-STATUS
+
+**Project:** DS-1 Orbital Battle Station Engineering Specification
+**Draft version:** 0.2
+**Last updated:** 2026-04-22
+**Current phase:** Phase 2 close → Phase 3 kick-off
+
+---
+
+## Health
+
+| Dimension | Status | Notes |
+|---|---|---|
+| Scope | Green | Ref-doc covers all 10 subsystems + DS-2 appendix; no scope gaps |
+| Schedule | Not-started-baseline | No external deadline; self-paced |
+| Quality | Green | Source-of-truth ref-doc is PDR-register; derivatives match |
+| Risk | Amber | Phase 3 figure production is the largest schedule unknown |
+
+## Milestone checklist
+
+- [x] **M-00 Foundation** — repository skeleton + CLAUDE.md conventions (completed 2026-04-21)
+- [x] **M-01 Document split** — ref-doc decomposed into `docs/00..12*.md` (completed 2026-04-21)
+- [x] **M-02 Engineering artifacts** — `appendix-A..F.md` produced (completed 2026-04-21)
+- [x] **M-02b Phase 2 gap closure** — DR-13..DR-16 added; DS-2 full MPT rebudget (completed 2026-04-22)
+- [x] **M-06 Typesetting decision** — Typst selected (completed 2026-04-22)
+- [x] **M-09 Console refactor** — Vite + TS types + module split + print CSS (completed 2026-04-22)
+- [x] **M-10 Git init** — local repo initialized (completed 2026-04-22)
+- [ ] **M-03 Figures v1** — all figures in `appendix-D-figures-and-tables.md` at DRAFT status (prompts ready; generation by user via Nano Banana 2)
+- [ ] **M-11 Nano Banana 2 run** — user executes prompts from `docs/appendix-D2-figure-prompts.md`; outputs to `docs/figures/`
+- [ ] **M-04 Peer-review pass** — numerical cross-check, citation audit, handwavium traceability
+- [ ] **M-05 Figures FINAL** — publication-ready figures
+- [ ] **M-07 PDF build v1** — first Typst-built PDF
+- [ ] **M-12 GitHub public push** — user creates remote, first push, README landing (blocked on LICENSE decision)
+- [ ] **M-08 Release** — tagged final artifact
+
+## Current deliverables (docs/ tree)
+
+| File | Exists | Status |
+|---|---|---|
+| `docs/README.md` | ✓ | Draft |
+| `docs/00-abstract-and-scope.md` | ✓ | Draft |
+| `docs/01-design-basis.md` | ✓ | Draft |
+| `docs/02-structural-and-materials.md` | ✓ | Draft |
+| `docs/03-power-generation.md` | ✓ | Draft |
+| `docs/04-superlaser.md` | ✓ | Draft |
+| `docs/05-propulsion.md` | ✓ | Draft |
+| `docs/06-life-support.md` | ✓ | Draft |
+| `docs/07-defensive-systems.md` | ✓ | Draft |
+| `docs/08-command-control-communications.md` | ✓ | Draft |
+| `docs/09-vulnerability-analysis.md` | ✓ | Draft |
+| `docs/10-handwavium-ledger.md` | ✓ | Draft |
+| `docs/11-minimum-handwave-reconstruction.md` | ✓ | Draft |
+| `docs/12-ds2-delta-specification.md` | ✓ | Draft |
+| `docs/appendix-A-mass-power-thermal-budget.md` | ✓ | Draft |
+| `docs/appendix-B-nomenclature.md` | ✓ | Draft |
+| `docs/appendix-C-references.md` | ✓ | Draft |
+| `docs/appendix-D-figures-and-tables.md` | ✓ | Draft (figures all TBD) |
+| `docs/appendix-E-fmea.md` | ✓ | Draft |
+| `docs/appendix-F-vnv-plan.md` | ✓ | Draft |
+
+## Open risks / flags
+
+| # | Flag | Impact | Owner | Status |
+|---|---|---|---|---|
+| R-1 | Geometry freeze: 120 km vs 160 km | — | — | **Closed 2026-04-22 via D-6:** DS-1 = 120 km, DS-2 = 160 km (option c) |
+| R-2 | Figure production path | — | — | **Closed 2026-04-22 via D-7:** mixed — Mermaid/Graphviz/matplotlib for stubbable, Nano Banana 2 for custom figures via `docs/appendix-D2-figure-prompts.md` |
+| R-3 | Typesetting path | — | — | **Closed 2026-04-22 via D-8:** Typst |
+| R-4 | HW-4, HW-6, HW-8, HW-9 without explicit DR | — | — | **Closed 2026-04-22 via Phase 2 S2.4:** DR-13..DR-16 added |
+| R-5 | LICENSE not yet committed (NOTICE placeholder in place) | Low (blocks public-release clarity) | — | Open — user call before first public push |
+| R-6 | Vite build output parity with CDN distributable HTML | Low (two build paths diverge without discipline) | — | Open — track during proj-code Vite build verification |
+
+## Decision log
+
+| # | Date | Decision | Rationale |
+|---|---|---|---|
+| D-1 | 2026-04-21 | Adopt 120 km as DS-1 geometry of record | ANH Legends figure; ref-doc baseline; allows direct re-use of 10¹⁸ kg design-basis mass |
+| D-2 | 2026-04-21 | Adopt 160 km for DS-2 | Current Wookieepedia / DK figure; 900 km explicitly rejected |
+| D-3 | 2026-04-21 | Ten-item HW ledger as structured constraint | Honest-accounting pattern; keeps concessions visible and bounded |
+| D-4 | 2026-04-21 | Split ref-doc into 13 section + 6 appendix files | Peer-review ergonomics; matches PDR convention |
+| D-5 | 2026-04-22 | Completion scope = full PDR-register PDF artifact | User-specified (option b). Phases 3/4/5 go; no early stop |
+| D-6 | 2026-04-22 | Geometry freeze = DS-1 120 km / DS-2 160 km (split) | User-specified (option c). Shows DS-1→DS-2 evolution; preserves ref-doc baseline |
+| D-7 | 2026-04-22 | Figure production = mixed path; Nano Banana 2 prompt spec for custom figures | User-specified (option b with Nano Banana 2). Detailed prompt document at `docs/appendix-D2-figure-prompts.md` |
+| D-8 | 2026-04-22 | Typesetting = Typst | User-specified. Build pipeline under `typeset/`; pandoc → Typst conversion for docs markdown |
+| D-9 | 2026-04-22 | Git init + public GitHub repo; forward goal = formal technical-fiction publication | User-specified. Project initialized as local git repo; remote to be created by user |
+| D-10 | 2026-04-22 | proj-code full refactor now: TS types + module split + Vite scaffold + print CSS | User-specified (all four). Monolithic .tsx retired; src/ tree authoritative; CDN-HTML kept as distributable |
+
+## Next actions
+
+1. Commit first git tree + push to public GitHub (user creates remote; local repo is initialized)
+2. Phase 3 kick-off — user iterates Nano Banana 2 prompts (`docs/appendix-D2-figure-prompts.md`) against Gemini; resulting images drop into `docs/figures/`
+3. Phase 4 peer review can run in parallel with figure production (S4.1 numerical cross-check, S4.2 citation audit)
+4. Phase 5 Typst build verification — run `typeset/build.sh` after all figures land; iterate template to 30–60-page target

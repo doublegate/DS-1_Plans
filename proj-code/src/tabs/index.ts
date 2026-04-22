@@ -1,0 +1,10 @@
+// Barrel export for all tabs.
+export { CommandTab } from './CommandTab';
+export { StructureTab } from './StructureTab';
+export { ConstructionTab } from './ConstructionTab';
+export { ReactorTab } from './ReactorTab';
+export { DriveTab } from './DriveTab';
+export { DefenseTab } from './DefenseTab';
+export { DS2Tab } from './DS2Tab';
+export { PhysicsTab } from './PhysicsTab';
+export { LedgerTab } from './LedgerTab';

@@ -1,0 +1,33 @@
+# Build output
+dist/
+build/
+out/
+
+# Node / Vite
+node_modules/
+.vite/
+*.local
+
+# Typst build intermediates
+typeset/generated/
+
+# Figure iteration scratch (_iterations/ holds experimental renders)
+docs/figures/_iterations/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*

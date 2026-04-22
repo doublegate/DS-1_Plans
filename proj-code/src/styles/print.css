@@ -1,0 +1,114 @@
+/* Print stylesheet for the Engineering Console.
+ * Primary use: export the Ledger tab as a PDF appendix to sit alongside the
+ * Typst-built main PDF. Secondary: any tab can be printed to PDF via the
+ * browser print dialog with these rules applied.
+ *
+ * Activated via:  window.print()  or  Ctrl/Cmd+P in the browser.
+ */
+
+@media print {
+
+  /* ----- Page setup ----- */
+  @page {
+    size: A4 portrait;
+    margin: 1.5cm 1.2cm;
+  }
+
+  /* ----- Global — switch to print-safe palette ----- */
+  html, body, #root {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 9pt !important;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  * {
+    background-image: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* ----- Hide interactive chrome ----- */
+  nav, header nav, [role="navigation"], button, [role="button"],
+  .no-print, [data-no-print="true"] {
+    display: none !important;
+  }
+
+  /* ----- Preserve panel structure ----- */
+  .panel, [data-panel="true"] {
+    background: #ffffff !important;
+    border: 1px solid #333 !important;
+    page-break-inside: avoid;
+    margin-bottom: 10pt !important;
+  }
+
+  /* ----- Tables ----- */
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    font-size: 8pt !important;
+    page-break-inside: auto;
+  }
+  thead { display: table-header-group; }
+  tr    { page-break-inside: avoid; }
+  th, td {
+    border: 0.5pt solid #555 !important;
+    padding: 3pt 5pt !important;
+    color: #000 !important;
+  }
+  th {
+    background: #eee !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 7pt !important;
+  }
+
+  /* ----- Pills / badges — render as bordered text ----- */
+  [data-pill="true"], .pill {
+    background: transparent !important;
+    border: 0.5pt solid #333 !important;
+    color: #000 !important;
+    padding: 1pt 3pt !important;
+  }
+
+  /* ----- Links — print URL after link text ----- */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 7pt;
+    color: #555;
+  }
+
+  /* ----- Headings ----- */
+  h1, h2, h3, h4 {
+    color: #000 !important;
+    page-break-after: avoid;
+  }
+
+  /* ----- Charts (Recharts) — force grayscale, readable ----- */
+  .recharts-wrapper svg,
+  .recharts-surface {
+    background: #fff !important;
+  }
+
+  /* ----- Images ----- */
+  img, svg {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* ----- Page header printed at top ----- */
+  body::before {
+    content: "DS-1 Engineering Console · Ledger Export · as of April 2026";
+    display: block;
+    font-size: 7pt;
+    color: #888;
+    border-bottom: 0.5pt solid #888;
+    padding-bottom: 4pt;
+    margin-bottom: 8pt;
+  }
+}
