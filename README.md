@@ -2,7 +2,7 @@
 
 A speculative systems-engineering specification for the DS-1 Death Star, structured as a Preliminary Design Review (PDR) document package. Hybrid canon + real-physics analysis; audience framing is "Senior Technical Director review."
 
-**Status:** Draft 0.2 · 2026-04-26 · Phases 0–2 complete · Phase 3 in progress (17 of 30 figures DRAFT — programmatic set rendered; 13 illustrative figures pending Nano Banana 2)
+**Status:** Draft 0.2 · 2026-04-26 · Phases 0–2 complete · Phase 3 nearly complete — all 30 figures at DRAFT; S3.5 elevation pass and Phase 4 peer review next
 
 ## The question this project answers
 
@@ -78,7 +78,7 @@ dot -Tsvg F-9.1.dot -o ../F-9.1.svg && dot -Tsvg F-9.2.dot -o ../F-9.2.svg
 - **Phase 0 · Foundation** · done 2026-04-21
 - **Phase 1 · Document split** · done 2026-04-21 (ref-doc → 13 sections + appendices)
 - **Phase 2 · Engineering artifacts** · done 2026-04-22 (MPT budget, FMEA, V&V, nomenclature, references, figure index, DS-2 rebudget, HW→DR gap closure)
-- **Phase 3 · Figures** · in progress — 17 of 30 at DRAFT (8 Mermaid + 2 Graphviz + 7 matplotlib rendered 2026-04-26); 13 illustrative figures pending Nano Banana 2
+- **Phase 3 · Figures** · all 30 at DRAFT (2026-04-26) — 8 Mermaid + 2 Graphviz + 7 matplotlib rendered locally; 13 Nano Banana 2 illustrative figures generated and renamed to bare `F-{id}.png`. S3.5 elevation pass (DRAFT → FINAL) is next.
 - **Phase 4 · Peer review** · not started (numerical cross-check, citation audit, handwavium traceability)
 - **Phase 5 · Publication** · scaffolded (Typst template + build pipeline in place; PDF build pending figures)
 
