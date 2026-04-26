@@ -14,6 +14,10 @@ typeset/generated/
 # Figure iteration scratch (_iterations/ holds experimental renders)
 docs/figures/_iterations/
 
+# matplotlib figure-generation venv (created by docs/figures/_sources/.venv)
+docs/figures/_sources/.venv/
+docs/figures/_sources/__pycache__/
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db

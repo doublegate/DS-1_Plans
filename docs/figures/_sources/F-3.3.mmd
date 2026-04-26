@@ -1,0 +1,17 @@
+%% F-3.3 — Reactor → beam conversion chain block diagram
+%% Source: docs/appendix-D2-figure-prompts.md §D2.5
+%% Placement: docs/03-power-generation.md / 04-superlaser.md
+%% Render:  mmdc -i F-3.3.mmd -o ../F-3.3.svg -t dark -b transparent
+flowchart LR
+  R["SFS-CR27200<br/>Hypermatter Reactor"] --> S["64 Tributary Shafts"]
+  S --> H["4 Induction Hyperphase<br/>Generators"]
+  H --> K["8 Kyber Amplifier Stages<br/>(Nd:glass-analog gain media)"]
+  K --> L["Compound-Kyber<br/>Focusing Lens<br/>(phased-array active optic)"]
+  L --> A["10 km Aperture"]
+  A --> B["Coherent Beam<br/>(hypermatter particle, γ 2-5)"]
+  R -.-> RR["2.6 × 10²⁷ W sustained<br/>2.24 × 10³² W peak"]
+  B -.-> BB["2.24 × 10³² J per shot<br/>500 nm Cherenkov-green"]
+  style R fill:#f5a62322,stroke:#f5a623,color:#f0e6d2
+  style B fill:#2ecc7122,stroke:#2ecc71,color:#f0e6d2
+  style RR fill:#0a0e1a,stroke:#4ec9b0,color:#4ec9b0
+  style BB fill:#0a0e1a,stroke:#4ec9b0,color:#4ec9b0

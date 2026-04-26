@@ -1,0 +1,13 @@
+%% F-8.2 — C3 hierarchy and latency budget (Overbridge → zone → turret)
+%% Source: docs/appendix-D2-figure-prompts.md §D2.5
+%% Placement: docs/08-command-control-communications.md §8.3
+%% Render:  mmdc -i F-8.2.mmd -o ../F-8.2.svg -t dark -b transparent
+flowchart TB
+  OB["Overbridge<br/>(Tarkin, Motti, Tagge, Vader)"] -.-> |"sub-second cadence"| Z["24 Zone Command Bridges"]
+  Z -.-> |"0.4 ms light-time, 120 km"| TC["Local Fire Control"]
+  TC -.-> |"autonomous engagement"| T["Individual Turret<br/>(15,000 batteries)"]
+  T -.-> |"slew 100°/s vs<br/>X-wing angular 1000°/s"| BUG["DS-1 anti-fighter gap<br/>(Yavin)"]
+  BUG -.-> FIX["FIX: CIWS + phased-array<br/>kill chain < 500 ms"]
+  style OB fill:#f5a62322,stroke:#f5a623,color:#f0e6d2
+  style BUG fill:#e74c3c22,stroke:#e74c3c,color:#f0e6d2
+  style FIX fill:#2ecc7122,stroke:#2ecc71,color:#f0e6d2

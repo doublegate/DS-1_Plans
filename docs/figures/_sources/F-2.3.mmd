@@ -1,0 +1,16 @@
+%% F-2.3 — Load-path hierarchy (hull → ring frames → spokes → axial brace)
+%% Source: docs/appendix-D2-figure-prompts.md §D2.5
+%% Placement: docs/02-structural-and-materials.md
+%% Render:  mmdc -i F-2.3.mmd -o ../F-2.3.svg -t dark -b transparent
+flowchart TD
+  A["Outer Quadanium Shell<br/>(5 cm bumper)"] --> B["24 Latitudinal Ring Frames"]
+  B --> C["Radial Spokes"]
+  C --> D["Central N-S Axial Truss"]
+  D --> E["Reactor Containment Mount"]
+  D --> F["Axial Back-Brace<br/>(recoil absorber)"]
+  A --> G["Equatorial Stiffening Torus<br/>(compression/tension belt)"]
+  G --> B
+  style A fill:#f5a62322,stroke:#f5a623,color:#f0e6d2
+  style B fill:#f5a62322,stroke:#f5a623,color:#f0e6d2
+  style F fill:#e74c3c22,stroke:#e74c3c,color:#f0e6d2
+  style E fill:#4ec9b022,stroke:#4ec9b0,color:#f0e6d2

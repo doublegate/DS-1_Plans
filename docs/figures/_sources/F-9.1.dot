@@ -1,0 +1,26 @@
+// F-9.1 — Yavin exploit fault tree
+// Source: docs/appendix-D2-figure-prompts.md §D2.5
+// Placement: docs/09-vulnerability-analysis.md §9.1
+// Render:  dot -Tsvg F-9.1.dot -o ../F-9.1.svg
+digraph yavin_fault {
+  graph [rankdir=BT, bgcolor="#0a0e1a", fontcolor="#f0e6d2", fontname="JetBrains Mono"];
+  node [style=filled, fillcolor="#0a0e1a", fontcolor="#f0e6d2", color="#f5a623", fontname="JetBrains Mono", shape=box];
+  edge [color="#f5a623", fontcolor="#4ec9b0", fontname="JetBrains Mono"];
+
+  LOSS [label="STATION LOSS\n(Battle of Yavin)", fillcolor="#e74c3c", fontcolor="#0a0e1a"];
+  RXN [label="Reactor runaway\n(chain reaction)"];
+  ING [label="Torpedo ingress to core"];
+  SPF [label="Single LOS duct to reactor\n(design flaw + Erso sabotage)"];
+  SHD [label="Ray-only shield on aperture"];
+  SLW [label="Turbolasers too slow\nfor X-wing-scale targets"];
+  FFL [label="Friendly-fire lockout\ncreates shadow zones"];
+  CAP [label="Inadequate standing CAP\n(1 sqn launched of 7,000 TIEs)"];
+
+  RXN -> LOSS;
+  ING -> RXN;
+  SPF -> ING;
+  SHD -> ING;
+  SLW -> ING [label="permits trench run"];
+  FFL -> SLW;
+  CAP -> SLW;
+}

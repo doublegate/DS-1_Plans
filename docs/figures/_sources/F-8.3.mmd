@@ -1,0 +1,20 @@
+%% F-8.3 — Anti-fighter kill chain timeline (sequence diagram)
+%% Source: docs/appendix-D2-figure-prompts.md §D2.5
+%% Placement: docs/08-command-control-communications.md §8.4
+%% Render:  mmdc -i F-8.3.mmd -o ../F-8.3.svg -t dark -b transparent
+sequenceDiagram
+  participant X as X-wing
+  participant S as Sensor
+  participant Z as Zone Bridge
+  participant T as Turret
+  Note over X,T: Budget: < 500 ms end-to-end
+  X->>S: Detection signature
+  S->>Z: Track report (ms)
+  Note over Z: Current 5,000+ ms<br/>(Yavin failure)
+  Z->>T: Engagement order
+  T->>T: Slew to lead point
+  Note over T: Slew rate limit:<br/>100°/s
+  T->>X: Fire bolt
+  Note over X: Target angular:<br/>~1000°/s at 100 m
+  X->>T: (miss — "too small, evading")
+  Note over X,T: DS-2 fix: 7,500 laser cannons<br/>+ improved fire-control

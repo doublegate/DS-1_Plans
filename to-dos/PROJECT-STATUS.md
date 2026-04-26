@@ -2,8 +2,8 @@
 
 **Project:** DS-1 Orbital Battle Station Engineering Specification
 **Draft version:** 0.2
-**Last updated:** 2026-04-22
-**Current phase:** Phase 2 close → Phase 3 kick-off
+**Last updated:** 2026-04-26
+**Current phase:** Phase 3 in progress — programmatic figures DRAFT, illustrative figures pending
 
 ---
 
@@ -25,7 +25,7 @@
 - [x] **M-06 Typesetting decision** — Typst selected (completed 2026-04-22)
 - [x] **M-09 Console refactor** — Vite + TS types + module split + print CSS (completed 2026-04-22)
 - [x] **M-10 Git init** — local repo initialized (completed 2026-04-22)
-- [ ] **M-03 Figures v1** — all figures in `appendix-D-figures-and-tables.md` at DRAFT status (prompts ready; generation by user via Nano Banana 2)
+- [~] **M-03 Figures v1** — 17 of 30 at DRAFT (programmatic: 8 Mermaid + 2 Graphviz + 7 matplotlib; rendered to `docs/figures/` 2026-04-26). Remaining 13 illustrative figures await Nano Banana 2 (M-11).
 - [ ] **M-11 Nano Banana 2 run** — user executes prompts from `docs/appendix-D2-figure-prompts.md`; outputs to `docs/figures/`
 - [ ] **M-04 Peer-review pass** — numerical cross-check, citation audit, handwavium traceability
 - [ ] **M-05 Figures FINAL** — publication-ready figures
@@ -84,10 +84,12 @@
 | D-9 | 2026-04-22 | Git init + public GitHub repo; forward goal = formal technical-fiction publication | User-specified. Project initialized as local git repo; remote to be created by user |
 | D-10 | 2026-04-22 | proj-code full refactor now: TS types + module split + Vite scaffold + print CSS | User-specified (all four). Monolithic .tsx retired; src/ tree authoritative; CDN-HTML kept as distributable |
 | D-11 | 2026-04-22 | License = CC-BY-NC-4.0 | User-specified. Canonical text in LICENSE; NOTICE.md updated; README Rights section updated; compatible with future commercial-publication negotiation |
+| D-12 | 2026-04-26 | Programmatic figures rendered via local toolchain (matplotlib in venv, system graphviz, npm-global mermaid-cli) | Phase 3 partial-execution. Source `.mmd`/`.dot`/`.py` archived in `docs/figures/_sources/` per D2.8 reproducibility requirement. SVG + PNG exports at 300 dpi committed alongside. |
 
 ## Next actions
 
-1. Commit first git tree + push to public GitHub (user creates remote; local repo is initialized)
-2. Phase 3 kick-off — user iterates Nano Banana 2 prompts (`docs/appendix-D2-figure-prompts.md`) against Gemini; resulting images drop into `docs/figures/`
-3. Phase 4 peer review can run in parallel with figure production (S4.1 numerical cross-check, S4.2 citation audit)
-4. Phase 5 Typst build verification — run `typeset/build.sh` after all figures land; iterate template to 30–60-page target
+1. ~~Commit first git tree + push to public GitHub~~ — done (M-12, 2026-04-22)
+2. **Run the 13 illustrative-figure Nano Banana 2 prompts** (`docs/appendix-D2-figure-prompts.md` §D2.4). Drop outputs to `docs/figures/F-{2.1,2.2,2.5,4.1,4.3,4.4,4.5,5.1,7.1,7.3,7.4,8.1,A.1}.png`. This is the M-11 user task; the 17 programmatic figures are now DRAFT and committed.
+3. Phase 4 peer review can begin in parallel with figure production: S4.1 numerical cross-check (mass/power/thermal/volume budget closure) and S4.2 citation audit do not depend on figures.
+4. Phase 3 elevation pass S3.5 (DRAFT → FINAL) once illustrative figures land — consistency, accessibility, status-column updates.
+5. Phase 5 Typst build verification — run `typeset/build.sh` after all figures land; iterate template to 30–60-page target.

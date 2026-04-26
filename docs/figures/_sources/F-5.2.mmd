@@ -1,0 +1,17 @@
+%% F-5.2 — 123 SSP06 hyperdrive field-generator phase-lock topology
+%% Source: docs/appendix-D2-figure-prompts.md §D2.5
+%% Placement: docs/05-propulsion.md §5.2
+%% Render:  mmdc -i F-5.2.mmd -o ../F-5.2.svg -t dark -b transparent
+flowchart TD
+  NAV["Navigational Matrix<br/>(single master)"] --> SSP1["SSP06 Node 1"]
+  NAV --> SSP2["SSP06 Node 2"]
+  NAV --> SSPn["... (123 nodes)"]
+  NAV --> SSP123["SSP06 Node 123"]
+  SSP1 --> FLD["Coherent Lentz-Class<br/>Field Bubble<br/>(120 km diameter)"]
+  SSP2 --> FLD
+  SSPn --> FLD
+  SSP123 --> FLD
+  FLD -.-> E["~10⁴⁵ J field energy<br/>(Class 4.0 primary / Class 24 backup)"]
+  style NAV fill:#f5a62322,stroke:#f5a623,color:#f0e6d2
+  style FLD fill:#4ec9b022,stroke:#4ec9b0,color:#f0e6d2
+  style E fill:#0a0e1a,stroke:#4ec9b0,color:#4ec9b0

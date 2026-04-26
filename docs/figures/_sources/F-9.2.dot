@@ -1,0 +1,22 @@
+// F-9.2 — Endor exploit fault tree
+// Source: docs/appendix-D2-figure-prompts.md §D2.5
+// Placement: docs/09-vulnerability-analysis.md §9.2
+// Render:  dot -Tsvg F-9.2.dot -o ../F-9.2.svg
+digraph endor_fault {
+  graph [rankdir=BT, bgcolor="#0a0e1a", fontcolor="#f0e6d2", fontname="JetBrains Mono"];
+  node [style=filled, fillcolor="#0a0e1a", fontcolor="#f0e6d2", color="#f5a623", fontname="JetBrains Mono", shape=box];
+  edge [color="#f5a623"];
+
+  LOSS [label="STATION LOSS\n(Battle of Endor)", fillcolor="#e74c3c", fontcolor="#0a0e1a"];
+  RXN [label="Reactor-tower regulator\ndestroyed by Lando/Falcon"];
+  COR [label="Flight corridor to core\n(unfinished hull)"];
+  SHD [label="Planetary shield down"];
+  SPF [label="Single Endor SLD-26 generator\n(single point of failure)"];
+  GND [label="Ground assault captures generator"];
+
+  RXN -> LOSS;
+  COR -> RXN;
+  SHD -> COR;
+  SPF -> SHD;
+  GND -> SPF;
+}

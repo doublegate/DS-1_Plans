@@ -1,0 +1,22 @@
+%% F-7.2 — Tractor-beam mesh busbar architecture (DS-1 single-coupling vs distributed)
+%% Source: docs/appendix-D2-figure-prompts.md §D2.5
+%% Placement: docs/07-defensive-systems.md §7.4 / 09-vulnerability-analysis.md §9.3
+%% Render:  mmdc -i F-7.2.mmd -o ../F-7.2.svg -t dark -b transparent
+flowchart LR
+  subgraph DS1 ["DS-1 ARCHITECTURE (vulnerable)"]
+    R1["Reactor"] --> T1["Single 35-km coupling tower"]
+    T1 --> P1A["7 coupling terminals"]
+    P1A --> E1["768 Phylon Q7 projectors"]
+  end
+  subgraph IMP ["IMPROVED ARCHITECTURE (recommended)"]
+    R2["Reactor"] --> BUS["Power mesh (N independent busbars)"]
+    BUS --> T2A["Busbar 1"]
+    BUS --> T2B["Busbar 2"]
+    BUS --> T2N["... (N busbars)"]
+    T2A --> E2["768 projectors<br/>(any N-1 operational)"]
+    T2B --> E2
+    T2N --> E2
+  end
+  style T1 fill:#e74c3c22,stroke:#e74c3c,color:#f0e6d2
+  style BUS fill:#2ecc7122,stroke:#2ecc71,color:#f0e6d2
+  style E2 fill:#4ec9b022,stroke:#4ec9b0,color:#f0e6d2

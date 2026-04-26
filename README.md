@@ -2,7 +2,7 @@
 
 A speculative systems-engineering specification for the DS-1 Death Star, structured as a Preliminary Design Review (PDR) document package. Hybrid canon + real-physics analysis; audience framing is "Senior Technical Director review."
 
-**Status:** Draft 0.2 · 2026-04-22 · Phases 0–2 complete · Phase 3 (figures) in progress
+**Status:** Draft 0.2 · 2026-04-26 · Phases 0–2 complete · Phase 3 in progress (17 of 30 figures DRAFT — programmatic set rendered; 13 illustrative figures pending Nano Banana 2)
 
 ## The question this project answers
 
@@ -24,6 +24,7 @@ DS-1_Plans/
 ├── proj-code/     # Final Vite + React + TypeScript interactive console
 │                  # (companion artifact to the PDF)
 ├── typeset/       # Typst build pipeline for the published PDF
+├── CHANGELOG.md   # Project-level history (component changelogs live in their subdirs)
 ├── CLAUDE.md      # Conventions for AI assistants working in this repo
 ├── NOTICE.md      # Rights + third-party acknowledgements
 └── README.md      # This file
@@ -54,14 +55,30 @@ npm run dev
 ```
 
 ### Generate figures (Phase 3)
-`docs/appendix-D2-figure-prompts.md` contains detailed prompts for Google Gemini Nano Banana 2 (for the ~14 illustrative figures), plus Mermaid / Graphviz / matplotlib recipes for the ~16 programmatic ones. Output lands in `docs/figures/`.
+
+`docs/appendix-D2-figure-prompts.md` partitions the 30 figures across four production tools: Google Gemini Nano Banana 2 for the 13 illustrative plates (cutaways, schematics, sphere maps), Mermaid for 8 flowcharts and one sequence diagram, Graphviz for 2 fault trees, and matplotlib for 7 plots. Output lands in `docs/figures/`; reproducible source artifacts (`.mmd` / `.dot` / `.py` / prompt text) live alongside in `docs/figures/_sources/`.
+
+The 17 programmatic figures are rendered and committed (DRAFT status). To regenerate from sources:
+
+```
+# matplotlib (creates a local venv; one-time)
+cd docs/figures/_sources
+python3 -m venv .venv && .venv/bin/pip install matplotlib numpy
+.venv/bin/python F-figures.py
+
+# Mermaid (requires npm i -g @mermaid-js/mermaid-cli)
+./render-mermaid.sh
+
+# Graphviz (requires brew install graphviz)
+dot -Tsvg F-9.1.dot -o ../F-9.1.svg && dot -Tsvg F-9.2.dot -o ../F-9.2.svg
+```
 
 ## Project phases
 
 - **Phase 0 · Foundation** · done 2026-04-21
 - **Phase 1 · Document split** · done 2026-04-21 (ref-doc → 13 sections + appendices)
 - **Phase 2 · Engineering artifacts** · done 2026-04-22 (MPT budget, FMEA, V&V, nomenclature, references, figure index, DS-2 rebudget, HW→DR gap closure)
-- **Phase 3 · Figures** · in progress (Nano Banana 2 prompts authored; user generates images + commits to `docs/figures/`)
+- **Phase 3 · Figures** · in progress — 17 of 30 at DRAFT (8 Mermaid + 2 Graphviz + 7 matplotlib rendered 2026-04-26); 13 illustrative figures pending Nano Banana 2
 - **Phase 4 · Peer review** · not started (numerical cross-check, citation audit, handwavium traceability)
 - **Phase 5 · Publication** · scaffolded (Typst template + build pipeline in place; PDF build pending figures)
 

@@ -1,0 +1,22 @@
+%% F-6.1 — ECLSS primary + secondary loop architecture
+%% Source: docs/appendix-D2-figure-prompts.md §D2.5
+%% Placement: docs/06-life-support.md §6.3
+%% Render:  mmdc -i F-6.1.mmd -o ../F-6.1.svg -t dark -b transparent
+flowchart LR
+  CREW["1.7 × 10⁶ crew"] --> O2["O₂ in: 1.43 × 10⁶ kg/d"]
+  CREW --> CO2["CO₂ out: 1.70 × 10⁶ kg/d"]
+  O2 --> OGA["OGA (Oxygen Generation)"]
+  CO2 --> SAB["Sabatier CO₂ scrubber"]
+  SAB --> PYR["Methane Pyrolysis<br/>(closes to >90%)"]
+  OGA --> H2O["Water Loop"]
+  H2O --> WRS["Water Recovery (~90%)"]
+  WRS --> H2O
+  H2O --> CREW
+  SAB --> O2
+  BIO["Bioregenerative Loop<br/>(2,700 km² greenhouse)"] --> FOOD["Food production"]
+  FOOD --> CREW
+  CREW --> WASTE["Solid waste 0.2 t/d"]
+  WASTE --> BIO
+  style CREW fill:#f5a62322,stroke:#f5a623,color:#f0e6d2
+  style BIO fill:#2ecc7122,stroke:#2ecc71,color:#f0e6d2
+  style PYR fill:#4ec9b022,stroke:#4ec9b0,color:#f0e6d2

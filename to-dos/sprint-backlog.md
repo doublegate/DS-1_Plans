@@ -10,6 +10,7 @@ Flat list of every granular task across all phases. Status markers: `[ ]` pendin
 - [ ] [S2.4] Update `appendix-F` §F.3 + §F.4 with new DRs
 - [ ] [S2.5] Build complete DS-2 MPT rebudget (separate appendix or embed in `appendix-A` §A.7)
 - [ ] [S3.0] Commit figure-production path to decision log
+- [ ] [S3.x] Run Nano Banana 2 prompts for the 13 illustrative figures (user-driven; M-11)
 - [ ] [S4.0] Commit geometry-freeze decision (120 vs 160 km for DS-1)
 
 ## Phase 2 — engineering artifacts (outstanding)
@@ -23,42 +24,42 @@ Flat list of every granular task across all phases. Status markers: `[ ]` pendin
 - [ ] Production path recommendation memo
 
 ### S3.1 — structural
-- [ ] F-2.1 Station cutaway, quarter-section
-- [ ] F-2.2 Equatorial trench cross-section
-- [ ] F-2.3 Load-path hierarchy block diagram
-- [ ] F-2.4 Thermal gradient plot
-- [ ] F-2.5 Whipple shield stack cross-section
-- [ ] F-2.6 M-type asteroid ISRU flowchart
+- [ ] F-2.1 Station cutaway, quarter-section            (Nano Banana 2)
+- [ ] F-2.2 Equatorial trench cross-section             (Nano Banana 2)
+- [x] F-2.3 Load-path hierarchy block diagram           (Mermaid — DRAFT)
+- [x] F-2.4 Thermal gradient plot                       (matplotlib — DRAFT)
+- [ ] F-2.5 Whipple shield stack cross-section          (Nano Banana 2)
+- [x] F-2.6 M-type asteroid ISRU flowchart              (Mermaid — DRAFT)
 
 ### S3.2 — reactor + weapon
-- [ ] F-3.1 Specific-energy vs fuel-mass log-log
-- [ ] F-3.2 Stefan-Boltzmann radiated power plot
-- [ ] F-3.3 Reactor → beam block diagram
-- [ ] F-4.1 Superlaser amplifier-chain schematic
-- [ ] F-4.2 Aperture intensity vs damage threshold plot
-- [ ] F-4.3 Phased-array focusing geometry
-- [ ] F-4.4 Planet-kill coupling-model panels
-- [ ] F-4.5 Recoil / back-brace force path diagram
+- [x] F-3.1 Specific-energy vs fuel-mass log-log        (matplotlib — DRAFT)
+- [x] F-3.2 Stefan-Boltzmann radiated power plot        (matplotlib — DRAFT)
+- [x] F-3.3 Reactor → beam block diagram                (Mermaid — DRAFT)
+- [ ] F-4.1 Superlaser amplifier-chain schematic        (Nano Banana 2)
+- [x] F-4.2 Aperture intensity vs damage threshold plot (matplotlib — DRAFT)
+- [ ] F-4.3 Phased-array focusing geometry              (Nano Banana 2)
+- [ ] F-4.4 Planet-kill coupling-model panels           (Nano Banana 2)
+- [ ] F-4.5 Recoil / back-brace force path diagram      (Nano Banana 2)
 
 ### S3.3 — propulsion + ECLSS + C3
-- [ ] F-5.1 Sublight ion-array layout
-- [ ] F-5.2 Hyperdrive 123-generator phase-lock topology
-- [ ] F-5.3 Lentz-soliton scaling plot
-- [ ] F-6.1 ECLSS flow diagram
-- [ ] F-6.2 Internal transit mode comparison
-- [ ] F-6.3 Hangar volumetric allocation
-- [ ] F-8.1 Zone map (24 zones)
-- [ ] F-8.2 C3 hierarchy + latency diagram
-- [ ] F-8.3 Anti-fighter kill chain timeline
+- [ ] F-5.1 Sublight ion-array layout                   (Nano Banana 2)
+- [x] F-5.2 Hyperdrive 123-generator phase-lock topology (Mermaid — DRAFT)
+- [x] F-5.3 Lentz-soliton scaling plot                  (matplotlib — DRAFT)
+- [x] F-6.1 ECLSS flow diagram                          (Mermaid — DRAFT)
+- [x] F-6.2 Internal transit mode comparison            (matplotlib — DRAFT)
+- [x] F-6.3 Hangar volumetric allocation                (matplotlib — DRAFT)
+- [ ] F-8.1 Zone map (24 zones)                         (Nano Banana 2)
+- [x] F-8.2 C3 hierarchy + latency diagram              (Mermaid — DRAFT)
+- [x] F-8.3 Anti-fighter kill chain timeline            (Mermaid — DRAFT)
 
 ### S3.4 — defensive, vulnerability, DS-2
-- [ ] F-7.1 Ray vs particle shield diagram
-- [ ] F-7.2 Tractor-beam busbar architecture
-- [ ] F-7.3 MARAUDER plasma-toroid acceleration stages
-- [ ] F-7.4 Thermal-exhaust-port geometry comparison
-- [ ] F-9.1 Yavin exploit fault tree
-- [ ] F-9.2 Endor exploit fault tree
-- [ ] F-A.1 DS-1 vs DS-2 configuration plate
+- [ ] F-7.1 Ray vs particle shield diagram              (Nano Banana 2)
+- [x] F-7.2 Tractor-beam busbar architecture            (Mermaid — DRAFT)
+- [ ] F-7.3 MARAUDER plasma-toroid acceleration stages  (Nano Banana 2)
+- [ ] F-7.4 Thermal-exhaust-port geometry comparison    (Nano Banana 2)
+- [x] F-9.1 Yavin exploit fault tree                    (Graphviz — DRAFT)
+- [x] F-9.2 Endor exploit fault tree                    (Graphviz — DRAFT)
+- [ ] F-A.1 DS-1 vs DS-2 configuration plate            (Nano Banana 2)
 
 ### S3.5 — elevation pass
 - [ ] Consistency pass (typography, units, legends)

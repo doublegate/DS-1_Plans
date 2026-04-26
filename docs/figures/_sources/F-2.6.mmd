@@ -1,0 +1,16 @@
+%% F-2.6 — M-type asteroid ISRU throughput flowchart
+%% Source: docs/appendix-D2-figure-prompts.md §D2.5
+%% Placement: docs/02-structural-and-materials.md §2.5 (ISRU)
+%% Render:  mmdc -i F-2.6.mmd -o ../F-2.6.svg -t dark -b transparent
+flowchart LR
+  MP["16 Psyche / 216 Kleopatra<br/>M-type asteroid"] --> MN["Robotic Mining Fleet<br/>(~10¹⁰ units)"]
+  MN --> SM["Orbital Smelting<br/>(Mercury-orbit solar array)"]
+  SM --> FB["In-Space Fabrication<br/>(44,000× current throughput)"]
+  FB --> AS["Despayre Assembly Jig<br/>(geostationary, 19 yr)"]
+  AS --> DS["DS-1 Station<br/>(1.0 × 10¹⁸ kg)"]
+  MP -.-> MP2["1.6 × 10⁹ kg/s<br/>sustained mass flow"]
+  SM -.-> SM2["~10¹⁶ W<br/>continuous process power"]
+  style MP fill:#f5a62322,stroke:#f5a623,color:#f0e6d2
+  style DS fill:#2ecc7122,stroke:#2ecc71,color:#f0e6d2
+  style MP2 fill:#0a0e1a,stroke:#4ec9b0,color:#4ec9b0
+  style SM2 fill:#0a0e1a,stroke:#4ec9b0,color:#4ec9b0
