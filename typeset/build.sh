@@ -71,15 +71,28 @@ for section in "${SECTIONS[@]}"; do
     continue
   fi
   echo "  - $section.md → $(basename "$dst")"
-  pandoc --from=gfm --to=typst --wrap=none "$src" -o "$dst"
+  # +implicit_figures: a standalone `![alt](path)` line becomes `#figure(image(...), caption: [alt])`
+  # rather than `#box(image(...))`. Required so the spec's documented figure syntax (per
+  # appendix-D2 §D2.9) renders as PDR-register captioned figures, not bare embedded images.
+  pandoc --from=gfm+implicit_figures --to=typst --wrap=none "$src" -o "$dst"
+  # pandoc 3.9 emits `#horizontalrule` for markdown `---` thematic breaks, but Typst has
+  # no such built-in. Each generated module is included in headless scope by main.typ, so
+  # we inject the import at the top of every file rather than relying on parent-scope let.
+  printf '#import "../template.typ": horizontalrule\n\n%s\n' "$(cat "$dst")" > "$dst.tmp" && mv "$dst.tmp" "$dst"
+  # Rewrite figure-image paths: markdown `../figures/F-X.png` is relative to docs/, but the
+  # generated .typ file lives in typeset/generated/ so Typst resolves it from there. Adjust
+  # to ../../docs/figures/ so the path resolves correctly post-include.
+  sed -i.bak 's|"\.\./figures/|"../../docs/figures/|g' "$dst" && rm -f "$dst.bak"
 done
 
 echo "[2/2] Compiling Typst to PDF..."
 if [[ "${1:-}" == "--watch" ]]; then
   echo "  (watch mode — Ctrl-C to exit)"
-  typst watch "$MAIN_TYP" "$OUT_PDF"
+  typst watch --root "$PROJECT_ROOT" "$MAIN_TYP" "$OUT_PDF"
 else
-  typst compile "$MAIN_TYP" "$OUT_PDF"
+  # --root sets typst's project root to the repo root so images in docs/figures/
+  # (referenced as ../../docs/figures/F-X.png from typeset/generated/) resolve.
+  typst compile --root "$PROJECT_ROOT" "$MAIN_TYP" "$OUT_PDF"
   echo ""
   echo "Output: $OUT_PDF"
   if command -v du >/dev/null 2>&1; then

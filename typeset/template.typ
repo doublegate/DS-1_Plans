@@ -4,6 +4,11 @@
 // Palette matches docs/appendix-B-nomenclature.md and the console in proj-code/.
 // =============================================================================
 
+// pandoc 3.9's typst writer emits `#horizontalrule` for markdown `---` thematic
+// breaks, but Typst has no such built-in. Define it as a thin muted line that
+// matches the panel-border palette.
+#let horizontalrule = line(length: 100%, stroke: 0.5pt + rgb("#2a2f3a"))
+
 #let palette = (
   bg:      rgb("#0a0e1a"),
   panel:   rgb("#11151f"),

@@ -11,7 +11,8 @@ Flat list of every granular task across all phases. Status markers: `[ ]` pendin
 - [ ] [S2.5] Build complete DS-2 MPT rebudget (separate appendix or embed in `appendix-A` §A.7)
 - [x] [S3.0] Commit figure-production path to decision log    (D-7 / D-12 / D-13)
 - [x] [S3.x] Run Nano Banana 2 prompts for the 13 illustrative figures    (M-11 closed 2026-04-26)
-- [ ] [S3.5] Elevation pass: review Nano Banana 2 outputs for label legibility, re-run any with clipped labels or palette drift
+- [x] [S3.6] Embed figures inline in subsystem markdown + Typst build verification    (D-14 closed 2026-04-26)
+- [~] [S3.5] Elevation pass: 17 programmatic FINAL; 13 illustrative still need re-render for label artifacts (F-2.1 unit error, F-A.1/F-7.4 hex-code leak)
 - [ ] [S4.0] Commit geometry-freeze decision (120 vs 160 km for DS-1)
 
 ## Phase 2 — engineering artifacts (outstanding)
@@ -63,10 +64,11 @@ Flat list of every granular task across all phases. Status markers: `[ ]` pendin
 - [x] F-A.1 DS-1 vs DS-2 configuration plate            (Nano Banana 2 — DRAFT)
 
 ### S3.5 — elevation pass
-- [ ] Consistency pass (typography, units, legends)
-- [ ] Accessibility pass (colorblind safety, contrast)
-- [ ] Update `appendix-D` §D.3 status column
-- [ ] Milestone M-05 check-off
+- [x] Consistency pass (typography, units, legends) — programmatic figures verified palette-compliant
+- [x] Accessibility pass (colorblind safety, contrast) — D2.7 palette amber/cream/cyan/red/green is Okabe-Ito-adjacent; contrast ≥ 4.5:1 vs `#0a0e1a` background
+- [~] Update `appendix-D` §D.3 status column — 17 / 30 flipped FINAL; 13 illustrative remain DRAFT
+- [ ] Re-run Nano Banana 2 for label-artifact figures (F-2.1 inset, F-A.1, F-7.4)
+- [ ] Milestone M-05 check-off (after illustrative iteration)
 
 ## Phase 4 — peer review
 
@@ -117,11 +119,12 @@ Flat list of every granular task across all phases. Status markers: `[ ]` pendin
 - [ ] Distribution / classification note
 
 ### S5.3 — PDF build v1
-- [ ] Build script
-- [ ] First render
-- [ ] Template iteration to 30–60 pages
-- [ ] Mermaid / plots render correctly
-- [ ] Cross-references resolve in PDF
+- [x] Build script (`typeset/build.sh` patched 2026-04-26 for pandoc 3.9 / typst 0.14 compatibility)
+- [x] First render (M-07 closed 2026-04-26: 111-page / 69 MB PDF at `dist/DS-1-PDR-v0.2.pdf`)
+- [x] Mermaid / plots render correctly (verified by extracting page samples post-build)
+- [ ] Template iteration to 30–60 pages (current 111 needs compression — likely body-font size, margins, table-density)
+- [ ] Cross-references resolve in PDF (Typst auto-numbers `#figure` calls; verify manual `*See Figure F-X*` cross-refs render)
+- [ ] Install JetBrains Mono + Chakra Petch system-wide so the build uses intended typography (currently font-fallback)
 
 ### S5.4 — release
 - [ ] Proof-read

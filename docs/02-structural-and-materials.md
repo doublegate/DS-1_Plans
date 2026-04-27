@@ -17,6 +17,8 @@ The **equatorial trench** is canonically a continuous circumferential depression
 
 The **meridian trench** near the north pole houses the 2-m thermal exhaust port that destroyed DS-1 at Yavin. See §2.7 below and `09-vulnerability-analysis.md`.
 
+![F-2.1 — Station cutaway, quarter-section. Quadanium plating, 24 ring frames, central truss, superlaser dish, meridian trench.](../figures/F-2.1.png)
+
 ## 2.2 Mass budget
 
 Design-basis dry mass M = **1.0 × 10¹⁸ kg**. Lower bound (modern-warship density scaling at 120 km): ~2 × 10¹⁷ kg. Earth's oceans for perspective: 1.4 × 10²¹ kg; DS-1 is 0.07% of that. Mass is 2 × 10¹² × the ISS, 10¹⁰ × a Nimitz carrier, 1.7 × 10⁸ × the Great Pyramid, and 1,250 × Mount Everest above base.
@@ -52,6 +54,10 @@ A 120-km sphere is the correct geometry: minimum surface-area-to-volume ratio mi
 
 **Superlaser recoil is a structural event.** Photon-pressure recoil at 2.24 × 10³² W is ~10¹⁹ N over the firing interval, comparable to local self-weight at some reference point in the structure. The design must include an axial back-brace running pole-to-pole through the reactor core to absorb firing impulse. See `04-superlaser.md` §3.6 for the momentum-conservation argument that requires either a hypermatter-dense ~10²⁵ kg station core or a reactionless beam.
 
+![F-2.3 — Load-path hierarchy. Hull → 24 ring frames → radial spokes → central N-S axial truss → reactor mount + axial back-brace.](../figures/F-2.3.png)
+
+![F-2.4 — Hull thermal gradient across sun/shade terminator. Hull temperature vs angular position from sub-solar point; ΔT ≈ 320 K drives ~360 m differential expansion.](../figures/F-2.4.png)
+
 ## 2.5 In-situ resource utilization
 
 **M-type asteroid feedstock is the correct answer.** 16 Psyche (mean diameter 222 km, mass 2.72 × 10¹⁹ kg, metal fraction 30–60% per revised 2022 NASA/Brown estimates) holds ~10¹⁹ kg of extractable metal — a single station consumes <10% of one body. 216 Kleopatra (mass 2.97 × 10¹⁸ kg post-2021 low-density revision) alone is marginal but adequate with metal-fraction generosity. 21 Lutetia and the broader M-type main-belt inventory hold ~10²¹ kg of metal, enough for 1,000+ stations.
@@ -61,6 +67,8 @@ Mercury is 3.3 × 10²³ kg — five orders of magnitude more than needed, and r
 **Throughput.** Acquiring 10¹⁸ kg in 20 years requires **1.6 × 10⁹ kg/s sustained** — 10¹⁰× current single-mining-vehicle projections (Planetary Resources, DSI). Processing power at 10 MJ/kg specific energy requires ~1.6 × 10¹⁶ W continuous over two decades, roughly 100,000× current human primary energy consumption. The enabling technology must be self-replicating robotic fleets (~10¹⁰ units) supplied by Mercury-orbit solar-collector arrays of ~10⁹ km². The 19-year canonical build schedule implies this infrastructure is already in place.
 
 Tracked as HW-10.
+
+![F-2.6 — M-type asteroid ISRU throughput. Mining → orbital smelting → in-space fabrication → Despayre assembly jig pipeline.](../figures/F-2.6.png)
 
 ## 2.6 Micrometeorite and debris shielding
 
@@ -72,9 +80,13 @@ Interplanetary meteoroid flux in deep space delivers roughly 4.5 × 10⁶ mg-cla
 
 Areal mass 500–2,000 kg/m², total shield mass 2.3 × 10¹³ to 9 × 10¹³ kg — consistent with the 25% armor fraction in the mass budget.
 
+![F-2.5 — Whipple shield stack cross-section. Quadanium bumper → standoff → Nextel/Kevlar-analog → B₄C tile → durasteel pressure wall, with hypervelocity-projectile deceleration.](../figures/F-2.5.png)
+
 ## 2.7 Meridian-trench exhaust-port geometry (structural context)
 
 Thermal-management engineering is detailed in `03-power-generation.md` §2.3 and the vulnerability consequences in `09-vulnerability-analysis.md`. The structural implication is: the meridian trench is an engineered feature, not a model-construction artifact; any design that tries to eliminate it must replace its thermal function with distributed millimeter-scale porting (DS-2 approach — see `12-ds2-delta-specification.md`).
+
+![F-2.2 — Equatorial trench cross-section. Trench wall plating, ion-engine arrays, overhead docking bays, recessed radiator geometry.](../figures/F-2.2.png)
 
 ---
 

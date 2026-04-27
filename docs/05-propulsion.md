@@ -22,6 +22,8 @@ Canon: two Sepma 30-5 ion engines plus a dense array on the southern hemisphere;
 
 **Waste heat (open-cycle).** Even 30% loss on 5 × 10¹⁷ W drive power is 1.5 × 10¹⁷ W. At 1,500 K radiator temperature this requires 5 × 10¹¹ m² of radiator — forty times the station's projected area. The only resolution is **open-cycle evaporative cooling**: the propellant exhaust carries the waste heat. This is standard plasma-drive physics.
 
+![F-5.1 — Sublight ion-array layout. South-pole top view: SEPMA 30-5 main engines, supplementary ion-thruster clusters, equatorial trench thrusters, 24-zone RCS banks.](../figures/F-5.1.png)
+
 ## 5.2 Hyperdrive: explicit handwavium
 
 Canon: **123 Isu-Sim SSP06 hyperdrive generators** linked to a single navigational matrix yielding **Class 4.0** (primary) / **Class 24** (backup) — 8× slower than the *Falcon*'s Class 0.5 SSP05. "Class" is a travel-time multiplier, not a velocity. Canon asserts hypermatter-charged particle emissions from the reactor feed the generators.
@@ -40,6 +42,10 @@ Scaling the Lentz soliton to a 120-km bubble gives approximately **E ~ 10⁴⁵ 
 **Thermal entry/exit:** Even 0.001% dissipation on 10⁴⁵ J is 10⁴⁰ J — enough to vaporize the station and a small moon. Canon is adamant that hyperspace transitions are clean. This is the hardest handwavium flag in the whole system.
 
 **Array-coherence failure mode:** 123 SSP06 generators must phase-lock to produce a single coherent bubble. Loss of any node risks tidal stresses across the interior — a plausible in-fiction vulnerability beyond the thermal-exhaust-port exploit.
+
+![F-5.2 — 123 SSP06 hyperdrive field-generator phase-lock topology. Navigational-matrix master → 123 SSP06 nodes → coherent Lentz-class field bubble at 120 km diameter.](../figures/F-5.2.png)
+
+![F-5.3 — Lentz-class soliton scaling. Field energy vs warp-bubble diameter, anchored on Lentz 2021 (200 m / c / 1.8 × 10⁴⁶ J) and DS-1 spec (120 km / ~10⁴⁵ J).](../figures/F-5.3.png)
 
 ## 5.3 Attitude control and station-keeping
 

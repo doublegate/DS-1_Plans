@@ -40,6 +40,8 @@ Legends-era fan analyses (Saxton, Wong) infer ~2.5 petawatts per ISD heavy turbo
 
 **Thermal bookkeeping.** 10¹⁵ W per turret at 30% efficiency generates 10¹⁵ W waste each. All 10,000 active batteries simultaneously would reject 10¹⁹ W, requiring ~2 × 10¹² m² of 3,000-K radiator — larger than the station surface. Canonical resolution: hyperspace venting or exotic-channel thermal export. Practical resolution: only a small fraction of batteries fire at any instant.
 
+![F-7.3 — MARAUDER-class plasma-toroid acceleration stages. Coaxial formation → conical magnetic compression → magnetic acceleration; AFRL Shiva Star analog at 9.5 MJ.](../figures/F-7.3.png)
+
 ## 7.3 Ion cannons — HPM analog
 
 Canon: disable without destroy. Real analog: **high-power microwave (HPM) weapons**, which are operational today.
@@ -59,6 +61,8 @@ Real-world tractor physics exists only at micro-scale (optical tweezers at pN fo
 
 Architectural improvement for the spec: distribute tractor power across an N-independent-busbar mesh, eliminating the single-reactor-coupling failure.
 
+![F-7.2 — Tractor-beam mesh busbar architecture. DS-1 single-coupling-tower architecture vs distributed N-busbar improvement (any N-1 operational).](../figures/F-7.2.png)
+
 ## 7.5 Deflector shields
 
 Canon: **ray shields** (against energy) + **particle shields** (against matter). Both are needed because the two shielding mechanisms are physically distinct.
@@ -76,6 +80,8 @@ Canon: **ray shields** (against energy) + **particle shields** (against matter).
 The thermal-exhaust-port exploit is precisely the ray-without-particle gap: ray-shielded, open to proton torpedoes. See `09-vulnerability-analysis.md`.
 
 Canon DS-1 Legends source explicitly notes: "a downside to the presence of the superlaser was that the Death Star had to forgo all but the most rudimentary shielding capabilities in order to achieve such destructive power." DS-2 corrects this via external Endor-moon projection — see `12-ds2-delta-specification.md` §A.4.
+
+![F-7.1 — Ray vs particle shield functional diagram. Plasma-mirror ray shield (blocks EM below ωₚ) vs magnetic + Whipple particle shield; failure mode = ray-only aperture (Yavin exploit).](../figures/F-7.1.png)
 
 ## 7.6 Armor
 
@@ -97,6 +103,8 @@ Canon: 2-m-wide ray-shielded particle-penetrable port in the meridian trench, du
 **Design-flaw versus deliberate sabotage.** The Rogue One canon retcon (Galen Erso in *Catalyst* and the *Rogue One* novelization) describes Erso coercing a reactor-containment geometry whose shielding reflected too many radioactive particles back into the reactor, forcing a single-consolidated-vent architecture. The engineering read: **both are true**. The DS-1 architecture represents a real safety-design mistake (single port vs distributed microports) compounded by a deliberately unstable containment that propagates a torpedo-scale energy deposition into a runaway. DS-2 demonstrates the same reactor family can be built correctly when not time-pressured and not sabotaged.
 
 Compounding failure: the DS-1 turbolaser safety interlock locked turrets against friendly-fire-angle shots into the station's own hull, creating shadow zones in the trench. DS-2 adds 7,500 laser cannons with "improved fire-control" — a deliberate CIWS-analog correction.
+
+![F-7.4 — DS-1 vs DS-2 exhaust-port geometry. Single 2 m LOS port (RPN 480) vs millimeter microport array with labyrinthine baffles, particle shield, and CIWS.](../figures/F-7.4.png)
 
 ---
 

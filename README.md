@@ -2,7 +2,7 @@
 
 A speculative systems-engineering specification for the DS-1 Death Star, structured as a Preliminary Design Review (PDR) document package. Hybrid canon + real-physics analysis; audience framing is "Senior Technical Director review."
 
-**Status:** Draft 0.2 · 2026-04-26 · Phases 0–2 complete · Phase 3 nearly complete — all 30 figures at DRAFT; S3.5 elevation pass and Phase 4 peer review next
+**Status:** Draft 0.2 · 2026-04-26 · Phases 0–3 substantially complete · figures embedded in subsystem markdown · first end-to-end Typst PDF builds (111 pages); 17 / 30 figures FINAL, 13 illustrative DRAFT pending iteration · Phase 4 peer review unblocked
 
 ## The question this project answers
 
@@ -78,7 +78,7 @@ dot -Tsvg F-9.1.dot -o ../F-9.1.svg && dot -Tsvg F-9.2.dot -o ../F-9.2.svg
 - **Phase 0 · Foundation** · done 2026-04-21
 - **Phase 1 · Document split** · done 2026-04-21 (ref-doc → 13 sections + appendices)
 - **Phase 2 · Engineering artifacts** · done 2026-04-22 (MPT budget, FMEA, V&V, nomenclature, references, figure index, DS-2 rebudget, HW→DR gap closure)
-- **Phase 3 · Figures** · all 30 at DRAFT (2026-04-26) — 8 Mermaid + 2 Graphviz + 7 matplotlib rendered locally; 13 Nano Banana 2 illustrative figures generated and renamed to bare `F-{id}.png`. S3.5 elevation pass (DRAFT → FINAL) is next.
+- **Phase 3 · Figures** · substantively complete (2026-04-26) — all 30 figures embedded in subsystem markdown with captions; first end-to-end Typst PDF builds at `dist/DS-1-PDR-v0.2.pdf`. 17 programmatic figures (8 Mermaid + 2 Graphviz + 7 matplotlib) flipped to FINAL after palette + content verification. 13 Nano Banana 2 illustrative figures remain DRAFT pending iteration on minor label artifacts.
 - **Phase 4 · Peer review** · not started (numerical cross-check, citation audit, handwavium traceability)
 - **Phase 5 · Publication** · scaffolded (Typst template + build pipeline in place; PDF build pending figures)
 

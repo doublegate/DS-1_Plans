@@ -51,6 +51,8 @@ Scale factors: **425,000×** ISS ECLSS; **12,143×** a Virginia-class SSN over a
 
 **Nitrogen makeup** at ~0.25 kg/day per module (scaled ISS leak rate) ≈ 5 × 10⁴ kg/d, via cryogenic N₂ reserves.
 
+![F-6.1 — ECLSS primary + secondary loop architecture. O₂/CO₂/H₂O cycles via OGA + Sabatier + WRS, supplemented by 2,700 km² bioregenerative greenhouse.](../figures/F-6.1.png)
+
 ## 6.4 Artificial gravity
 
 Canon: "gravity generators" / "gravity plates" — explicit handwavium. Tracked as HW-8.
@@ -95,9 +97,13 @@ Canonical (WEG *Death Star Technical Companion* + *Blueprints* reconciliation):
 
 Hangar-bay volumetric demand: 7,200 × ~3,200 m³ (TIE service volume with launch racks) = 2.3 × 10⁷ m³, ~0.003% of station volume. AT-AT complement another ~2 × 10⁷ m³. Total hangar demand is well under 1% of internal volume.
 
+![F-6.3 — Hangar complement volumetric allocation. Volume share by craft class (TIE/Interceptor/Bomber, assault shuttles, AT-AT/AT-ST, dropships, strike cruisers); total < 0.01% of station volume.](../figures/F-6.3.png)
+
 ## 6.7 Internal logistics
 
 Great-circle arc ~188 km, so traversal at 5 km/h takes 37.7 h — 1,000× a Nimitz carrier. Canonical mitigation: 3D turbolift network, officer-only high-speed monorail shuttle circumnavigating the station, hangar-internal tractor beams. Realistic transit times: turbolift 1.2–2.4 h end-to-end at 50–100 km/h; pressurized-vacuum Hyperloop-class tube transit at Mach 5 crosses in 3–7 minutes.
+
+![F-6.2 — Internal great-circle transit time by mode. End-to-end 188 km arc by walk / turbolift / officer monorail / Hyperloop-class vacuum tube (37.7 h → 3.07 min).](../figures/F-6.2.png)
 
 ---
 

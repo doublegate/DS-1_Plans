@@ -16,6 +16,8 @@ Scaling consequences vs. DS-1 120 km:
 
 These propagate into the consolidated MPT budget (`appendix-A-mass-power-thermal-budget.md`).
 
+![F-A.1 — DS-1 vs DS-2 configuration comparison plate. 120 km/1.0×10¹⁸ kg vs 160 km/2.37×10¹⁸ kg side-by-side; superlaser, shield, and exhaust deltas annotated.](../figures/F-A.1.png)
+
 ## 12.2 Incomplete-construction aesthetic
 
 Canonically: a mix of real unfinished construction and a feint to lure the Rebellion. Core systems (superlaser, reactor, C3, shield) were complete; hull closure was the lagging item. Engineering implications:
@@ -60,6 +62,8 @@ Real-world analog: *Gerald R. Ford*-class CVN has 2 × A1B reactors. The archite
 DS-2 replaced the DS-1 single 2-m exhaust port with **millions of millimeter-scale heat-dispersion tubes** — canonically cited and a real-engineering correct fix (`07-defensive-systems.md` §7.7).
 
 DS-2 hyperdrive class is canonically **unspecified / incomplete** at the Battle of Endor; some Legends cite Class 2 but no primary verification. The station was held in geostationary station-keeping during the battle; hyperdrive was not operational.
+
+*See Figure F-7.4 (in `07-defensive-systems.md` §7.7) for the DS-1 vs DS-2 exhaust-port comparison.*
 
 ## 12.6 DS-2 weapons complement
 

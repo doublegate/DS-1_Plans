@@ -40,9 +40,15 @@ Light crosses 120 km in **0.40 ms**, 200 km in 0.67 ms. Centralized fire control
 
 **Architectural answer: distributed zone command.** Each of 24 zones has its own gunnery bridge with local fire control; zone commanders answer the Overbridge on sub-second cadence, individual turret engagement is fully autonomous. Canon explicitly states this ("it was more efficient to have the various zones' active bridge responsible for their own sections during normal events"). **This is the one subsystem that maps essentially perfectly onto best-practice modern real-world engineering**, and is the template a real designer would copy without modification.
 
+![F-8.1 — 24-zone station map. Equirectangular projection of latitudinal operational zones; Overbridge, superlaser, meridian exhaust port, equatorial trench, and zone command bridges marked.](../figures/F-8.1.png)
+
+![F-8.2 — C3 hierarchy and latency budget. Overbridge → 24 zone command bridges → local fire control → individual turret; Yavin gap and DS-2 CIWS fix.](../figures/F-8.2.png)
+
 ## 8.4 The Yavin anti-fighter gap
 
 Core C3 failure: mismatch between DS-1 battery design (anti-capital, multi-ton-scale turrets at capital-ship slew rates) and the actual threat (X-wings at starfighter agility). "They're too small, they're evading our turbolasers." Compounded by the friendly-fire safety interlock (`07-defensive-systems.md` §7.7). DS-2 explicitly fixes both: 7,500 laser cannons, improved fire control at the Emperor's tower.
+
+![F-8.3 — Anti-fighter kill-chain timeline. Sequence diagram with <500 ms budget vs Yavin >5 s failure; turret slew 100°/s vs target angular ~1000°/s.](../figures/F-8.3.png)
 
 ---
 

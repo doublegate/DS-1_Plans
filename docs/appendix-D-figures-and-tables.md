@@ -52,33 +52,33 @@ All PDF-target figures that must be drawn. Status:
 |---|---|---|---|---|
 | F-2.1 | Station cutaway, quarter-section | Isometric line drawing (Nano Banana 2) | ref-doc §1 | DRAFT |
 | F-2.2 | Equatorial trench cross-section | Schematic (Nano Banana 2) | ref-doc §1.1 | DRAFT |
-| F-2.3 | Load-path hierarchy (hull → ring frames → spokes → axial brace) | Block diagram (Mermaid) | ref-doc §1.4 | DRAFT |
-| F-2.4 | Thermal gradient across sun/shade terminator (ΔT profile) | Plot (matplotlib) | ref-doc §1.4 | DRAFT |
+| F-2.3 | Load-path hierarchy (hull → ring frames → spokes → axial brace) | Block diagram (Mermaid) | ref-doc §1.4 | FINAL |
+| F-2.4 | Thermal gradient across sun/shade terminator (ΔT profile) | Plot (matplotlib) | ref-doc §1.4 | FINAL |
 | F-2.5 | Whipple shield stack cross-section | Schematic (Nano Banana 2) | ref-doc §1.6 | DRAFT |
-| F-2.6 | M-type asteroid ISRU throughput flowchart | Process diagram (Mermaid) | ref-doc §1.5 | DRAFT |
-| F-3.1 | Reactor specific-energy vs required fuel mass (log-log) | Plot (matplotlib) | ref-doc §2.2, §2.4 | DRAFT |
-| F-3.2 | Hull radiated power vs temperature (Stefan-Boltzmann) | Plot (matplotlib) | ref-doc §2.3 | DRAFT |
-| F-3.3 | Reactor → beam conversion chain block diagram | Block diagram (Mermaid) | ref-doc §2 + §3 | DRAFT |
+| F-2.6 | M-type asteroid ISRU throughput flowchart | Process diagram (Mermaid) | ref-doc §1.5 | FINAL |
+| F-3.1 | Reactor specific-energy vs required fuel mass (log-log) | Plot (matplotlib) | ref-doc §2.2, §2.4 | FINAL |
+| F-3.2 | Hull radiated power vs temperature (Stefan-Boltzmann) | Plot (matplotlib) | ref-doc §2.3 | FINAL |
+| F-3.3 | Reactor → beam conversion chain block diagram | Block diagram (Mermaid) | ref-doc §2 + §3 | FINAL |
 | F-4.1 | Superlaser amplifier chain (64 shafts → 8 kyber → compound lens) | Schematic (Nano Banana 2) | ref-doc §3.1 | DRAFT |
-| F-4.2 | Beam intensity at aperture vs material damage threshold | Plot (matplotlib) | ref-doc §3.2 | DRAFT |
+| F-4.2 | Beam intensity at aperture vs material damage threshold | Plot (matplotlib) | ref-doc §3.2 | FINAL |
 | F-4.3 | Phased-array focusing geometry | Schematic (Nano Banana 2) | ref-doc §3.2 | DRAFT |
 | F-4.4 | Planet-kill coupling models (ablation, hadronic jet, graviton) | Conceptual diagram (Nano Banana 2) | ref-doc §3.5 | DRAFT |
 | F-4.5 | Recoil & back-brace force path | Structural diagram (Nano Banana 2) | ref-doc §3.6 | DRAFT |
 | F-5.1 | Sublight ion-array layout on southern hemisphere | Top-view schematic (Nano Banana 2) | ref-doc §4.1 | DRAFT |
-| F-5.2 | 123 SSP06 hyperdrive field-generator phase-lock topology | Network diagram (Mermaid) | ref-doc §4.2 | DRAFT |
-| F-5.3 | Lentz-soliton scaling: field energy vs bubble size | Plot (matplotlib) | ref-doc §4.2 | DRAFT |
-| F-6.1 | ECLSS primary + secondary loop architecture | Flow diagram (Mermaid) | ref-doc §5.3 | DRAFT |
-| F-6.2 | Internal transit: great-circle traversal time by mode | Comparison chart (matplotlib) | ref-doc §5.7 | DRAFT |
-| F-6.3 | Hangar complement volumetric allocation | Pie/bar chart (matplotlib) | ref-doc §5.6 | DRAFT |
+| F-5.2 | 123 SSP06 hyperdrive field-generator phase-lock topology | Network diagram (Mermaid) | ref-doc §4.2 | FINAL |
+| F-5.3 | Lentz-soliton scaling: field energy vs bubble size | Plot (matplotlib) | ref-doc §4.2 | FINAL |
+| F-6.1 | ECLSS primary + secondary loop architecture | Flow diagram (Mermaid) | ref-doc §5.3 | FINAL |
+| F-6.2 | Internal transit: great-circle traversal time by mode | Comparison chart (matplotlib) | ref-doc §5.7 | FINAL |
+| F-6.3 | Hangar complement volumetric allocation | Pie/bar chart (matplotlib) | ref-doc §5.6 | FINAL |
 | F-7.1 | Ray vs particle shield functional diagram | Conceptual (Nano Banana 2) | ref-doc §6.5 | DRAFT |
-| F-7.2 | Tractor-beam mesh busbar architecture (DS-1 single-coupling vs distributed) | Block diagram (Mermaid) | ref-doc §6.4 | DRAFT |
+| F-7.2 | Tractor-beam mesh busbar architecture (DS-1 single-coupling vs distributed) | Block diagram (Mermaid) | ref-doc §6.4 | FINAL |
 | F-7.3 | MARAUDER plasma-toroid acceleration stages | Schematic (Nano Banana 2) | ref-doc §6.2 | DRAFT |
 | F-7.4 | Thermal-exhaust-port geometry: DS-1 single vs DS-2 microports | Comparison diagram (Nano Banana 2) | ref-doc §6.7 + App A.5 | DRAFT |
 | F-8.1 | Zone map (24 operational zones, latitudinal bands) | Sphere map (Nano Banana 2) | ref-doc §7 | DRAFT |
-| F-8.2 | C3 hierarchy and latency budget (Overbridge → zone → turret) | Network diagram (Mermaid) | ref-doc §7.1, §7.3 | DRAFT |
-| F-8.3 | Anti-fighter kill chain timeline | Sequence diagram (Mermaid) | ref-doc §7.4 | DRAFT |
-| F-9.1 | Yavin exploit fault tree | Fault tree (Graphviz) | ref-doc §8.1 | DRAFT |
-| F-9.2 | Endor exploit fault tree | Fault tree (Graphviz) | ref-doc §8.2 | DRAFT |
+| F-8.2 | C3 hierarchy and latency budget (Overbridge → zone → turret) | Network diagram (Mermaid) | ref-doc §7.1, §7.3 | FINAL |
+| F-8.3 | Anti-fighter kill chain timeline | Sequence diagram (Mermaid) | ref-doc §7.4 | FINAL |
+| F-9.1 | Yavin exploit fault tree | Fault tree (Graphviz) | ref-doc §8.1 | FINAL |
+| F-9.2 | Endor exploit fault tree | Fault tree (Graphviz) | ref-doc §8.2 | FINAL |
 | F-A.1 | DS-1 vs DS-2 configuration comparison plate | Side-by-side schematic (Nano Banana 2) | ref-doc App A | DRAFT |
 
 **Production approach (Phase 3 decision).** Options ranked by ref-doc fidelity and PDR register:

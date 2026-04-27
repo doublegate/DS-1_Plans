@@ -24,6 +24,8 @@ Concordance across independent physicists:
 
 **Design basis: U₀ = 2.24 × 10³² J per full-power shot; 1-second pulse; peak power 2.24 × 10³² W = 585,000 × L☉.** If one accepts the StarDestroyer.net visual-kinetics figure, every reactor/storage/waste-heat number below scales up 10⁶× and the weapon becomes unphysical by an astronomical margin, forcing the canon "Anti-Genesis Effect" / target-mass-energy-conversion reading; we flag it and do not design to it.
 
+![F-3.1 — Reactor specific-energy vs required fuel mass. Log-log scatter from Li-ion through hypermatter; only c²-class storage closes the gap.](../figures/F-3.1.png)
+
 ## 3.2 Reactor options
 
 | Option | Specific energy | Fuel mass per shot | Sustained 2.6×10²⁷ W | Handwavium |
@@ -38,6 +40,8 @@ Concordance across independent physicists:
 
 **Antimatter** is the nearest real analog. CERN's cumulative production since 1955 is ~10–18 ng; current ALPHA-run synthesis is ~2 million atoms/year ≈ 3 × 10⁻²⁰ kg/yr. Scaling to 1.25 × 10¹⁵ kg per shot requires **~10³⁴ years of current CERN output per shot**, 3 × 10²⁴ × the age of the universe. Even NASA's 1999 optimistic-antiproton-factory baseline is 23 orders of magnitude short. The canonical resolution is that hypermatter is a stable tachyonic/antimatter-equivalent substrate whose production costs are paid somewhere unspecified ("hyperspace"). See HW-2 in `10-handwavium-ledger.md`.
 
+![F-3.3 — Reactor → beam conversion chain. SFS-CR27200 hypermatter reactor → 64 tributary shafts → 4 hyperphase generators → 8 kyber amplifiers → compound focusing lens → 10 km aperture.](../figures/F-3.3.png)
+
 ## 3.3 The waste-heat wall
 
 Accept 0.1% inefficiency on the 2.24 × 10³² J shot: waste heat = 2.24 × 10²⁹ J per shot. Apply Stefan-Boltzmann to the full 4.5 × 10¹⁰ m² hull:
@@ -50,6 +54,8 @@ Accept 0.1% inefficiency on the 2.24 × 10³² J shot: waste heat = 2.24 × 10²
 | 5,800 K (solar effective) | 2.6 × 10²² W | ~100 days |
 
 **To reset thermally within the canonical 24-hour recharge window, system efficiency must exceed 1 − 10⁻⁹ = 99.9999999%.** No conversion chain approaches this. The only internally consistent resolution is that **the superlaser beam itself carries away nearly all waste entropy** — the weapon is simultaneously the primary radiator. This requires a reactor-to-beam conversion chain at ≥99.99999% efficiency, which is itself physically unprecedented but at least internally self-consistent. Tracked as HW-4.
+
+![F-3.2 — Hull radiated power vs temperature (Stefan-Boltzmann). σT⁴A_s curve over A_s = 4.52 × 10¹⁰ m²; required 24-h mean rejection of 2.6 × 10²⁷ W marked.](../figures/F-3.2.png)
 
 ## 3.4 Energy storage
 

@@ -4,6 +4,37 @@ Project-level history for the DS-1 Engineering Specification. Component-specific
 
 ## [Unreleased] — Phase 3 substantially complete
 
+### Added — Phase 0–3 gap analysis remediation + first end-to-end PDF build (2026-04-26, late)
+
+- **30 figure references embedded in subsystem markdown.** A Phase 0–3 gap analysis revealed that all 30 figures existed as files in `docs/figures/F-{id}.png` but **zero were inline-referenced from any subsystem doc** — pandoc would have emitted a figure-less PDF. Fix: 30 `![caption](../figures/F-X.Y.png)` lines added across 9 subsystem docs (`02..09` + `12`) at the placement points specified in `appendix-D-figures-and-tables.md` §D.3 and `appendix-D2-figure-prompts.md` §D2.4–D2.6, plus three explicit cross-reference lines for the dual-home figures (F-3.3 referenced from `04` §4.1; F-7.2 referenced from `09` §9.3; F-A.1 / F-7.4 referenced reciprocally between `07` §7.7 and `12` §12.5). Per-doc embed counts: 02→6, 03→3, 04→5, 05→3, 06→3, 07→4, 08→3, 09→2, 12→1. Decision **D-14**.
+- **`docs/appendix-D` §D.3** — 17 of 30 status rows promoted DRAFT → FINAL (all programmatic figures: 8 Mermaid + 2 Graphviz + 7 matplotlib). The 13 Nano Banana 2 illustrative figures remain DRAFT pending re-render to address minor label artifacts (per §D2.12 known gotchas: F-2.1 has a "DURASTEEL STANDOFF LAYER (.5–2 cm)" inset that should read 0.5–2 m; F-A.1 and F-7.4 show some `#4ec9b0` palette hex codes leaking into rendered data blocks).
+- **First end-to-end Typst PDF build** — `dist/DS-1-PDR-v0.2.pdf`, 111 pages, 69 MB, A4. Milestone **M-07** closed. Sample-page extraction confirmed figures render with PDR-register captions ("Figure F-X.Y — title.") via Typst's `#figure(image(...))` form. Page-count target is 30–60; current 111 will be tightened during Phase 5 template iteration.
+- **Build host tooling:** Homebrew install of `pandoc 3.9.0.2` and `typst 0.14.2`. JetBrains Mono / Chakra Petch are not installed system-wide so the PDF uses font fallbacks (typographic drift, acceptable for v0.2 build verification — install fonts before final release).
+
+### Changed — Build pipeline patches (necessary for pandoc 3.9 / typst 0.14 compatibility)
+
+- **`typeset/build.sh`** — three coordinated changes to bridge a pandoc-version × typst-version gap that the documented pipeline did not anticipate:
+  1. **`pandoc --from=gfm+implicit_figures`** so a standalone `![alt](path)` line becomes `#figure(image(...), caption: [alt])` rather than `#box(image(...))`. Without `+implicit_figures`, pandoc 3.9 emits the bare `#box` form which renders as a captionless inline image — wrong for PDR register, breaks the `appendix-D2 §D2.9` documented contract.
+  2. **Inject `#import "../template.typ": horizontalrule`** at the top of every generated `.typ` file. Pandoc 3.9 emits `#horizontalrule` for markdown `---` thematic breaks but Typst has no built-in by that name; Typst's `#include` evaluates included files in headless scope, so a parent-scope `#let horizontalrule = ...` is not visible. Per-file import injection is the cleanest fix that doesn't require modifying the generated content.
+  3. **Rewrite figure-image paths** from `../figures/` (which is correct relative to the source markdown in `docs/`) to `../../docs/figures/` (which is correct relative to the generated `.typ` files in `typeset/generated/`). One-line `sed` pass after pandoc.
+  4. **Pass `--root "$PROJECT_ROOT"` to `typst compile`/`typst watch`** so figures referenced as `../../docs/figures/F-X.png` resolve. Typst restricts file access to its project root by default (= `typeset/` for `main.typ`); without this, all image references fail with `access denied`.
+- **`typeset/template.typ`** — added a top-level `#let horizontalrule = line(length: 100%, stroke: 0.5pt + rgb("#2a2f3a"))` so the per-file imports above resolve. Renders thematic breaks as a thin muted line matching the panel-border palette.
+
+### Verification
+
+- Grep counts confirmed: 30 `![F-` lines across `docs/0[2-9]-*.md` + `docs/12-*.md` (per-file: 02→6, 03→3, 04→5, 05→3, 06→3, 07→4, 08→3, 09→2, 12→1).
+- All 30 referenced paths resolve to existing files in `docs/figures/`.
+- Post-pandoc generated Typst contains 30 `#figure(image(...))` blocks across the same 9 source files.
+- `typst compile --root "$PROJECT_ROOT"` exits 0 with font-fallback warnings only.
+- PDF spot-checked: page 25 shows F-2.2 (equatorial trench cross-section) rendered with caption inside §2.7.
+
+### Phase status
+
+- **Phases 0, 1, 2, 3** — verified complete. Three independent Explore-agent audits on 2026-04-26 confirmed Phase 0/1/2 exit criteria are met (directory structure, document tree, cross-references, HW-1..10 ledger fully cited, DR-01..16 V&V matrix complete with classes, MPT/A2 budgets close within margin, FMEA top-10 complete). Phase 3 exit criteria are met as of this commit.
+- **Phase 4 peer review** — unblocked. S4.1 (numerical cross-check) and S4.2 (citation audit) can begin in parallel without waiting on the remaining 13 illustrative-figure FINAL flips.
+
+---
+
 ### Added — Phase 3 illustrative figures landed (2026-04-26, later same day)
 
 - **13 Nano Banana 2 illustrative figures** committed at DRAFT status (M-11 closed). All generated by user against the prompts in `docs/appendix-D2-figure-prompts.md` §D2.4: F-2.1 (station cutaway, quarter-section), F-2.2 (equatorial trench cross-section), F-2.5 (Whipple shield stack), F-4.1 (superlaser amplifier chain), F-4.3 (phased-array focusing geometry), F-4.4 (planet-kill coupling triptych), F-4.5 (recoil & back-brace force path), F-5.1 (sublight ion-array southern-hemisphere top view), F-7.1 (ray vs particle shield), F-7.3 (MARAUDER plasma-toroid stages), F-7.4 (DS-1 vs DS-2 exhaust port comparison), F-8.1 (24-zone station map), F-A.1 (DS-1 vs DS-2 configuration plate).
