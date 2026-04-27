@@ -108,7 +108,41 @@ Conventional-commits prefixes (`feat:` / `fix:` / `docs:` / `refactor:` / `chore
 
 ## Release process
 
-- Annotated git tags `vN.M` (e.g. `v0.2`) mark release artifacts.
-- A successful build produces `dist/DS-1-PDR-vN.M.pdf` (gitignored — reproducible from the tagged commit + the documented toolchain).
-- Capture `shasum -a 256 dist/DS-1-PDR-vN.M.pdf` and record it in `CHANGELOG.md` and the GitHub release notes (Typst stamps a creation timestamp into PDF metadata, so a fresh rebuild yields a different byte-level SHA but identical visual content; the recorded SHA is for the canonical attached artifact).
-- GitHub releases are created via `gh release create vN.M dist/DS-1-PDR-vN.M.pdf --title "..." --notes-file <release-notes.md>`. Notes should mirror the structure used for v0.2: artifact metadata table → spec contents → methodology → audit summary → reproducibility → version history → open follow-ups → acknowledgements.
+- **Annotated git tags `vN.M`** (e.g. `v0.2`, `v0.3`, `v1.0`) mark release artifacts.
+- **`-rc` tags** (e.g. `v0.3-rc`, `v1.0-rc1`) are **review checkpoints, not releases.** They do **not** get GitHub Release artifacts; they exist for in-progress phase-boundary marking. Only non-rc tags trigger `gh release create`. See `docs/appendix-G-configuration-management.md` §G.7 for the full version-tag schema (CDR adds 7 intermediate tags between v0.2 and v1.0).
+- A successful build produces `dist/DS-1-PDR-vN.M.pdf` for PDR (v0.x where x ≤ 2) or `dist/DS-1-CDR-vN.M.pdf` for CDR (v0.3 onward). PDFs are gitignored — reproducible from the tagged commit + the documented toolchain.
+- Capture `shasum -a 256 dist/DS-1-{PDR,CDR}-vN.M.pdf` and record it in `CHANGELOG.md` and the GitHub release notes (Typst stamps a creation timestamp into PDF metadata, so a fresh rebuild yields a different byte-level SHA but identical visual content; the recorded SHA is for the canonical attached artifact).
+- GitHub releases are created via `gh release create vN.M dist/DS-1-{PDR,CDR}-vN.M.pdf --title "..." --notes-file <release-notes.md>`. Notes should mirror the structure used for v0.2: artifact metadata table → spec contents → methodology → audit summary → reproducibility → version history → open follow-ups → acknowledgements.
+
+## CDR-era extensions (effective from Phase 6 onward)
+
+The PDR conventions above remain in force unless explicitly modified here.
+
+**New requirement-ID namespaces** (per `to-dos/cdr-conventions.md` §C.2):
+
+- `DR-17..` continues the V&V matrix (PDR ended at DR-16)
+- `DR2-NN` for DS-2-specific derived requirements (avoids collision with DR-NN)
+- `RR-NN` reliability requirements (Phase 12)
+- `MR-NN` manufacturing requirements (Phase 12)
+- `OR-NN` operational requirements (Phase 12)
+- `HW-11..HW-15` reserved (CCB-gated allocation; hard cap HW-15; deprecation supported but no reuse)
+
+**New Typst helpers** in `typeset/template.typ` (auto-imported per generated `.typ` file by `build.sh`):
+
+- `#cdr-callout(body)` — cyan-tinted left-rule block to highlight CDR-new content vs PDR baseline
+- `#two-col(body)` — 2-column layout for tabular-heavy sections (FMEA, ICDs, R/A/M registers)
+- `#icd-header(id, a-name, b-name)` — consistent ICD top-of-page header
+- `#requirement-row(id, text, class)` — A/I/T/C verification-class-aware row helper
+
+**Document subtree conventions:**
+
+- `docs/cdr/NN-detailed-{slug}.md` — CDR-depth subsystem expansions, mirroring PDR section IDs (split into `NN.M-*.md` part-files when a section passes ~30 pages)
+- `docs/cdr/12-ds2/12.N-{topic}.md` — DS-2 CDR-depth selective deltas (Phase 15)
+- `docs/cdr/analysis/{class}.md` — narrated FEA-class analyses (Phase 10)
+- `docs/icd/ICD-NN-MM.md` — Interface Control Documents, lower subsystem ID first (Phase 9)
+- `docs/icd/_template.md` — ICD skeleton (Phase 6 deliverable)
+- `docs/appendix-{G..Q}.md` — new CDR appendices alphabetically appended
+
+**`proj-code/` freeze policy:** the React/TypeScript console is **frozen at PDR data parity through v1.0** — no feature additions, no scope expansion. Data parity (HW table, DR matrix, FMEA register, real-world programs) is **exempt from the freeze**: when CDR analyses surface new HW-IDs or DRs, the corresponding `proj-code/src/data/*.ts` files update too, with a `proj-code/CHANGELOG.md` data-parity row. Full CDR-mirror console (component-level inspection, ICD viewer, RAM browser) defers to a v2.0 thread post-v1.0.
+
+**CDR plan reference:** the master CDR transition plan (locked scope, phase structure, sprint deliverables, research dependencies, figure inventory growth) lives at `/Users/parobek/.claude/plans/what-s-next-in-the-vast-stonebraker.md` (outside the repo). Phase definitions are in `to-dos/phase-plan.md` (Phases 6–19); sprint backlog in `to-dos/sprint-backlog.md`.
