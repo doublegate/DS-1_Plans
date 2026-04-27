@@ -377,3 +377,46 @@
 #let handwavium-pill(id) = pill(id, tone: "red")
 #let dr-pill(id) = pill(id, tone: "cyan")
 #let fmea-pill(id) = pill(id, tone: "amber")
+
+// ---- CDR helpers (Phase 6 S6.4) ----
+
+// `#cdr-callout(body)` highlights content authored at CDR depth that extends
+// or supersedes a PDR claim. Renders a left-rule + light tinted block so the
+// reader can quickly distinguish CDR-new material from PDR baseline.
+#let cdr-callout(body) = block(
+  fill: rgb("#4ec9b0").transparentize(92%),
+  stroke: (left: 2pt + rgb("#4ec9b0")),
+  inset: (x: 8pt, y: 6pt),
+  width: 100%,
+  body,
+)
+
+// `#two-col(body)` renders content in a 2-column layout, intended for
+// tabular-heavy sections (FMEA, ICD interface tables, R/A/M registers)
+// where single-column wastes horizontal space at A4 width. Body must
+// be content; the caller is responsible for column-break-friendly layout.
+#let two-col(body) = columns(2, gutter: 1em, body)
+
+// `#icd-header(id, a-name, b-name)` renders a consistent ICD top-of-page
+// header. Used in `docs/icd/ICD-NN-MM.md` instances. The `id` is the bare
+// numeric pair (e.g. "03-04"); a-name and b-name are the subsystem labels.
+#let icd-header(id, a-name, b-name) = block[
+  #set text(font: "Chakra Petch", size: 11pt, fill: palette.amber, weight: "bold", tracking: 1pt)
+  #upper("ICD-" + id)
+  #h(0.7em)
+  #text(fill: palette.cream, weight: "regular", size: 10pt)[#a-name #h(0.3em) ↔ #h(0.3em) #b-name]
+  #v(0.2em)
+  #line(length: 100%, stroke: 0.8pt + palette.amber)
+]
+
+// `#requirement-row(id, text, class)` renders a single requirement-row
+// table cell with the verification-class badge in line. Class is one of
+// "A" (Analysis), "I" (Inspection), "T" (Test-eligible), "C" (Concession).
+#let requirement-row(id, text, class) = {
+  let badge-color = if class == "C" { palette.red }
+    else if class == "A" { palette.cyan }
+    else if class == "I" { palette.amber }
+    else if class == "T" { palette.green }
+    else { palette.dim }
+  [#text(fill: palette.amber, weight: "semibold")[#id] · #text · #pill(class, tone: if class == "C" { "red" } else if class == "A" { "cyan" } else if class == "T" { "green" } else { "amber" })]
+}

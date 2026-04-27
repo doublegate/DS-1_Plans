@@ -138,6 +138,30 @@ Figure ID at bottom-right: F-2.1
 
 **Label-check after generation:** confirm all 9 leader-line labels are present and legible at 50% scale; confirm data block has correct units; confirm scale bar matches the visible dimensions.
 
+#### F-2.1 Rev A — re-render correction (Phase 7 S7.3)
+
+**Issue from v0.2 PDR build (PDR Phase 4 reader pass):** the as-rendered F-2.1 contains an inset label reading "DURASTEEL STANDOFF LAYER (.5–2 cm)" — wrong unit. The Whipple standoff is at **0.5–2 m** (per `docs/02-structural-and-materials.md` §2.6). cm vs m is a 10²× error. The inset is otherwise fine; this is a label-only correction.
+
+**Rev A prompt (delta-from-Rev-0; copy with Rev 0 prompt above):**
+
+```
+[Insert the F-2.1 Rev 0 prompt above, then append this errata block:]
+
+CRITICAL LABEL CORRECTION (Rev A — supersedes Rev 0):
+- The "DURASTEEL STANDOFF LAYER" inset must read "0.5–2 m" (metres).
+  Do NOT use "cm" anywhere in this label. The Whipple standoff is at
+  metre scale; cm would be a 100× understatement.
+- Confirm "WHIPPLE STANDOFF LAYER (0.5–2 m)" in the main leader-line
+  label list also reads metres.
+- Verify before submitting that NO label contains "(.5-2 cm)" or
+  "(0.5-2 cm)" — that string is the v0.2 error pattern.
+
+OTHERWISE: Rev A is byte-identical-intent to Rev 0. Same composition,
+same data block, same scale bar. Only the unit-correction above.
+```
+
+**Acceptance:** post-render, search the rendered image for any "cm" string in the standoff inset; reject if present. Promote to `docs/figures/F-2.1.png` (Rev A) replacing the Rev 0 file when clean.
+
 ---
 
 ### F-2.2 — Equatorial trench cross-section
@@ -507,6 +531,30 @@ Scale bars for both panels.
 Figure ID: F-7.4
 ```
 
+#### F-7.4 Rev A — re-render correction (Phase 7 S7.3)
+
+**Issue from v0.2 PDR build:** the as-rendered F-7.4 shows palette hex codes (`#4ec9b0`) leaking into the rendered data blocks as visible text rather than being applied as colours. The image generator transcribed the prompt's PALETTE specification rather than applying the colour. This is a generator-side artefact, not a content error, but it makes the data blocks look noisy.
+
+**Rev A prompt (delta-from-Rev-0; copy with Rev 0 prompt above):**
+
+```
+[Insert the F-7.4 Rev 0 prompt above, then append this errata block:]
+
+CRITICAL RENDERING CORRECTION (Rev A — supersedes Rev 0):
+- Palette colour codes (e.g., "#4ec9b0", "#f5a623", "#e74c3c", "#2ecc71",
+  "#0a0e1a", "#f0e6d2", "#ffffff") must NEVER appear as visible text in
+  the rendered image. They are STYLE INSTRUCTIONS for the renderer, not
+  content for plates / labels / data blocks.
+- Apply the palette as colours; do not transcribe hex strings into
+  callouts, labels, or data block rows.
+- Acceptable hex-code text appearance: NONE (zero) anywhere in the image.
+
+OTHERWISE: Rev A is byte-identical-intent to Rev 0. Same composition,
+same labels, same data, same panels. Only the rendering correction above.
+```
+
+**Acceptance:** post-render, scan the rendered image for any "#" character followed by 6 hex digits; reject if any present. Promote to `docs/figures/F-7.4.png` (Rev A) replacing the Rev 0 file when clean.
+
 ---
 
 ### F-8.1 — 24-zone station map
@@ -590,6 +638,34 @@ Build time: 19 yr (DS-1 complete) → < 4 yr (DS-2 unfinished at loss)
 Scale bar at bottom: 0 — 50 — 100 — 150 km.
 Figure ID: F-A.1
 ```
+
+#### F-A.1 Rev A — re-render correction (Phase 7 S7.3)
+
+**Issue from v0.2 PDR build:** same hex-code-leakage pattern as F-7.4. The mini-comparison-table data blocks at the bottom of each station show palette hex strings (`#4ec9b0`, `<4yr` rendered as literal text) where colour application was intended, plus a placeholder rendering for "<4 yr".
+
+**Rev A prompt (delta-from-Rev-0; copy with Rev 0 prompt above):**
+
+```
+[Insert the F-A.1 Rev 0 prompt above, then append this errata block:]
+
+CRITICAL RENDERING CORRECTION (Rev A — supersedes Rev 0):
+- Palette colour codes (e.g., "#4ec9b0", "#f5a623", "#0a0e1a") must
+  NEVER appear as visible text in the rendered image. Apply as colours
+  only; do not transcribe into table cells.
+- Math / inequality glyphs ("<4 yr", "<", ">", "≥", "≤") must render as
+  proper typographic glyphs with surrounding context, not as raw markup.
+  The DS-2 build-time entry must read either "< 4 yr" with a proper
+  less-than glyph, or be rephrased as "fewer than 4 years".
+- Both station data blocks must show consistent units and consistent
+  cell alignment between DS-1 and DS-2 columns.
+- Acceptable hex-code text appearance: NONE (zero) anywhere in the image.
+
+OTHERWISE: Rev A is byte-identical-intent to Rev 0. Same side-by-side
+isometric, same comparison annotations, same scale bar. Only the
+rendering corrections above.
+```
+
+**Acceptance:** post-render, (1) scan for "#" followed by 6 hex digits — reject if present; (2) confirm DS-2 build-time entry renders cleanly without raw markup characters; (3) confirm data block alignment matches between left (DS-1) and right (DS-2) panels. Promote to `docs/figures/F-A.1.png` (Rev A) replacing the Rev 0 file when clean.
 
 ---
 

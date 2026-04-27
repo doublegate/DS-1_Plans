@@ -138,7 +138,251 @@ Flat list of every granular task across all phases. Status markers: `[ ]` pendin
 ### S5.5 — distribution    (in place; ongoing)
 - [x] Public mirror                                   (https://github.com/doublegate/DS-1_Plans, M-12 closed 2026-04-22)
 - [x] Errata tracking                                 (.github/ISSUE_TEMPLATE/ — Peer Review / Bug Report / Question)
-- [ ] GitHub Release asset upload                     (optional — `gh release create v0.2 dist/DS-1-PDR-v0.2.pdf` once user authorizes)
+- [x] GitHub Release asset upload                     (closed 2026-04-26 via `gh release create v0.2 dist/DS-1-PDR-v0.2.pdf`; release at https://github.com/doublegate/DS-1_Plans/releases/tag/v0.2)
+
+---
+
+# CDR Backlog (Phases 6–19, v0.2 → v1.0)
+
+## Currently open (next actions)
+
+- [~] [S6.1] Author `to-dos/cdr-conventions.md`                (in progress)
+- [~] [S6.2] Author `docs/appendix-G-configuration-management.md`
+- [~] [S6.3] Create `docs/icd/_template.md`
+- [~] [S6.4] Extend `typeset/template.typ` for CDR
+- [~] [S7.1] [S7.2] Author `docs/appendix-H-drafting-standards.md`
+- [~] [S7.3a] Author corrected Nano Banana 2 prompts for re-render of F-2.1 / F-A.1 / F-7.4
+- [ ] [S6.5] Trim `02..09.md` to summary+index pattern  (deferred to Phase 8 closure — would orphan content otherwise)
+- [ ] [S7.3b] User runs corrected Nano Banana 2 prompts; flip 13 §D.3 status rows DRAFT→FINAL  (user-driven)
+
+## Phase 6 — CDR Foundation
+
+### S6.1 — CDR conventions
+- [ ] Drawing standards (title-block, revision triangle, GD&T narration register)
+- [ ] ICD template policy (one ICD per real subsystem-pair boundary; bidirectional consistency)
+- [ ] FEA-narration style (analyses are narrated, not actually run; cite published validation cases)
+- [ ] Requirement-numbering extensions: DR-17.. continuation; new RR-NN reliability; new MR-NN manufacturing; new OR-NN operational
+- [ ] DS-2 namespace: DR2-NN to prevent collision
+- [ ] Configuration Control Board (CCB) workflow + roles
+- [ ] Tone rubric for regulatory humor (Phase 14 calibration)
+- [ ] Handwavium ledger growth rules (HW-11..HW-15 reserved)
+
+### S6.2 — Appendix-G configuration management
+- [ ] Baseline control: PDR baseline = v0.2 frozen; CDR baselines per tag
+- [ ] Change-request workflow (CR-NNNN issue → CCB triage → resolution)
+- [ ] Version-tag schema for v0.3..v1.0
+- [ ] CCB roles (Chair, Chief Engineer, Safety, Software Lead, Regulatory)
+- [ ] HW-ledger growth gating
+
+### S6.3 — ICD template
+- [ ] Skeleton: front-matter (purpose, scope, applicable docs, change history)
+- [ ] Interface tables: power · data · mechanical · thermal · fluid · EMI/EMC · radiation
+- [ ] Bidirectional verification table
+
+### S6.4 — Typst template extension
+- [ ] New part-headings ("Detailed Design", "Interface Control Documents", "Programmatic")
+- [ ] CDR cover variant (extended approval block placeholders)
+- [ ] Table-of-ICDs section after LoT
+- [ ] Optional 2-column body for tabular-heavy sections (FMEA, ICDs, R/A/M)
+- [ ] Color-tag for new content vs PDR baseline
+
+### S6.5 — Trim PDR section docs    (deferred to Phase 8 closure)
+- [ ] Trim `docs/02..09-*.md` to summary + forward-pointers; relocate detail to `docs/cdr/`
+
+## Phase 7 — Drawing & Schematic Standards
+
+### S7.1+S7.2 — Appendix-H standards
+- [ ] Title-block exemplar (Imperial-style)
+- [ ] Revision-triangle convention
+- [ ] ASME Y14.5-style GD&T crib (narrated)
+- [ ] Electrical schematic notation (IEC 60617)
+- [ ] Plumbing/fluid notation (ISO 14617)
+- [ ] Thermal block-diagram conventions
+
+### S7.3 — S3.5 illustrative re-renders (PDR carry-forward)
+- [x] Author corrected prompts for F-2.1 (cm/m), F-A.1 / F-7.4 (hex leakage)
+- [ ] User runs Nano Banana 2 prompts (user task)
+- [ ] Drop renders to `docs/figures/`, replace existing PNGs
+- [ ] Flip 13 `appendix-D` §D.3 illustrative status rows DRAFT → FINAL
+- [ ] Close M-05
+
+## Phase 8 — Detailed Subsystem Design (largest)
+
+### S8.1 — `docs/cdr/02-detailed-structural.md`
+- [ ] Truss families catalog (primary / secondary / tertiary; cross-section profiles)
+- [ ] Joint catalog (welded · bolted · pinned; allowables tables)
+- [ ] Material allowables (Quadanium analog 18Ni-300 maraging; Inconel 718; Ti-6Al-4V)
+- [ ] Modal analysis narrative (~6 modes; frequency/damping/mode-shape narrative)
+- [ ] Fatigue analysis (Goodman/Miner; thermal-cycle spectrum; superlaser-firing impulse spectrum)
+- [ ] Buckling (Euler column / Johnson-Schwartz plate / shell)
+- [ ] Micrometeoroid/orbital-debris (NASA MEM-class flux model; updated Whipple stack)
+- [ ] Component-level mass roll-up reconciles to PDR §2.2 budget
+
+### S8.2 — `docs/cdr/03-detailed-power.md`
+- [ ] Reactor core component breakdown (confinement coil family; hypermatter injector; neutronium-liner narrative)
+- [ ] Primary heat-rejection loops (per-loop sizing)
+- [ ] Power conditioning (regulators, fault current limiters, breakers)
+- [ ] Redundancy tree (k-of-N analysis)
+- [ ] Component-level power roll-up reconciles to PDR §3 + appendix-A
+
+### S8.3 — `docs/cdr/04-detailed-superlaser.md`
+- [ ] 8 tributary chambers component-level
+- [ ] Beam-combiner mechanical + optical
+- [ ] Focusing-array actuator catalog
+- [ ] Recoil management (axial back-brace detail)
+- [ ] Alignment metrology (interferometric / fiducial / closed-loop)
+
+### S8.4 — `docs/cdr/05-detailed-propulsion.md`
+- [ ] Sublight ion-array per-thruster spec
+- [ ] Gimbal + control authority
+- [ ] Hyperdrive 123-generator phase-lock electronics
+- [ ] Navicomputer interface
+- [ ] Hyperdrive coherence failure-mode analysis
+
+### S8.5 — `docs/cdr/06-detailed-eclss.md`
+- [ ] Atmosphere management per zone (24 zones × atmosphere processors)
+- [ ] Water/waste loops (Sabatier + WRS scaling)
+- [ ] Food chain (Solein-style fermentation + bioregenerative)
+- [ ] Radiation shelter strategy (storm/transit/combat)
+
+### S8.6 — `docs/cdr/07-detailed-defensive.md`
+- [ ] Ray/particle shield generator family
+- [ ] Turbolaser battery breakdown (15,000 batteries × architecture)
+- [ ] Tractor-projector array (768 emitters × architecture; busbar mesh detail)
+- [ ] MARAUDER plasma-toroid component-level
+
+### S8.7 — `docs/cdr/08-detailed-c3.md`
+- [ ] Hierarchical comm net (Overbridge → 24 zones → turret)
+- [ ] HoloNet coupling
+- [ ] Sensor suite (per-modality + per-band)
+- [ ] Command bunker layout
+- [ ] EMP hardening
+
+### S8.8 — `docs/cdr/09-detailed-vulnerability.md`
+- [ ] Yavin fault-tree CDR-class extension
+- [ ] Endor fault-tree CDR-class extension
+- [ ] 5–7 new threat scenarios at component-level (insider, supply-chain, EMP, kinetic, swarm, spoofing, debris)
+
+## Phase 9 — Interface Control Documents
+
+### S9.1 — Boundary inventory
+- [ ] List 9 subsystems × 8/2 = 36 binomial pairs; prune to ~18 real interfaces
+
+### S9.2 — Tier-1 ICDs (mech+power)
+- [ ] ICD-02-03 (structural ↔ power)
+- [ ] ICD-03-04 (power ↔ superlaser)
+- [ ] ICD-03-05 (power ↔ propulsion)
+- [ ] ICD-03-07 (power ↔ defensive)
+- [ ] ICD-02-04 (structural ↔ superlaser; back-brace)
+
+### S9.3 — Tier-2 ICDs (data+control)
+- [ ] ICD-03-08 (power ↔ C3)
+- [ ] ICD-04-08 (superlaser ↔ C3)
+- [ ] ICD-05-08 (propulsion ↔ C3)
+- [ ] ICD-07-08 (defensive ↔ C3)
+- [ ] ICD-06-08 (ECLSS ↔ C3)
+
+### S9.4 — Tier-3 ICDs (consumables+utilities)
+- [ ] ICD-02-06 (structural ↔ ECLSS; pressurized volume)
+- [ ] ICD-06-07 (ECLSS ↔ defensive; CIWS gun crew air)
+- [ ] ICD-02-07 (structural ↔ defensive; turret mounts)
+
+### S9.5 — External ICDs
+- [ ] ICD-EXT-Fleet (DS-1 ↔ Imperial Fleet docking)
+- [ ] ICD-EXT-Sienar (DS-1 ↔ Sienar Fleet Systems prime contractor — programmatic)
+
+## Phase 10 — Detailed Analysis & Simulation
+
+### S10.1 — Structural
+- [ ] Stress concentration at critical joints
+- [ ] Fatigue (Goodman/Miner with thermal+firing+orbit cycles)
+- [ ] Buckling (Euler column / shell)
+- [ ] Modal (6+ modes narrated)
+
+### S10.2 — Thermal
+- [ ] Lumped-node model (24 zones × atmosphere × hull radiator)
+- [ ] Radiator FEA narrative
+- [ ] Transient cooldown post-Alderaan-shot
+
+### S10.3 — Electrical
+- [ ] Power-grid load-flow analogy
+- [ ] Fault-current narrative
+- [ ] Protection coordination
+
+### S10.4 — Optical/plasma
+- [ ] Beam-train ray-trace narrative
+- [ ] Plasma confinement stability (q-profile, MHD modes)
+
+### S10.5 — Control loops
+- [ ] Superlaser focusing servo (Bode plot, step response, stability margins)
+- [ ] Attitude-control servo
+- [ ] Hyperdrive sequencer
+
+## Phase 11 — Software / Firmware Architecture
+
+### S11.1 — Mission-mode state machine
+### S11.2 — Per-subsystem firmware spec
+### S11.3 — Cyber/physical security narrative
+### S11.4 — Software V&V plan addendum
+
+## Phase 12 — RAM + Manufacturing + Operational Envelope
+
+### S12.1 — Reliability tree
+### S12.2 — Spare-parts strategy + maintenance regime
+### S12.3 — Manufacturing/integration plan
+### S12.4 — CONOPS (peacetime / transit / combat / planet-kill / post-strike)
+### S12.5 — Operational envelope (thermal/radiation/loading windows)
+
+## Phase 13 — Cost / Schedule / Programmatic Risk
+
+### S13.1 — Cost model (WBS + parametric)
+### S13.2 — Schedule (build-time decomposition; critical path)
+### S13.3 — Programmatic risk register (R-CDR-NN)
+
+## Phase 14 — Regulatory / Compliance (humorous register)
+
+### S14.1 — OST / Liability / Registration noncompliance disclosure
+### S14.2 — Planet-kill EIS (NEPA-style)
+### S14.3 — ITAR/EAR Imperial analog
+### S14.4 — OSHA-of-the-Empire occupational safety
+
+## Phase 15 — DS-2 CDR-Depth Selective Expansions
+
+### S15.1 — `12.1-three-core-reactor.md`
+### S15.2 — `12.2-sld-26.md`
+### S15.3 — `12.3-microport-venting.md`
+### S15.4 — `12.4-superlaser-multimode.md`
+### S15.5 — `12.5-ciws-network.md`
+
+## Phase 16 — Full FMEA Expansion + §11 Minimum-Handwave at CDR Depth
+
+### S16.1 — FMEA inventory (E-25..E-200+)
+### S16.2 — RPN ranking + new top-25 Pareto
+### S16.3 — §11 Minimum-handwave CDR expansion (per-HW-ID quantified-removal analyses)
+### S16.4 — FMEA → DR cross-link audit
+
+## Phase 17 — CDR Figure Production
+
+### S17.1 — Programmatic figures batch
+### S17.2 — Nano Banana 2 prompt expansion (~17 new prompts)
+### S17.3 — Elevation pass
+### S17.4 — Figure index regeneration
+
+## Phase 18 — CDR Peer Review & Audit
+
+### S18.1 — Numerical cross-check at CDR depth
+### S18.2 — ICD bidirectional audit
+### S18.3 — FMEA / reliability tree consistency
+### S18.4 — Citation audit (forward + reverse)
+### S18.5 — SW / CONOPS / regulatory tone-and-content
+### S18.6 — Senior-engineer slow-read
+
+## Phase 19 — CDR Publication (v1.0)
+
+### S19.1 — Typst template polish
+### S19.2 — TOC / LoF / LoT regeneration
+### S19.3 — Final PDF build + SHA-256
+### S19.4 — Tag v1.0; GitHub release; CHANGELOG/PROJECT-STATUS final
 
 ---
 

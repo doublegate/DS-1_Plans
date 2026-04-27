@@ -2,6 +2,60 @@
 
 Project-level history for the DS-1 Engineering Specification. Component-specific changelogs (e.g. `proj-code/CHANGELOG.md`) track their own scopes; this file tracks the document set, build pipelines, figures, and project-management artifacts as a whole. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) loosely; versioning tracks the draft cadence (0.x while Phase 3–4 iterate; 1.0 reserved for the first published PDF).
 
+## [0.3-rc] — 2026-04-26 — CDR Foundation + Drafting Standards (Phase 6 + Phase 7 partial)
+
+First milestone of the PDR → CDR transition. **No public PDF release at this rc tag** — `-rc` is a review checkpoint; the v0.3 final release fires after Phase 7 S7.3 (illustrative re-renders) closes.
+
+### Scope of CDR transition (locked from user input, 2026-04-26)
+
+- **CDR depth:** real-CDR fidelity (every subsystem at component-level; full ICDs; narrated FEA-class analyses; full FMEA 200+ rows; reliability tree; software architecture; manufacturing/CONOPS; cost/schedule; regulatory; full DS-2 delta CDR). Target PDF 300–500+ pages.
+- **DS-2 treatment:** delta + selective CDR depth (no parallel duplication of DS-1).
+- **Optional modules in scope:** software/firmware architecture · cost & schedule · regulatory/compliance (humorous register) · RAM + manufacturing + ops envelope.
+- **§11 minimum-handwave reconstruction:** expand to CDR depth (per-HW-ID quantified-removal analyses).
+- **Release cadence:** periodic incremental v0.3 → v0.4 → ... → v1.0 (7 intermediate tags).
+- **`proj-code/` console:** frozen at PDR data parity through v1.0; deferred to a v2.0 thread.
+- **Wall-clock estimate:** 60–80 user-active sessions across 14 phases (Phase 6–19).
+- Plan: `/Users/parobek/.claude/plans/what-s-next-in-the-vast-stonebraker.md`.
+
+### Added — Phase 6 CDR Foundation
+
+- **`to-dos/cdr-conventions.md`** — drawing standards · ICD policy · FEA-narration register · requirement-numbering extensions (DR-17.. continuation; new RR-NN reliability; new MR-NN manufacturing; new OR-NN operational; DR2-NN namespace for DS-2-specific) · CCB workflow · tone rubric for regulatory humour · HW-11..HW-15 reservation · version-tag schema for v0.3..v1.0 · PDR convention preservation.
+- **`docs/appendix-G-configuration-management.md`** — full CM plan: baselines (PDR baseline frozen at v0.2; CDR baselines per tag); Configuration Item inventory by class with owner; CR workflow (Major / Minor severity; CCB triage → impact analysis → disposition → verification); CCB roles (Chair · Chief Engineer · Safety Lead · Software Lead · Regulatory Lead — single-author project holds all five); ledger-growth gating with hard cap HW-15; full version-tag schema; phase-boundary audit cadence (3-parallel-Explore-agent pattern); repository and toolchain configuration.
+- **`docs/icd/_template.md`** — Interface Control Document skeleton: front-matter (purpose, scope, applicable docs, change history); 7 interface-class subsections (power · data · mechanical · thermal · fluid · EMI/EMC · radiation); detailed packet/signal definitions placeholder; verification matrix template; bidirectional consistency authoring notes.
+- **Typst template helpers** — `cdr-callout(body)` (CDR-content callout block, cyan-tinted left-rule) · `two-col(body)` (2-column body for tabular-heavy sections) · `icd-header(id, a-name, b-name)` (consistent ICD top-of-page header) · `requirement-row(id, text, class)` (verification-class-aware row helper). Wired through `main.typ` import and `build.sh` per-file injection so all generated `.typ` files have the helpers in scope without per-doc boilerplate.
+
+### Added — Phase 7 partial (S7.1 + S7.2; S7.3 deferred)
+
+- **`docs/appendix-H-drafting-standards.md`** — Title-block exemplar with revision triangle / sheet-of / scale / draftsman / CCB approval slots; revision-letter convention per IPC-2615 / ASME Y14.35 (skipping I/O/Q/S/X/Z); GD&T crib (14 symbols ⌀ ⌖ ⏥ ⏤ ⌭ ⌯ ⏊ ∥ ∠ ⌒ ⌓ ⊙ ↗ + Ⓜ/ⓛ/Ⓢ modifiers; datum reference frames; tolerance-narration rules); IEC 60617 electrical schematic notation pack; ISO 14617 fluid/plumbing notation pack; thermal block-diagram notation harmonised with project palette; drawing-scale guidance per plate scope; three reference-figure stubs (F-H.1 title-block exemplar · F-H.2 schematic legend · F-H.3 GD&T quick-reference card) deferred to S7-render pass.
+- **S7.3 illustrative re-render prompts authored** — Rev A correction blocks added to `docs/appendix-D2-figure-prompts.md` for F-2.1 (cm→m unit fix in standoff inset; 100× error correction), F-7.4 (palette hex-code-leakage fix; explicit instruction not to transcribe hex into rendered text), F-A.1 (combined hex-code-leakage and inequality-glyph fix). User runs the Rev A prompts; once Rev A images land, the 13 `appendix-D` §D.3 illustrative rows flip DRAFT → FINAL and v0.3 final tag fires.
+
+### Changed — Build pipeline
+
+- **`typeset/build.sh`** — `SECTIONS` extended with `appendix-G-configuration-management` and `appendix-H-drafting-standards`; per-file Typst-import injection extended to include `cdr-callout`, `two-col`, `icd-header` helpers (so CDR-depth `.md` files can use them without manual import).
+- **`typeset/main.typ`** — appendix include list extended with G and H; helper imports updated.
+
+### Changed — Bookkeeping
+
+- **`to-dos/phase-plan.md`** — extended with Phases 6–19 phase definitions (entry/exit/sprints/tag per phase). Phase 5 marked closed.
+- **`to-dos/sprint-backlog.md`** — extended with full S6.* through S19.* checkbox skeleton; current-open-actions block updated.
+- **`to-dos/PROJECT-STATUS.md`** — current-phase line bumped to "CDR transition active"; D-17 (CDR launch), D-18 (Phase 6 close), D-19 (Phase 7 partial close) logged; next-actions list reorganised around Phase 7 closure → Phase 8a → ... → v1.0.
+- **`README.md`** — status line updated to reflect CDR transition.
+- **`CLAUDE.md`** — CDR transition state and references to `cdr-conventions.md` + `appendix-G` added.
+
+### Verification
+
+- `./typeset/build.sh` runs clean; output `dist/DS-1-PDR-v0.2.pdf` is 83 pages (was 74; +9 for the two new appendices). Build pipeline unchanged from v0.2 except for the SECTIONS / include / per-file-import additions.
+- Spot-check of generated Typst confirms appendix-G and appendix-H render with their numbered headings and table content intact.
+- One known harmless warning: `unknown font family: ibm plex mono` (font-fallback chain rung; `JetBrains Mono` is the actual rendered font).
+
+### Open
+
+- **Phase 7 S7.3 (illustrative re-renders)** — user-driven Nano Banana 2 task. Closes M-05 and triggers v0.3 final tag.
+- **S6.5 (PDR-doc trim to summary+index)** — deferred to Phase 8 closure to avoid orphaning the trimmed content before the `docs/cdr/` expansions land.
+- **Three reference figures** F-H.1 / F-H.2 / F-H.3 — stubs in `appendix-H`; render in S7-render pass (Mermaid + matplotlib; no Nano Banana 2 needed).
+
+---
+
 ## [0.2] — 2026-04-26 — Phase 5 publication / first tagged release
 
 ### Released artifact

@@ -50,6 +50,8 @@ SECTIONS=(
   appendix-D-figures-and-tables
   appendix-E-fmea
   appendix-F-vnv-plan
+  appendix-G-configuration-management
+  appendix-H-drafting-standards
 )
 
 # Not included in the published PDF (working documents / indexes):
@@ -78,7 +80,9 @@ for section in "${SECTIONS[@]}"; do
   # pandoc 3.9 emits `#horizontalrule` for markdown `---` thematic breaks, but Typst has
   # no such built-in. Each generated module is included in headless scope by main.typ, so
   # we inject the import at the top of every file rather than relying on parent-scope let.
-  printf '#import "../template.typ": horizontalrule\n\n%s\n' "$(cat "$dst")" > "$dst.tmp" && mv "$dst.tmp" "$dst"
+  # CDR helpers (cdr-callout / two-col / icd-header) are also imported here so CDR-depth
+  # docs in docs/cdr/ and ICDs in docs/icd/ can use them without per-doc import boilerplate.
+  printf '#import "../template.typ": horizontalrule, cdr-callout, two-col, icd-header\n\n%s\n' "$(cat "$dst")" > "$dst.tmp" && mv "$dst.tmp" "$dst"
   # Rewrite figure-image paths: markdown `../figures/F-X.png` is relative to docs/, but the
   # generated .typ file lives in typeset/generated/ so Typst resolves it from there. Adjust
   # to ../../docs/figures/ so the path resolves correctly post-include.

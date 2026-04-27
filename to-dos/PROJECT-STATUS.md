@@ -3,7 +3,7 @@
 **Project:** DS-1 Orbital Battle Station Engineering Specification
 **Draft version:** 0.2
 **Last updated:** 2026-04-26
-**Current phase:** **Phase 5 publication complete** — v0.2 PDF released. All five Phases (0–5) closed. Project is at the v0.2 milestone; remaining work is parallel S3.5 illustrative-figure iteration (M-05) and any reviewer-driven v0.3 follow-ups.
+**Current phase:** **CDR transition active.** Phase 6 (CDR foundation) complete; Phase 7 partial (drafting standards landed; S7.3 illustrative re-renders pending user Nano Banana 2 run). Tag v0.3-rc captures the foundation milestone. CDR plan in `/Users/parobek/.claude/plans/what-s-next-in-the-vast-stonebraker.md`; locked to real-CDR fidelity, all 4 optional modules, periodic incremental releases v0.3..v1.0, `proj-code/` console frozen at PDR through v1.0, §11 expand-to-CDR-depth.
 
 ---
 
@@ -92,14 +92,21 @@
 | D-14 | 2026-04-26 | Figures embedded inline in subsystem markdown; build pipeline patched for pandoc 3.9 / typst 0.14 | Phase 0–3 gap analysis revealed all 30 figures existed as files but zero were inline-referenced from subsystem markdown — pandoc would have emitted a figure-less PDF. Inserted 30 `![caption](../figures/F-X.png)` lines across 9 subsystem docs (02..09 + 12) with placement per appendix-D2 §D2.4–D2.6, plus three cross-reference lines for dual-home figures (F-3.3 / F-7.2 / F-7.4). Build pipeline patched: `+implicit_figures`, `#horizontalrule` shim, image-path rewrite, `--root` argument. M-07 closed; M-05 partially closed (17 / 30 FINAL). |
 | D-15 | 2026-04-26 | Phase 4 peer review closed | Three parallel Explore-agent audits ran S4.1 (numerical), S4.2 (citation), S4.3+S4.4+S4.5 (traceability + V&V + reader pass). Findings remediated in this commit: 3 broken `§3.6 → §4.6` cross-refs in `02-*.md`/`03-*.md` (Phase 1 split renumbering had left bad pointers to the pre-split ref-doc §3); 1 dead reverse-citation (Bobrick & Martire) added to `05-propulsion.md` §5.2 prose. M-04 closed. R-2 (figure production) and R-3 (typesetting) already closed in Phase 3. No remaining open risks. |
 | D-16 | 2026-04-26 | Phase 5 publication closed; v0.2 PDF released | Front matter authored (Approval, Revision History, Distribution, LoF/LoT, Acronyms); fonts installed; template compressed 119 → 74 pages; proof-read PASS clean; SHA-256 captured. The two reader-pass nice-to-haves (DS-2 3-min recharge spec stance; Endor SLD-26 retrofit doctrine) are addressed in `12-ds2-delta-specification.md` §12.3 / §12.4. M-08 closed. Annotated git tag `v0.2` applied. |
+| D-17 | 2026-04-26 | CDR transition launched (PDR → CDR; v0.2 → v1.0) | User-approved scope: real-CDR fidelity · DS-2 delta+selective · all 4 optional modules (SW/FW + cost & schedule + regulatory + RAM/mfg/ops) · §11 expand to CDR depth · periodic incremental releases v0.3..v1.0 (7 intermediate tags) · `proj-code/` console frozen at PDR through v1.0 (deferred to v2.0 thread). Plan: `/Users/parobek/.claude/plans/what-s-next-in-the-vast-stonebraker.md`. Wall-clock: 60–80 sessions. Phase plan extended in `to-dos/phase-plan.md` (Phases 6–19); sprint backlog extended in `to-dos/sprint-backlog.md`. |
+| D-18 | 2026-04-26 | Phase 6 CDR Foundation complete | `to-dos/cdr-conventions.md` authored (drawing standards · ICD policy · FEA-narration style · requirement-numbering extensions DR-17.. + RR-NN + MR-NN + OR-NN + DR2-NN · CCB workflow · tone rubric · HW-11..HW-15 reserve · version-tag schema). `docs/appendix-G-configuration-management.md` authored (baselines · CIs · CR workflow · CCB roles · ledger-growth gating · tag schema · audit cadence · repo/toolchain config). `docs/icd/_template.md` authored (ICD skeleton with 7 interface-class subsections + verification matrix). `typeset/template.typ` extended with `cdr-callout` / `two-col` / `icd-header` / `requirement-row` helpers; `main.typ` import updated; `build.sh` per-file import expanded to include CDR helpers. S6.5 (PDR-doc trim to summary+index) deferred to Phase 8 closure to avoid orphaning content. |
+| D-19 | 2026-04-26 | Phase 7 partial close — drafting standards landed, S7.3 deferred | `docs/appendix-H-drafting-standards.md` authored (title-block + revision-letter convention · GD&T crib 14 symbols · IEC 60617 electrical pack · ISO 14617 fluid pack · thermal block notation · scale guidance · 3 reference-figure stubs F-H.1/F-H.2/F-H.3 deferred to S7-render pass). S7.3 illustrative re-renders authored as Rev A correction blocks in `appendix-D2-figure-prompts.md` for F-2.1 (cm→m unit fix), F-7.4 / F-A.1 (hex-leakage fix); user runs Nano Banana 2 prompts; once images land, the 13 §D.3 illustrative status rows flip DRAFT → FINAL and v0.3 (final, not -rc) tag fires. |
 
 ## Next actions
 
-All five Phases (0–5) are closed. The project has reached the **v0.2 milestone**.
+CDR transition active. v0.3-rc tagged at end of Phase 6.
 
-Remaining optional / opportunistic work (no longer phase-blocking):
+1. **Phase 7 closure (v0.3 final)** — user runs the Rev A Nano Banana 2 prompts in `docs/appendix-D2-figure-prompts.md` for F-2.1 / F-7.4 / F-A.1; drops Rev A images to `docs/figures/` (replacing Rev 0); flip 13 `appendix-D` §D.3 illustrative rows DRAFT → FINAL; M-05 closes; v0.3 tag fires.
+2. **Phase 8a (v0.4)** — detailed subsystem design sprints S8.1 (structural) → S8.4 (propulsion). Tag v0.4 after S8.4. Estimated 8–14 sessions; the largest single phase block.
+3. **Phase 8b (v0.5)** — sprints S8.5 (ECLSS) → S8.8 (vulnerability deep-dive). Tag v0.5.
+4. **Phases 9–10 (v0.6)** — ICDs + narrated analyses.
+5. **Phases 11–12 (v0.7)** — software architecture + RAM/manufacturing/CONOPS.
+6. **Phases 13–15 (v0.8)** — cost/schedule + regulatory + DS-2 deltas.
+7. **Phases 16–17 (v0.9)** — full FMEA + §11 CDR expansion + figure-production push.
+8. **Phases 18–19 (v1.0)** — audit + final publication.
 
-1. **S3.5 illustrative-figure iteration (M-05)** — re-run Nano Banana 2 prompts for figures with label artifacts: F-2.1 (cm/m unit error in inset standoff label), F-A.1 / F-7.4 (prompt hex codes leaked as visible text in data blocks). Once iterated, flip remaining 13 `appendix-D` §D.3 status rows DRAFT → FINAL. After the rerender, a `make pdf` rebuild produces v0.3.
-2. **Optional reactor schematic** — if a §3 "reactor detailed schematic" figure is wanted, a new prompt block in `docs/appendix-D2-figure-prompts.md` is needed (existing prompts cover the ion-array but not an isolated reactor schematic; F-3.3 covers only the chain block-diagram).
-3. **External senior-engineer reviewer signatures** — the Approval block in the front matter is set up to receive them; any feedback comes back as Phase-4-equivalent issues against v0.2 tag.
-4. **GitHub Release asset upload** — optional: attach `dist/DS-1-PDR-v0.2.pdf` to the v0.2 GitHub Release page so it's downloadable without rebuilding. Run `gh release create v0.2 dist/DS-1-PDR-v0.2.pdf --title "v0.2" --notes-from-file CHANGELOG.md` once the user authorizes the upload.
+Each phase boundary uses the parallel-Explore-agent audit pattern (validated twice on this project). Each non-`-rc` tag triggers a GitHub Release with PDF asset.

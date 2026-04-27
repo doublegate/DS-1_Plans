@@ -2,7 +2,7 @@
 
 A speculative systems-engineering specification for the DS-1 Death Star, structured as a Preliminary Design Review (PDR) document package. Hybrid canon + real-physics analysis; audience framing is "Senior Technical Director review."
 
-**Status:** **v0.2 released** · 2026-04-26 · all five Phases (0–5) closed · `dist/DS-1-PDR-v0.2.pdf` is the canonical artifact (74 pages, A4, SHA-256 `bafa1425…b716f7a5`) · git tag `v0.2`
+**Status:** **v0.2 released; CDR transition active.** PDR (Phases 0–5) complete and tagged at `v0.2` (74-page PDF). PDR → CDR transition launched 2026-04-26: real-CDR fidelity over Phases 6–19 with periodic incremental releases v0.3 → v1.0. Phase 6 (CDR Foundation) complete; Phase 7 partial. Latest tag: `v0.3-rc`. Plan: `/Users/parobek/.claude/plans/what-s-next-in-the-vast-stonebraker.md`.
 
 ## The question this project answers
 
@@ -81,6 +81,14 @@ dot -Tsvg F-9.1.dot -o ../F-9.1.svg && dot -Tsvg F-9.2.dot -o ../F-9.2.svg
 - **Phase 3 · Figures** · substantively complete (2026-04-26) — all 30 figures embedded in subsystem markdown with captions; first end-to-end Typst PDF builds at `dist/DS-1-PDR-v0.2.pdf`. 17 programmatic figures (8 Mermaid + 2 Graphviz + 7 matplotlib) flipped to FINAL after palette + content verification. 13 Nano Banana 2 illustrative figures remain DRAFT pending iteration on minor label artifacts.
 - **Phase 4 · Peer review** · complete (2026-04-26) — three parallel-agent audits over S4.0..S4.5: 0 numerical discrepancies; 0 broken forward citations; 1 dead reverse-citation remediated (Bobrick & Martire arXiv:2102.06824); 3 broken `§3.6 → §4.6` cross-references remediated; HW↔DR bidirectional traceability clean; FMEA action coverage clean; senior-engineer verdict PDR-ready
 - **Phase 5 · Publication** · complete (2026-04-26) — front matter authored (Approval, Revision History, Distribution / Classification, Contents, List of Figures × 30, List of Tables, Acronym short-list); JetBrains Mono + Chakra Petch installed; template compressed 119 → 74 pages; proof-read PASS; SHA-256 captured; git tag `v0.2` applied. Release artifact: `dist/DS-1-PDR-v0.2.pdf`.
+
+## CDR transition (Phases 6–19, v0.2 → v1.0)
+
+PDR is the architectural-level pass; CDR brings every subsystem to component-level fidelity, full ICDs, narrated FEA-class analyses, full FMEA (200+ rows), reliability/availability/maintainability tree, software/firmware architecture, manufacturing/CONOPS, cost/schedule, regulatory/compliance, and full DS-2 delta CDR. Target PDF 300–500+ pages. Wall-clock estimate: 60–80 user-active sessions. Plan: `/Users/parobek/.claude/plans/what-s-next-in-the-vast-stonebraker.md`. Conventions: `to-dos/cdr-conventions.md`; configuration management: `docs/appendix-G-configuration-management.md`; drafting standards: `docs/appendix-H-drafting-standards.md`.
+
+- **Phase 6 · CDR Foundation** · complete (2026-04-26, v0.3-rc) — conventions doc, configuration management appendix, ICD template, Typst CDR helpers (`cdr-callout` / `two-col` / `icd-header` / `requirement-row`).
+- **Phase 7 · Drafting & Schematic Standards (+ S3.5 closeout)** · partial — drafting standards appendix authored (title-block, GD&T crib, IEC 60617, ISO 14617, thermal block); S7.3 Rev A Nano Banana 2 prompts authored for F-2.1 / F-7.4 / F-A.1; user runs Rev A prompts → flip 13 §D.3 status rows → v0.3 final tag.
+- **Phases 8–19** · planned with sprint-level deliverables in `to-dos/phase-plan.md` and `to-dos/sprint-backlog.md`.
 
 Live status: `to-dos/PROJECT-STATUS.md`. Phase detail: `to-dos/phase-*.md`.
 

@@ -6,7 +6,7 @@
 // via pandoc (see build.sh) and placed in typeset/generated/.
 // =============================================================================
 
-#import "template.typ": ds1-doc, palette, figure-plate, pill, stat, handwavium-pill, dr-pill, fmea-pill
+#import "template.typ": ds1-doc, palette, figure-plate, pill, stat, handwavium-pill, dr-pill, fmea-pill, cdr-callout, two-col, icd-header
 
 #show: ds1-doc.with(
   title: "DS-1 Orbital Battle Station",
@@ -57,6 +57,8 @@
 #include "generated/appendix-D-figures-and-tables.typ"
 #include "generated/appendix-E-fmea.typ"
 #include "generated/appendix-F-vnv-plan.typ"
+#include "generated/appendix-G-configuration-management.typ"
+#include "generated/appendix-H-drafting-standards.typ"
 
 // Note: appendix-D2 (figure prompts) is an internal working document and
 // intentionally NOT included in the published PDF.
