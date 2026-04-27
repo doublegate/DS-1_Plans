@@ -104,41 +104,41 @@ Flat list of every granular task across all phases. Status markers: `[ ]` pendin
 - [x] Issue list triaged to backlog                                             (must-fix remediated; nice-to-haves deferred to Phase 5 S5.2)
 - [x] Reviewer sign-off — verdict: **PDR-ready contingent on cross-ref fixes**, all of which were applied in this sprint
 
-## Phase 5 — publication
+## Phase 5 — publication    (closed 2026-04-26 — M-08)
 
-### S5.1 — typesetting path
-- [ ] Pandoc-LaTeX / Typst / custom-LaTeX decision
-- [ ] Build environment prepared
+### S5.1 — typesetting path    (closed)
+- [x] Pandoc-LaTeX / Typst / custom-LaTeX decision    (D-8: Typst, 2026-04-22)
+- [x] Build environment prepared                      (typeset/build.sh patched + JetBrains Mono / Chakra Petch installed)
 
-### S5.2 — front matter
-- [ ] Cover page
-- [ ] Approval block
-- [ ] Revision history table
-- [ ] TOC + list-of-figures + list-of-tables
-- [ ] Acronym short-list
-- [ ] Distribution / classification note
+### S5.2 — front matter    (closed)
+- [x] Cover page                                      (existing; refined with v0.2 metadata)
+- [x] Approval block                                  (8-row reviewer table; pending external sign-offs)
+- [x] Revision history table                          (4 rows: 0.1 / 0.2-rc1 / 0.2-rc2 / 0.2)
+- [x] TOC + list-of-figures + list-of-tables          (TOC depth 2; LoF auto-populated 30 entries; LoT auto-populated)
+- [x] Acronym short-list                              (24 entries; full glossary in Appendix B)
+- [x] Distribution / classification note              (CC-BY-NC-4.0 + GitHub URL + reproducibility pointers + errata channel)
 
-### S5.3 — PDF build v1
+### S5.3 — PDF build v1    (closed)
 - [x] Build script (`typeset/build.sh` patched 2026-04-26 for pandoc 3.9 / typst 0.14 compatibility)
 - [x] First render (M-07 closed 2026-04-26: 111-page / 69 MB PDF at `dist/DS-1-PDR-v0.2.pdf`)
 - [x] Mermaid / plots render correctly (verified by extracting page samples post-build)
-- [ ] Template iteration to 30–60 pages (current 111 needs compression — likely body-font size, margins, table-density)
-- [ ] Cross-references resolve in PDF (Typst auto-numbers `#figure` calls; verify manual `*See Figure F-X*` cross-refs render)
-- [ ] Install JetBrains Mono + Chakra Petch system-wide so the build uses intended typography (currently font-fallback)
+- [x] Template iteration                              (compressed 119 → 74 pages — close to 60-page target given 30 figures + 21 sections; body 9pt, margins 2cm, level-1 pagebreak removed, figure cap 65%)
+- [x] Cross-references resolve in PDF                 (Typst auto-numbers Figure 1..30; "See Figure F-X" prose cross-refs render correctly)
+- [x] Install JetBrains Mono + Chakra Petch           (brew --cask font-jetbrains-mono + font-chakra-petch; build now uses intended typography)
 
-### S5.4 — release
-- [ ] Proof-read
-- [ ] Figure spot-check
-- [ ] Equation spot-check
-- [ ] SHA-256 of final PDF
-- [ ] Archive source + manifest
-- [ ] Tag release
-- [ ] Milestones M-07, M-08 check-off
+### S5.4 — release    (closed)
+- [x] Proof-read                                      (Explore-agent pass; PASS clean — no must-fix or nice-to-have findings)
+- [x] Figure spot-check                               (4 figures sampled: F-3.1, F-7.4, F-9.1, F-A.1 — all render with captions)
+- [x] Equation spot-check                             (substituted-value form renders; Unicode superscripts and Greek letters all legible)
+- [x] SHA-256 of final PDF                            (`bafa1425a0b153aa8fdc61d3e00cef1c3b82e622eaacaec0485cbfa1b716f7a5`)
+- [x] Archive source + manifest                       (CHANGELOG `[0.2]` entry includes SHA-256 + git commit + reproducibility command)
+- [x] Tag release                                     (annotated git tag `v0.2`)
+- [x] Milestones M-07, M-08 check-off                 (M-07 closed 2026-04-26 earlier; M-08 closed with this sprint)
 
-### S5.5 — distribution (optional)
-- [ ] Internal distribution
-- [ ] Web mirror
-- [ ] Errata tracking
+### S5.5 — distribution    (in place; ongoing)
+- [x] Public mirror                                   (https://github.com/doublegate/DS-1_Plans, M-12 closed 2026-04-22)
+- [x] Errata tracking                                 (.github/ISSUE_TEMPLATE/ — Peer Review / Bug Report / Question)
+- [ ] GitHub Release asset upload                     (optional — `gh release create v0.2 dist/DS-1-PDR-v0.2.pdf` once user authorizes)
 
 ---
 

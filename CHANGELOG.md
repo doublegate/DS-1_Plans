@@ -2,6 +2,47 @@
 
 Project-level history for the DS-1 Engineering Specification. Component-specific changelogs (e.g. `proj-code/CHANGELOG.md`) track their own scopes; this file tracks the document set, build pipelines, figures, and project-management artifacts as a whole. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) loosely; versioning tracks the draft cadence (0.x while Phase 3–4 iterate; 1.0 reserved for the first published PDF).
 
+## [0.2] — 2026-04-26 — Phase 5 publication / first tagged release
+
+### Released artifact
+
+- **`dist/DS-1-PDR-v0.2.pdf`** — 74 pages, A4, dark-palette PDR-register typesetting via Typst 0.14.2 / pandoc 3.9.0.2.
+- **SHA-256:** `bafa1425a0b153aa8fdc61d3e00cef1c3b82e622eaacaec0485cbfa1b716f7a5`
+- **Reproducibility:** clone, install pandoc ≥ 3.0, typst ≥ 0.11, JetBrains Mono, Chakra Petch (e.g., `brew install pandoc typst && brew install --cask font-jetbrains-mono font-chakra-petch`), run `./typeset/build.sh`. Output should match the SHA above for the tagged commit.
+- **Git tag:** `v0.2` (annotated).
+
+### Added — Phase 5 publication
+
+**S5.2 Front matter** (`typeset/template.typ`):
+- **Approval block** — 8-row reviewer table (Lead reviewer; Structures \& materials; Reactor \& weapon; Propulsion; Life support \& C3; Defensive \& vulnerability; Handwavium \& V&V; DS-2 delta) with section-scope mapping, "pending" status, and signature lines. Footer notes that Phase 4 internal audit closed clean (zero numerical discrepancies, zero broken citations, all HW↔DR traceability bidirectional); external senior-engineer signatures pending.
+- **Revision history table** — 4 rows: 0.1 (initial commit / Phase 1 split), 0.2-rc1 (Phase 2 close + GitHub publication), 0.2-rc2 (Phase 3 figures embedded + first PDF build), 0.2 (Phase 4 peer review closed + Phase 5 publication).
+- **Distribution / classification note** — restated CC-BY-NC-4.0 license + Star Wars trademark acknowledgement; public mirror URL; source-authority pointers; reproducibility command; errata channel.
+- **List of Figures** — auto-populated by Typst's `outline(target: figure.where(kind: image))` filter; renders all 30 figures with their captions and page numbers.
+- **List of Tables** — auto-populated by `outline(target: figure.where(kind: table))`; renders all body and appendix tables.
+- **Acronym short-list** — 24-entry curated table (PDR, DS-1/DS-2, HW-{n}, DR-{n}, SR-{n}, A/I/T/C, MPT, FMEA, V\&V, RPN, ECLSS, ISRU, LIDT, CIWS, KKV, SLD-26, SSP06/SSP05, SFS-CR27200, c², L☉, M☉). Full glossary remains in Appendix B.
+
+**S5.3 Template iteration** (`typeset/template.typ` + `typeset/main.typ`):
+- **Fonts installed system-wide.** `brew install --cask font-jetbrains-mono font-chakra-petch`. The build now uses intended typography (JetBrains Mono for body / monospace; Chakra Petch for headings) with no font-fallback drift except for one harmless warning about the unused `IBM Plex Mono` rung in the fallback chain.
+- **Page-count compression: 119 → 74 pages.** Body font 10pt → 9pt; line leading 0.65em → 0.55em; paragraph spacing 0.7em; margins 2.5cm → 2cm; level-1 heading no longer force-pagebreak (body sections now flow continuously); explicit `#pagebreak()` calls added in `main.typ` before the three part headings (Subsystem Specifications, Cross-Cutting Analysis, Appendices); table cell inset 6pt × 4pt → 5pt × 2.5pt; figure image width capped at 65% of column; figure caption font 9pt → 7.5pt italic; TOC depth 3 → 2; figure block marked non-breakable so a figure + its caption stay together. The 74-page result is above the 30–60-page aspirational target — but with 30 embedded figures + 21 sections + 8 appendices + 12 pages of front matter, this is the dense-but-legible floor. Further compression would require dropping figures or content.
+
+**S5.4 Release**:
+- **Proof-read pass** via Explore agent — PASS clean. No must-fix or nice-to-have issues. Spot-checks: 6 body pages confirmed Unicode superscripts / Greek letters / inline-code render correctly; 4 figure pages confirmed F-3.1, F-7.4, F-9.1, F-A.1 render with captions; TOC / LoF (30 entries) / LoT integrity intact; no orphan headings or table overflows.
+- **SHA-256 captured** for the final PDF (above).
+- **Annotated git tag `v0.2`** applied to this commit.
+
+**Carry-forward S4.5 nice-to-haves addressed in `docs/12-ds2-delta-specification.md`**:
+- **§12.3** — added explicit "Spec stance" paragraph: this spec adopts the conservative reading that the DS-2 3-minute "few-minute" cadence is a *capital-ship recharge requirement*, not a *planet-kill recharge requirement*. The reactor scale-up to 3 cores is therefore primarily redundancy and capacitor-bank/optics bandwidth, not a 10⁹–10¹² × power-density jump. Full-power planet-kill at 3-minute cadence is treated as canonical aspiration, not adopted design requirement.
+- **§12.4** — added explicit "Spec stance" paragraph: the as-deployed Endor SLD-26 architecture **violates DR-11**. The spec frames this as a recurrence of the DS-1 single-point-of-failure pattern (terror-doctrine signalling preference for monolithic systems) and recommends a **post-Endor retrofit**: 3+ independent generator nodes, geographically or astronomically separated, with voting logic and graceful degradation.
+
+### Open follow-ups (out of v0.2 scope)
+
+- **S3.5 illustrative-figure iteration (M-05)** — re-render F-2.1 (cm/m unit error in standoff inset), F-A.1 / F-7.4 (prompt hex codes leaking as visible text). Once iterated, flip remaining 13 `appendix-D` §D.3 status rows DRAFT → FINAL. Triggers a v0.3 build.
+- **External senior-engineer signatures** — Approval block in front matter is set up to receive them; any feedback returns as Phase-4-equivalent issues against the v0.2 tag.
+- **Optional reactor schematic** — if a §3 isolated reactor figure is wanted, a new prompt block in `appendix-D2-figure-prompts.md` is needed.
+- **GitHub Release asset upload** — optional: `gh release create v0.2 dist/DS-1-PDR-v0.2.pdf` once authorized.
+
+---
+
 ## [Unreleased] — Phases 0–4 complete
 
 ### Added — Phase 4 peer review closed (2026-04-26, latest)

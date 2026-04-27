@@ -28,6 +28,7 @@
 #include "generated/00-abstract-and-scope.typ"
 #include "generated/01-design-basis.typ"
 
+#pagebreak()
 = Subsystem Specifications
 
 #include "generated/02-structural-and-materials.typ"
@@ -38,6 +39,7 @@
 #include "generated/07-defensive-systems.typ"
 #include "generated/08-command-control-communications.typ"
 
+#pagebreak()
 = Cross-Cutting Analysis
 
 #include "generated/09-vulnerability-analysis.typ"
@@ -45,6 +47,7 @@
 #include "generated/11-minimum-handwave-reconstruction.typ"
 #include "generated/12-ds2-delta-specification.typ"
 
+#pagebreak()
 = Appendices
 
 #include "generated/appendix-A-mass-power-thermal-budget.typ"

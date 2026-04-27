@@ -2,7 +2,7 @@
 
 A speculative systems-engineering specification for the DS-1 Death Star, structured as a Preliminary Design Review (PDR) document package. Hybrid canon + real-physics analysis; audience framing is "Senior Technical Director review."
 
-**Status:** Draft 0.2 · 2026-04-26 · Phases 0–4 complete (numerical cross-check, citation audit, handwavium traceability, V&V consistency, senior-engineer reader pass — all closed) · figures embedded in subsystem markdown · first end-to-end Typst PDF builds (111 pages); 17 / 30 figures FINAL · Phase 5 publication is the active phase
+**Status:** **v0.2 released** · 2026-04-26 · all five Phases (0–5) closed · `dist/DS-1-PDR-v0.2.pdf` is the canonical artifact (74 pages, A4, SHA-256 `bafa1425…b716f7a5`) · git tag `v0.2`
 
 ## The question this project answers
 
@@ -80,7 +80,7 @@ dot -Tsvg F-9.1.dot -o ../F-9.1.svg && dot -Tsvg F-9.2.dot -o ../F-9.2.svg
 - **Phase 2 · Engineering artifacts** · done 2026-04-22 (MPT budget, FMEA, V&V, nomenclature, references, figure index, DS-2 rebudget, HW→DR gap closure)
 - **Phase 3 · Figures** · substantively complete (2026-04-26) — all 30 figures embedded in subsystem markdown with captions; first end-to-end Typst PDF builds at `dist/DS-1-PDR-v0.2.pdf`. 17 programmatic figures (8 Mermaid + 2 Graphviz + 7 matplotlib) flipped to FINAL after palette + content verification. 13 Nano Banana 2 illustrative figures remain DRAFT pending iteration on minor label artifacts.
 - **Phase 4 · Peer review** · complete (2026-04-26) — three parallel-agent audits over S4.0..S4.5: 0 numerical discrepancies; 0 broken forward citations; 1 dead reverse-citation remediated (Bobrick & Martire arXiv:2102.06824); 3 broken `§3.6 → §4.6` cross-references remediated; HW↔DR bidirectional traceability clean; FMEA action coverage clean; senior-engineer verdict PDR-ready
-- **Phase 5 · Publication** · scaffolded (Typst template + build pipeline in place; PDF build pending figures)
+- **Phase 5 · Publication** · complete (2026-04-26) — front matter authored (Approval, Revision History, Distribution / Classification, Contents, List of Figures × 30, List of Tables, Acronym short-list); JetBrains Mono + Chakra Petch installed; template compressed 119 → 74 pages; proof-read PASS; SHA-256 captured; git tag `v0.2` applied. Release artifact: `dist/DS-1-PDR-v0.2.pdf`.
 
 Live status: `to-dos/PROJECT-STATUS.md`. Phase detail: `to-dos/phase-*.md`.
 

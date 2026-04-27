@@ -32,68 +32,83 @@
   classification: "SPECULATIVE / EDUCATIONAL — hybrid canon / real-physics technical fiction",
   body,
 ) = {
-  // Page setup — A4 with generous margins; PDR register
+  // Page setup — A4 with tight margins for PDR-target page count
   set document(title: title, author: "DS-1 Plans project")
   set page(
     paper: "a4",
-    margin: (top: 2.5cm, bottom: 2.5cm, left: 2.5cm, right: 2.5cm),
+    margin: (top: 2cm, bottom: 2cm, left: 2cm, right: 2cm),
     fill: palette.bg,
     numbering: "1 / 1",
     number-align: right,
     header: context {
       if counter(page).get().first() > 1 [
-        #set text(size: 8pt, fill: palette.dim, font: "JetBrains Mono")
+        #set text(size: 7pt, fill: palette.dim, font: "JetBrains Mono")
         #title #h(1fr) #subtitle
         #line(length: 100%, stroke: 0.3pt + palette.border)
       ]
     },
   )
 
-  // Typography — monospace-first engineering register
+  // Typography — monospace-first engineering register; 9pt body for compression
   set text(
     font: ("JetBrains Mono", "IBM Plex Mono", "DejaVu Sans Mono", "Menlo"),
-    size: 10pt,
+    size: 9pt,
     fill: palette.text,
     lang: "en",
   )
-  set par(justify: true, leading: 0.65em, first-line-indent: 0pt)
+  set par(justify: true, leading: 0.55em, first-line-indent: 0pt, spacing: 0.7em)
 
-  // Heading hierarchy
+  // Heading hierarchy. Level-1 does NOT force-pagebreak — body sections flow
+  // continuously to hit the 30-60 page target. Front-matter pagebreaks are
+  // explicit in the template body below. Part-level pagebreaks (Subsystem
+  // Specifications / Cross-Cutting Analysis / Appendices) are added at
+  // those headings via explicit pagebreak() calls in main.typ.
   show heading.where(level: 1): it => {
-    pagebreak(weak: true)
-    v(1em)
-    block(fill: palette.amber, inset: (x: 6pt, y: 3pt))[
-      #set text(fill: palette.bg, weight: "bold", size: 14pt, font: "Chakra Petch")
+    v(0.8em)
+    block(fill: palette.amber, inset: (x: 6pt, y: 2pt))[
+      #set text(fill: palette.bg, weight: "bold", size: 12pt, font: "Chakra Petch")
       #it.body
     ]
-    v(0.6em)
+    v(0.3em)
     line(length: 100%, stroke: 1pt + palette.amber)
-    v(0.5em)
+    v(0.3em)
   }
   show heading.where(level: 2): it => {
-    v(1em)
-    set text(fill: palette.amber, weight: "semibold", size: 12pt, font: "Chakra Petch")
+    v(0.6em)
+    set text(fill: palette.amber, weight: "semibold", size: 10.5pt, font: "Chakra Petch")
     it.body
-    v(0.3em)
+    v(0.15em)
     line(length: 30%, stroke: 0.5pt + palette.amber)
   }
   show heading.where(level: 3): it => {
-    v(0.6em)
-    set text(fill: palette.cyan, weight: "semibold", size: 10.5pt, font: "Chakra Petch")
+    v(0.4em)
+    set text(fill: palette.cyan, weight: "semibold", size: 9.5pt, font: "Chakra Petch")
     it.body
   }
   show heading.where(level: 4): it => {
-    v(0.3em)
-    set text(fill: palette.cream, weight: "semibold", size: 10pt)
+    v(0.2em)
+    set text(fill: palette.cream, weight: "semibold", size: 9pt)
     it.body
   }
 
-  // Tables
+  // Tables — tight cell padding to compress vertical space
   set table(
     stroke: 0.3pt + palette.border,
-    inset: (x: 6pt, y: 4pt),
+    inset: (x: 5pt, y: 2.5pt),
   )
-  show table.cell.where(y: 0): set text(weight: "bold", fill: palette.amber, size: 9pt)
+  show table.cell.where(y: 0): set text(weight: "bold", fill: palette.amber, size: 8.5pt)
+
+  // Figure images — cap width so illustrative plates flow inside one page
+  // rather than getting pushed to the next-page top with whitespace above.
+  // Captions render in dim small text per PDR convention.
+  set image(width: 65%)
+  show figure: it => {
+    block(breakable: false, it)
+  }
+  show figure.caption: it => {
+    set text(size: 7.5pt, fill: palette.muted, style: "italic")
+    it
+  }
 
   // Links
   show link: it => {
@@ -152,12 +167,171 @@
   ]
   pagebreak()
 
+  // ---- Approval block ----
+  set page(margin: (top: 2cm, bottom: 2cm, left: 2cm, right: 2cm))
+  {
+    set text(fill: palette.text, size: 10pt)
+    heading(level: 1, numbering: none)[Approval]
+    text(size: 9pt, fill: palette.muted)[
+      This Preliminary Design Review package is offered for senior-engineer review
+      against the load-bearing requirements in §1 design basis and the verification
+      plan in Appendix F. Approval signatures below indicate that the named
+      reviewer has read the indicated section, agrees that the numerical baseline
+      and traceability matrix are internally consistent, and that the handwavium
+      ledger fully accounts for every claim that exceeds real-physics envelope.
+    ]
+    v(0.8em)
+    table(
+      columns: (1fr, 1.2fr, 1fr, 1.4fr),
+      align: (left, left, left, left),
+      stroke: 0.3pt + palette.border,
+      [*Role*], [*Section scope*], [*Reviewer*], [*Signature / Date*],
+      [Lead reviewer],              [Whole document],     [pending], [—],
+      [Structures \& materials],    [§2, App A],          [pending], [—],
+      [Reactor \& weapon],          [§3, §4, App A],      [pending], [—],
+      [Propulsion],                 [§5],                 [pending], [—],
+      [Life support \& C3],         [§6, §8],             [pending], [—],
+      [Defensive \& vulnerability], [§7, §9, App E],      [pending], [—],
+      [Handwavium \& V\&V],         [§10, §11, App F],    [pending], [—],
+      [DS-2 delta],                 [§12, App A2],        [pending], [—],
+    )
+    v(1em)
+    text(size: 9pt, fill: palette.dim)[
+      Reviewer-pass status: Phase 4 internal audit closed 2026-04-26 (zero
+      numerical discrepancies, zero broken citations, all HW↔DR traceability
+      bidirectional). External senior-engineer signatures pending.
+    ]
+  }
+  pagebreak()
+
+  // ---- Revision history ----
+  {
+    set text(fill: palette.text, size: 10pt)
+    heading(level: 1, numbering: none)[Revision History]
+    table(
+      columns: (auto, auto, 1fr),
+      align: (left, left, left),
+      stroke: 0.3pt + palette.border,
+      [*Version*], [*Date*], [*Summary*],
+      [0.1], [2026-04-21], [Initial commit. Phase 1 ref-doc → 13-section + 6-appendix split. Numerical baseline frozen: DS-1 = 120 km / 1.0 × 10¹⁸ kg, Alderaan = 2.24 × 10³² J, hypermatter = c² = 9 × 10¹⁶ J/kg.],
+      [0.2-rc1], [2026-04-22], [Phase 2 close: appendices A through F authored; HW-1..HW-10 ledger and DR-01..DR-16 V\&V matrix bidirectionally traced; DS-2 rebudget at 2.37 × 10¹⁸ kg; Typst pipeline scaffolded; CC-BY-NC-4.0 license adopted; public GitHub mirror.],
+      [0.2-rc2], [2026-04-26], [Phase 3 close: 17 programmatic figures rendered (Mermaid + Graphviz + matplotlib) and 13 illustrative figures generated (Nano Banana 2). All 30 inline-embedded in subsystem markdown with PDR-register captions. First end-to-end Typst PDF build (M-07).],
+      [0.2], [2026-04-26], [Phase 4 close: numerical cross-check, citation audit, HW traceability, V\&V consistency, and senior-engineer reader pass complete. Three §3.6 → §4.6 cross-references and one dead reverse-citation (Bobrick \& Martire) remediated. Phase 5 publication.],
+    )
+  }
+  pagebreak()
+
+  // ---- Distribution / classification ----
+  {
+    set text(fill: palette.text, size: 10pt)
+    heading(level: 1, numbering: none)[Distribution and Classification]
+    block(
+      fill: palette.amber.transparentize(90%),
+      stroke: 0.5pt + palette.amber,
+      inset: 12pt,
+      radius: 2pt,
+      width: 100%,
+    )[
+      #text(fill: palette.amber, weight: "semibold", size: 10pt, font: "Chakra Petch")[
+        SPECULATIVE / EDUCATIONAL — hybrid canon / real-physics technical fiction
+      ]
+      #v(0.4em)
+      #set text(size: 9pt, fill: palette.cream)
+      This document is a speculative engineering-spec exercise applied to a
+      copyrighted intellectual-property reference. It is offered as
+      educational technical-fiction analysis under fair-use doctrine and is
+      licensed for non-commercial reuse under
+      #text(fill: palette.cyan)[CC-BY-NC-4.0] (see `LICENSE`).
+      Star Wars and the Death Star concept remain trademarks and copyrighted
+      property of Lucasfilm Ltd. and the Walt Disney Company.
+    ]
+    v(0.8em)
+    text(size: 9pt, fill: palette.muted)[*Distribution.*]
+    v(0.2em)
+    set text(size: 9pt, fill: palette.text)
+    [
+      - *Public mirror:* https://github.com/doublegate/DS-1\_Plans
+      - *Source authority:* `ref-docs/Claude - DS-1 Orbital Battle Station Plans.md`
+      - *Derived document tree:* `docs/`
+      - *Canonical PDF artifact:* `dist/DS-1-PDR-v0.2.pdf` (this build)
+      - *Reproducibility:* every figure has a source artifact archived in
+        `docs/figures/_sources/` (Mermaid `.mmd`, Graphviz `.dot`, matplotlib
+        `F-figures.py`, plus per-illustrative prompt-blocks in `docs/appendix-D2-figure-prompts.md`).
+        The Typst build pipeline is `typeset/build.sh` (requires pandoc ≥ 3.0,
+        typst ≥ 0.11, JetBrains Mono, Chakra Petch).
+    ]
+    v(0.5em)
+    text(size: 9pt, fill: palette.muted)[*Errata channel.*]
+    v(0.2em)
+    set text(size: 9pt, fill: palette.text)
+    [
+      Issues are tracked at the public GitHub repository above. Use the
+      *Peer Review* template for numerical / citation / canon corrections;
+      *Bug Report* for console (`proj-code/`) or Typst-build problems;
+      *Question* for everything else. Pull requests are welcome from Phase 4
+      onward.
+    ]
+  }
+  pagebreak()
+
   // ---- Table of contents ----
-  set page(margin: (top: 2.5cm, bottom: 2.5cm, left: 2.5cm, right: 2.5cm))
   {
     set text(fill: palette.text, size: 10pt)
     heading(level: 1, numbering: none)[Contents]
-    outline(title: none, indent: auto, depth: 3)
+    outline(title: none, indent: auto, depth: 2)
+  }
+  pagebreak()
+
+  // ---- List of figures ----
+  {
+    set text(fill: palette.text, size: 10pt)
+    heading(level: 1, numbering: none)[List of Figures]
+    outline(title: none, indent: auto, target: figure.where(kind: image))
+  }
+  pagebreak()
+
+  // ---- List of tables ----
+  {
+    set text(fill: palette.text, size: 10pt)
+    heading(level: 1, numbering: none)[List of Tables]
+    outline(title: none, indent: auto, target: figure.where(kind: table))
+  }
+  pagebreak()
+
+  // ---- Acronym short-list ----
+  // Curated subset; full glossary lives in Appendix B.
+  {
+    set text(fill: palette.text, size: 10pt)
+    heading(level: 1, numbering: none)[Acronyms (short-list)]
+    text(size: 9pt, fill: palette.muted)[Full nomenclature in Appendix B.]
+    v(0.6em)
+    table(
+      columns: (auto, 1fr),
+      align: (left, left),
+      stroke: 0.3pt + palette.border,
+      [*Term*], [*Expansion*],
+      [PDR],     [Preliminary Design Review (this document register)],
+      [DS-1 / DS-2], [First / Second Death Star Orbital Battle Station],
+      [HW-{n}],  [Handwavium concession ID, n = 1..10 (see §10 / Appendix F §F.4)],
+      [DR-{n}],  [Derived Requirement, n = 01..16 (see §1 / Appendix F §F.3)],
+      [SR-{n}],  [Stakeholder Requirement, n = 01..08 (see §1)],
+      [A / I / T / C], [V\&V class: Analysis / Inspection / Test-eligible / Concession],
+      [MPT],     [Mass / Power / Thermal (consolidated budget in Appendix A / A2)],
+      [FMEA],    [Failure Modes \& Effects Analysis (Appendix E)],
+      [V\&V],    [Verification \& Validation (Appendix F)],
+      [RPN],     [Risk Priority Number = Severity × Occurrence × Detection],
+      [ECLSS],   [Environmental Control \& Life Support System (§6.3)],
+      [ISRU],    [In-Situ Resource Utilisation (§2.5)],
+      [LIDT],    [Laser-Induced Damage Threshold (§4.2)],
+      [CIWS],    [Close-In Weapon System (§9.3 doctrine fix)],
+      [KKV],     [Kinetic Kill Vehicle (§7.6 / §7.5)],
+      [SLD-26],  [DS-2 Endor planetary shield generator (§12.4)],
+      [SSP06 / SSP05], [Isu-Sim hyperdrive generator classes (§5.2)],
+      [SFS-CR27200], [Sienar Fleet Systems hypermatter reactor designation (§3 / §4.1)],
+      [c²],      [Hypermatter specific energy = 9 × 10¹⁶ J/kg (HW-3 storage; HW-2 production)],
+      [L☉],      [Solar luminosity, 3.828 × 10²⁶ W (used as scale-reference)],
+      [M☉],      [Solar mass, 1.989 × 10³⁰ kg (used as scale-reference)],
+    )
   }
   pagebreak()
 
