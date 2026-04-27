@@ -55,14 +55,27 @@ References live in `docs/appendix-C-references.md` grouped as: **Canon/Legends**
 
 ### Typst → PDF (markdown spec)
 
-Requires pandoc ≥ 3.0, Typst ≥ 0.11, and the JetBrains Mono + Chakra Petch fonts.
+Requires pandoc ≥ 3.0, Typst ≥ 0.11, and the JetBrains Mono + Chakra Petch fonts. macOS install: `brew install pandoc typst && brew install --cask font-jetbrains-mono font-chakra-petch`.
 
 ```
 ./typeset/build.sh          # one-shot: docs/*.md → typeset/generated/*.typ → dist/DS-1-PDR-v0.2.pdf
 ./typeset/build.sh --watch  # iterative authoring (typst watch)
 ```
 
-`typeset/main.typ` `#include`s sections in `SECTIONS=` order; `typeset/template.typ` carries the palette and styling. `typeset/generated/` is gitignored (regenerated each build). Excluded from the PDF: `docs/README.md`, `docs/appendix-D2-figure-prompts.md` (working/index docs).
+`typeset/main.typ` `#include`s sections in `SECTIONS=` order with `#pagebreak()` before each part heading (Subsystem Specifications / Cross-Cutting Analysis / Appendices); `typeset/template.typ` carries the palette, front matter (cover · approval block · revision history · distribution / classification · TOC · LoF · LoT · acronym short-list), styling, and helper functions. `typeset/generated/` is gitignored (regenerated each build). Excluded from the PDF: `docs/README.md`, `docs/appendix-D2-figure-prompts.md` (working/index docs).
+
+**Build-pipeline patches required for current toolchain.** The pipeline carries four non-obvious adjustments for pandoc 3.9 / typst 0.14 — if any of these are reverted, the build either silently produces a figure-less PDF or fails outright:
+
+1. **`pandoc --from=gfm+implicit_figures`** — without `+implicit_figures`, pandoc 3.9 emits `#box(image(...))` for standalone `![alt](path)` lines instead of `#figure(image(...), caption: [alt])`. Captions then disappear.
+2. **Per-file `#import "../template.typ": horizontalrule` injection** at the top of every generated `.typ`. Pandoc emits `#horizontalrule` for markdown `---` thematic breaks but Typst has no built-in; `#include`d files run in headless scope so a parent-scope `#let` is not visible. The shim itself lives in `template.typ`.
+3. **Image-path rewrite via sed** — `../figures/` (correct from `docs/`) → `../../docs/figures/` (correct from `typeset/generated/`).
+4. **`typst compile --root "$PROJECT_ROOT"`** — Typst restricts file access to its project root (default = `typeset/`); without `--root` set to the repo root, all cross-directory `image()` calls fail with `access denied`.
+
+All four are implemented in `typeset/build.sh`; do not remove without re-validating with `pdfinfo dist/DS-1-PDR-v0.2.pdf | grep Pages` and `grep -c '#figure(image(' typeset/generated/*.typ` (expect 30 figure embeds across body docs).
+
+### Figure-embedding convention
+
+All 30 figures in `docs/appendix-D` §D.3 are inline-embedded in their owning subsystem markdown via the documented `![F-{id} — {title}. {description}.](../figures/F-{id}.png)` syntax. Placement is per `docs/appendix-D2-figure-prompts.md` §D2.4–D2.6 (the prompt directives) and §D.3 (the figure index). Three figures have **dual homes**: F-3.3 (reactor → beam chain) lives in `03 §3.2` with cross-reference from `04 §4.1`; F-7.2 (tractor busbar) lives in `07 §7.4` with cross-ref from `09 §9.3`; F-7.4 (DS-1 vs DS-2 exhaust) lives in `07 §7.7` with cross-ref from `12 §12.5`. Embedding the same figure twice produces duplicate `#figure` calls and breaks Typst's auto-numbering — always embed once and cross-reference from the secondary location with prose like `*See Figure F-X.Y (in §N.M) for ...*`.
 
 ### Vite + TypeScript (interactive console)
 
@@ -85,9 +98,17 @@ The console ships in two parallel forms: `proj-code/DS1-Engineering-Console.html
 - **Don't touch `ref-docs/` casually** — prefer `Edit` over `Write` if you do, and preserve existing table/equation formatting. Most edits should land in `docs/`.
 - **Never modify `code-artifacts/`** — frozen reference implementations per CONTRIBUTING.md.
 - **Numerical edits are dual-target:** the `proj-code/src/data/` modules duplicate spec numbers. An edit to a baseline figure in `docs/01-design-basis.md` (or any subsystem doc) should propagate to the matching `data/*.ts` module, and vice versa.
-- **Phase scope is locked.** Per CONTRIBUTING.md: no new subsystems, no `docs/` structural refactors, no `proj-code/` scope expansion until phase 4 opens. Current phase: **Phase 3 (figures) in progress**, see `to-dos/PROJECT-STATUS.md` for live status.
+- **Project state.** **v0.2 released** (commit `a4fc0c0`, annotated tag `v0.2`, GitHub release at https://github.com/doublegate/DS-1_Plans/releases/tag/v0.2). All five Phases (0–5) closed. Open follow-ups (non-blocking, v0.3 trail): S3.5 illustrative-figure iteration (re-render F-2.1 / F-A.1 / F-7.4 to fix Nano Banana 2 label artifacts; M-05 partial — 17/30 figures FINAL); external senior-engineer reviewer signatures (Approval block in front matter is set up to receive them); optional standalone reactor schematic. See `to-dos/PROJECT-STATUS.md` for live status and `CHANGELOG.md` for the full release history.
+- **Phase scope is locked.** Per CONTRIBUTING.md: no new subsystems, no `docs/` structural refactors, no `proj-code/` scope expansion. Substantive content changes that affect the numerical baseline, traceability matrix, or the figure inventory require a version bump and a re-verification pass across `appendix-A`, `appendix-F`, and the relevant subsystem docs.
 - **Status updates:** any milestone-level change updates `to-dos/PROJECT-STATUS.md` in the same commit.
 
 ## Commit / PR conventions
 
-Conventional-commits prefixes (`feat:` / `fix:` / `docs:` / `refactor:` / `chore:`). PRs are not welcomed until phase 4 opens (file an issue first; user marks `pr-welcome` if appropriate). GitHub issue templates (Peer Review / Bug Report / Question) are in `.github/ISSUE_TEMPLATE/`.
+Conventional-commits prefixes (`feat:` / `fix:` / `docs:` / `refactor:` / `chore:` / `release:`). Commit messages are expected to be **comprehensive and technically detailed** — explain the *why*, the *how*, and the verification approach for the change, not just the *what*. Stage files explicitly rather than `git add -A` when secrets risk applies; the `.gitignore` already covers `dist/`, `node_modules/`, `typeset/generated/`, and the matplotlib venv. Pull requests are welcome from Phase 4 onward; GitHub issue templates (Peer Review / Bug Report / Question) are in `.github/ISSUE_TEMPLATE/`.
+
+## Release process
+
+- Annotated git tags `vN.M` (e.g. `v0.2`) mark release artifacts.
+- A successful build produces `dist/DS-1-PDR-vN.M.pdf` (gitignored — reproducible from the tagged commit + the documented toolchain).
+- Capture `shasum -a 256 dist/DS-1-PDR-vN.M.pdf` and record it in `CHANGELOG.md` and the GitHub release notes (Typst stamps a creation timestamp into PDF metadata, so a fresh rebuild yields a different byte-level SHA but identical visual content; the recorded SHA is for the canonical attached artifact).
+- GitHub releases are created via `gh release create vN.M dist/DS-1-PDR-vN.M.pdf --title "..." --notes-file <release-notes.md>`. Notes should mirror the structure used for v0.2: artifact metadata table → spec contents → methodology → audit summary → reproducibility → version history → open follow-ups → acknowledgements.
