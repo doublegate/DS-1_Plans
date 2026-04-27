@@ -84,7 +84,7 @@ All three are canonically absorbed into "hypermatter containment."
 
 ## Cross-references
 
-- Beam-as-entropy-exporter coupling: `04-superlaser.md` §3.6
+- Beam-as-entropy-exporter coupling: `04-superlaser.md` §4.6
 - Exhaust-port architecture consequence: `09-vulnerability-analysis.md` §8 and `02-structural-and-materials.md` §2.7
 - HW-2, HW-3, HW-4: `10-handwavium-ledger.md`
 - Consolidated power/thermal budget: `appendix-A-mass-power-thermal-budget.md`

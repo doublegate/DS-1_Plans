@@ -52,7 +52,7 @@ A 120-km sphere is the correct geometry: minimum surface-area-to-volume ratio mi
 
 **Thermal gradient is the structural driver.** At 1 AU in direct solar insolation, sub-solar-point equilibrium temperature is 270–390 K depending on finish; deep-shadow limb is 70–120 K. **ΔT ≈ 250 K across the hull**, producing α·L·ΔT ≈ 12×10⁻⁶ × 1.2×10⁵ × 250 ≈ **360 m of differential expansion**. The hull must incorporate expansion joints at kilometer scale — the canonical supplementary trenches halfway to each pole serve this function naturally.
 
-**Superlaser recoil is a structural event.** Photon-pressure recoil at 2.24 × 10³² W is ~10¹⁹ N over the firing interval, comparable to local self-weight at some reference point in the structure. The design must include an axial back-brace running pole-to-pole through the reactor core to absorb firing impulse. See `04-superlaser.md` §3.6 for the momentum-conservation argument that requires either a hypermatter-dense ~10²⁵ kg station core or a reactionless beam.
+**Superlaser recoil is a structural event.** Photon-pressure recoil at 2.24 × 10³² W is ~10¹⁹ N over the firing interval, comparable to local self-weight at some reference point in the structure. The design must include an axial back-brace running pole-to-pole through the reactor core to absorb firing impulse. See `04-superlaser.md` §4.6 for the momentum-conservation argument that requires either a hypermatter-dense ~10²⁵ kg station core or a reactionless beam.
 
 ![F-2.3 — Load-path hierarchy. Hull → 24 ring frames → radial spokes → central N-S axial truss → reactor mount + axial back-brace.](../figures/F-2.3.png)
 
@@ -95,4 +95,4 @@ Thermal-management engineering is detailed in `03-power-generation.md` §2.3 and
 - Mass-budget flow-through: `appendix-A-mass-power-thermal-budget.md`
 - ISRU throughput concession: HW-10 in `10-handwavium-ledger.md`
 - Thermal-gradient driver couples to reactor thermal rejection in `03-power-generation.md`
-- Recoil structural event couples to `04-superlaser.md` §3.6
+- Recoil structural event couples to `04-superlaser.md` §4.6

@@ -37,7 +37,7 @@ Speculative-physics framings:
 | Morris-Thorne wormhole | Stabilized throat | ~−M☉c² of negative energy | Yes | Poor — fixed endpoints |
 | Randall-Sundrum brane / Kaluza-Klein | Bulk-dimension shortcut | Unknown; arbitrarily tunable | Unknown | Excellent — matches "hyperspace" as separate manifold |
 
-Scaling the Lentz soliton to a 120-km bubble gives approximately **E ~ 10⁴⁵ J** of active field energy (50 solar masses of rest-energy). The canonical resolution is that hypermatter sources this in a resonant-cavity sense — the reactor generates and reabsorbs the field energy rather than dissipating it. Tracked as HW-7.
+Scaling the Lentz soliton to a 120-km bubble gives approximately **E ~ 10⁴⁵ J** of active field energy (50 solar masses of rest-energy). The canonical resolution is that hypermatter sources this in a resonant-cavity sense — the reactor generates and reabsorbs the field energy rather than dissipating it. The modern survey by Bobrick & Martire (2021, arXiv:2102.06824) of the general-relativistic warp-drive parameter space is the standard secondary reference for the energy-floor claims in the table above. Tracked as HW-7.
 
 **Thermal entry/exit:** Even 0.001% dissipation on 10⁴⁵ J is 10⁴⁰ J — enough to vaporize the station and a small moon. Canon is adamant that hyperspace transitions are clean. This is the hardest handwavium flag in the whole system.
 

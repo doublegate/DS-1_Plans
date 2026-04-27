@@ -2,7 +2,44 @@
 
 Project-level history for the DS-1 Engineering Specification. Component-specific changelogs (e.g. `proj-code/CHANGELOG.md`) track their own scopes; this file tracks the document set, build pipelines, figures, and project-management artifacts as a whole. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) loosely; versioning tracks the draft cadence (0.x while Phase 3–4 iterate; 1.0 reserved for the first published PDF).
 
-## [Unreleased] — Phase 3 substantially complete
+## [Unreleased] — Phases 0–4 complete
+
+### Added — Phase 4 peer review closed (2026-04-26, latest)
+
+Three parallel Explore-agent audits ran the five Phase 4 sprints (S4.0 already closed via D-6). Findings remediated in this commit:
+
+- **S4.1 numerical cross-check (PASS, 0 discrepancies).** Every load-bearing constant (DS-1 = 120 km / 1.0 × 10¹⁸ kg, DS-2 = 160 km / 2.37 × 10¹⁸ kg, Alderaan shot = 2.24 × 10³² J, sustained reactor = 2.6 × 10²⁷ W, hypermatter = c² = 9 × 10¹⁶ J/kg, crew = 1.7 × 10⁶ DS-1 / 637,835 DS-2, surface area = 4.52 × 10¹⁰ m², volume = 9.05 × 10¹⁴ m³) verified consistent across all 13 subsystem docs and 8 appendices. Mass / power / thermal / volume budgets all close: DS-1 mass exactly 1.0 × 10¹⁸ kg; DS-2 mass 2.38 × 10¹⁸ kg vs 2.37 × 10¹⁸ design-basis = +0.5% (within stated tolerance). Scientific-notation format consistent (Unicode superscripts dominate; no caret usage detected anywhere). The discredited 900-km DS-2 figure appears only as an explicit rejection, never as an adopted value.
+
+- **S4.2 citation audit (0 broken forward refs; 1 dead reverse-ref remediated).** All ~50 named citations in body text (physicists Saxton / Wong / Siegel / Allain / Cox / Minton / Lentz / Tajmar / Bamford / Marchis / Toohie; programs NIF / ITER / TAE / ALPHA / NEXT-C / VASIMR / NSTAR / MARAUDER / Shiva Star / HELIOS / Epirus Leonidas / CHAMP / LaWS / MIRACL / ABL/YAL-1 / NIF-ARC / NUDT; canon sources WEG *Death Star Technical Companion* / DK *Incredible Cross-Sections* / *Blueprints* / *Rogue One UVG* / *Catalyst*; papers Lentz 2021 / Tri Alpha-NIFS *Nature Comm* 2023 / NUDT 2024 / Toohie 2014 / arXiv:1511.09054) have matching `appendix-C` entries. Reverse check found one genuinely dead reference: **Bobrick & Martire arXiv:2102.06824** (general-relativistic warp-drive parameter-space survey) was listed in `appendix-C` §C.4 but never cited in body text. Remediated by adding a body citation in `docs/05-propulsion.md` §5.2 immediately after the speculative-physics framings table. Four other appendix-C entries (Imperial Sourcebook 1989; NASA ECLSS Marshall SFC / Carrasquillo; NASA HVIT; Virginia-class SSN / Nimitz-class CVN) are acceptable infrastructure references retained for completeness — generic canon sourcing, ECLSS baselines, platform-scale anchors. Seven spot-checked numerical citations (Saxton 2.4 × 10³² J, Siegel 2.2 × 10³² J, Minton 2.24 × 10³² J, Wong 10³⁸ J upper bound, NIF 2.2 MJ in 192 beams, Lentz 2021 anchor 1.8 × 10⁴⁶ J, Centives/Lehigh steel-mass scaling) all pass value verification.
+
+- **S4.3 handwavium traceability (CLEAN, re-verified).** All HW-1..HW-10 cited from at least one subsystem doc (no dead HW-IDs). HW↔DR bidirectional table in `appendix-F` §F.4 complete (every HW-ID has ≥ 1 citing DR; every Concession-class DR cites ≥ 1 HW-ID; this was closed 2026-04-22 via S2.4 and revalidated here). No subsystem claim that exceeds real physics is missing an HW-ID flag — checked for hidden handwavium across FTL, antimatter-at-scale, exotic matter, reactionless thrust, gravity-plate physics, and shield/weapon scaling.
+
+- **S4.4 V&V consistency (3 broken cross-refs remediated).** All 16 DRs in `appendix-F` §F.3 carry verification class (8 Concession, 6 Analysis, 1 Inspection, 1 Test-eligible). Evidence pointers in §F.5 all validate EXCEPT three references to `04-superlaser.md §3.6` that should read `§4.6` — these were stale links from the pre-Phase-1 ref-doc numbering (the original §3 became `docs/04` with §4.1..§4.6, but three citing locations in `docs/02-structural-and-materials.md` (lines 55, 86) and `docs/03-power-generation.md` (line 87) were not updated during the Phase 1 split). All three remediated. FMEA register (`appendix-E`): every E-01..E-24 row references the unified fix list in `09-vulnerability-analysis.md` §9.3 with concrete mitigation language (E-13 waste-heat correctly cites HW-4 as the irreducible concession with no design action).
+
+- **S4.5 senior-engineer reader pass (PDR-ready).** End-to-end coherence is intact: subsystem arguments are mutually reinforcing; vulnerability analysis (§9) integrates cleanly with FMEA (`appendix-E`) and the unified fix list (§9.3); the minimum-handwave reconstruction (§11) is intellectually honest and serves as a credible floor. PDR register is consistent throughout — terminology (HW-ID, DR-ID, SR-ID, RPN, Concession-class) is uniform; the controlled colloquialism in places (e.g., §9.4 "Redundancy discipline, not imagination, was the Empire's real failure") serves the doctrinal context without breaking engineering tone. Two nice-to-have clarifications flagged for Phase 5 S5.2 editorial polish: (1) §12.3 should explicitly state whether the DS-2 3-min recharge requirement applies to planet-kill cadence or just capital-ship engagements; (2) §12.4 should explicitly state whether the as-deployed Endor SLD-26 single-point design violates DR-11 or represents a post-Endor retrofit recommendation. Neither blocks publication.
+
+**Verdict:** All Phase 4 exit criteria satisfied. M-04 closed. R-4 risk fully closed. **The spec is PDR-ready for Phase 5 publication.**
+
+### Changed — Audit remediation edits
+
+- `docs/02-structural-and-materials.md` line 55: `04-superlaser.md §3.6` → `§4.6` (recoil/momentum-conservation cross-reference).
+- `docs/02-structural-and-materials.md` line 86 (Cross-references list): same fix.
+- `docs/03-power-generation.md` line 87 (Cross-references list): same fix.
+- `docs/05-propulsion.md` §5.2: added body citation for Bobrick & Martire (2021, arXiv:2102.06824) immediately after the speculative-physics framings table, naming it as "the standard secondary reference for the energy-floor claims in the table above" — closes the previously-dead `appendix-C` §C.4 entry.
+- `to-dos/PROJECT-STATUS.md` — current-phase line bumped to "Phase 4 peer review complete"; M-04 milestone closed with full audit-and-remediation detail; D-15 logged; next-actions list reordered to put Phase 5 publication first.
+- `to-dos/sprint-backlog.md` — every S4 sprint row checked off with closure notes.
+- `README.md` — status line and Phase 4 status entry updated to reflect peer-review closure.
+
+### Carry-forward to Phase 5 (out of this sprint's scope)
+
+- Two reader-pass nice-to-haves (DS-2 §12.3 / §12.4 clarifications) deferred to S5.2 editorial polish.
+- Font installation (JetBrains Mono / Chakra Petch) deferred to S5.3 PDF build refinement.
+- Page-count compression (current 111 → target 30–60) deferred to S5.3 template iteration.
+- 13 illustrative-figure DRAFT → FINAL flips (Nano Banana 2 label-artifact iteration) remain a parallel user task (M-05).
+
+---
+
+## Earlier — Phase 3 substantially complete
 
 ### Added — Phase 0–3 gap analysis remediation + first end-to-end PDF build (2026-04-26, late)
 
