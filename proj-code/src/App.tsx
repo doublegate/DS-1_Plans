@@ -21,13 +21,13 @@ import type { TabDef } from './types';
 export default function App() {
   const [tab, setTab] = useState('command');
   const [firing, setFiring] = useState(0);
-  const firingRaf = useRef(null);
+  const firingRaf = useRef<number | null>(null);
 
   // Superlaser firing animation sequencer
   const startFire = () => {
     if (firing > 0) return;
     const start = performance.now();
-    const step = (t) => {
+    const step = (t: number) => {
       const dt = (t - start) / 1000; // s
       const f = Math.min(dt / 3.5, 1); // 3.5 s sequence
       setFiring(f);
@@ -39,7 +39,7 @@ export default function App() {
     firingRaf.current = requestAnimationFrame(step);
   };
 
-  useEffect(() => () => firingRaf.current && cancelAnimationFrame(firingRaf.current), []);
+  useEffect(() => () => { if (firingRaf.current !== null) cancelAnimationFrame(firingRaf.current); }, []);
 
   const TABS = [
     { id: 'command', label: 'Command', icon: Activity, code: '§0' },
