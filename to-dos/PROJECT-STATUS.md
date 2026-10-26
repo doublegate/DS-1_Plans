@@ -70,7 +70,7 @@
 | R-3 | Typesetting path | — | — | **Closed 2026-04-22 via D-8:** Typst |
 | R-4 | HW-4, HW-6, HW-8, HW-9 without explicit DR | — | — | **Closed 2026-04-22 via Phase 2 S2.4:** DR-13..DR-16 added |
 | R-5 | LICENSE not yet committed (NOTICE placeholder in place) | — | — | **Closed 2026-04-22 via D-11:** CC-BY-NC-4.0 adopted; LICENSE file + NOTICE.md updated |
-| R-6 | Vite build output parity with CDN distributable HTML | Low (two build paths diverge without discipline) | — | Open — track during proj-code Vite build verification |
+| R-6 | Vite build output parity with CDN distributable HTML | Low (two build paths diverge without discipline) | — | **Closed 2026-10-26 via v1.2:** `proj-code/scripts/sync-standalone-html.mjs` auto-generates `DS1-Engineering-Console.html` from `src/` on every `npm run build` with pinned `@babel/standalone@7.26.9` |
 
 ## Decision log
 

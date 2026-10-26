@@ -2,8 +2,7 @@ import React from 'react';
 import type { RadialGaugeProps } from '../types';
 import { THEME } from '../theme';
 
-// Circular progress-ring gauge. Reused from the JSX reference (removed from the
-// cleanup-pass TSX but kept here as a first-class primitive for future tabs).
+// Circular progress-ring gauge.
 export const RadialGauge: React.FC<RadialGaugeProps> = ({
   value,
   max = 100,
@@ -46,7 +45,7 @@ export const RadialGauge: React.FC<RadialGaugeProps> = ({
           {unit}
         </text>
       </svg>
-      <span className="text-[10px] tracking-widest uppercase mt-1" style={{ color: THEME.textMuted }}>
+      <span className="text-[11px] tracking-widest uppercase mt-1" style={{ color: THEME.textMuted }}>
         {label}
       </span>
     </div>

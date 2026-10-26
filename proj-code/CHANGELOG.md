@@ -1,8 +1,42 @@
 # CHANGELOG — proj-code/ vs code-artifacts/
 
-**Latest synthesis:** 2026-04-22 (v1.1 refactor)
+**Latest synthesis:** 2026-10-26 (v1.2 Impeccable critique remediation, strict TypeScript, build-parity automation, and interactive trade-study/reference enhancements)
 **Base references:** `code-artifacts/DS1-Engineering-Console.html`, `code-artifacts/ds1-engineering-console.tsx`
 **Not included:** `code-artifacts/DS1-Engineering-Console.jsx` — functionally equivalent to the TSX but with residual bugs the TSX already fixed; the TSX is treated as the canonical source form.
+
+---
+
+## Final v1.2 — 2026-10-26 (Impeccable critique remediation & CDR-ready UX/build enhancements)
+
+### P0 — Blocker & Print-Dossier Fixes
+1. **Closed Risk R-6 (Vite source ↔ CDN HTML parity) & Babel 8 crash.**
+   Added [`scripts/sync-standalone-html.mjs`](./scripts/sync-standalone-html.mjs), wired into `npm run build` and `npm run sync-html`. It transpiles all 37 `src/` TypeScript/TSX modules into clean ES2022 + JSX via TypeScript's compiler API (`ts.transpileModule`) and bundles them into `DS1-Engineering-Console.html` with `@babel/standalone` pinned to `@7.26.9` (`presets: ['react']`), eliminating the unpinned Babel 8.0.0 runtime crash (`Cannot find module '@babel/plugin-syntax-jsx'`).
+2. **Restored `@media print` A4 Dossier Export (`print.css`, `Panel.tsx`, `Pill.tsx`).**
+   Added explicit `className="panel ..."` / `data-panel="true"` on `Panel` and `className="pill ..."` / `data-pill="true"` on `Pill`, updated `print.css` to invert inline dark styles cleanly for A4 landscape PDF printing, and added one-click **PRINT A4** triggers in the top command header and Ledger tab.
+3. **WCAG AA Contrast Compliance (`theme.ts`, `Pill.tsx`).**
+   Raised `THEME.textDim` (`annotation-dim`) from `#5a5f6a` (2.6:1 contrast failure) to `#828997` (4.81:1 on `#1a1d26`), `THEME.textMuted` (`telemetry-muted`) from `#8a8f9a` to `#949aa6`, and `Pill` badge foreground tones to high-contrast variants (`#fbbf24`, `#f87171`, `#22d3ee`, `#4ade80`, `#c084fc`), achieving 0 low-contrast warnings across the DOM.
+
+### P1 — Accessibility, Typography, Charts & Traceability
+4. **Full Strict TypeScript (`tsconfig.json`: `"strict": true`, `"noImplicitAny": true`, `"noUnusedLocals": true`).**
+   Resolved all implicit-any callback parameters and Recharts `Tooltip` formatter signatures across all 9 tabs; removed unused Recharts/Lucide imports.
+5. **Vite Bundle Splitting & Render Performance (`vite.config.ts`, `StationDiagram.tsx`, `useCountUp.ts`).**
+   Configured `manualChunks` (`vendor-react`, `vendor-recharts`, `vendor-icons`), reducing the application chunk to `158 kB` (`45.5 kB` gzip) with zero 500 kB warnings. Precomputed all 13 latitude rings, 8 meridian arcs, and 180 seeded weapon-speckle coordinates at module scope in `StationDiagram.tsx` and wrapped the component in `React.memo`. Added `prefers-reduced-motion: reduce` support in `useCountUp.ts` and `global.css`.
+6. **Horizontal Bar Charts & Persistent Mass-Budget Legend (`CommandTab`, `ReactorTab`, `DefenseTab`, `DS2Tab`, `StructureTab`).**
+   Converted cramped vertical category bar charts with angled labels into horizontal `layout="vertical"` bar charts so full engineering labels render legibly without clipping. Added a persistent 9-row clickable mass-allocation breakdown next to the donut chart in `StructureTab`.
+7. **Interactive Cross-Tab Traceability & URL Hash Deep-Linking (`App.tsx`, all tabs).**
+   Clustered the 9 navigation tabs into 3 logical groups (`Overview` · `Subsystems` · `Verification & Delta`) with canonical `docs/` section codes (`§00–01` .. `Appx B–F`), full WAI-ARIA `tablist`/`tab`/`tabpanel` keyboard navigation (`ArrowLeft`/`ArrowRight`/`Home`/`End`), and URL hash deep-linking (`#ledger:DR-13`, `#physics:HW-4`). Clicking any `HW-*`, `DR-*`, or `E-*` pill jumps directly to the target tab, scrolls the target row/panel into view, and highlights it.
+8. **Construction Timeline Controls & Cost Reconciliation (`ConstructionTab.tsx`).**
+   Added `aria-label` and `aria-valuetext` to the timeline scrubber, added visible `RESET` text and `aria-label` to the reset button, converted the 7 phase cards into interactive `<button type="button">` elements that pause auto-play on selection, and reconciled the `$6,600 Q` (`$6.6 × 10¹⁸`) cumulative schedule cost against the `$6,040 Q` direct subsystem sum + `$560 Q` orbital security/reserve allocation.
+9. **Complete Crew Manifest (`DriveTab.tsx`).**
+   Removed `.slice(0, 5)` truncation on `CREW_MANIFEST` so all 8 personnel categories (`1.75M` total complement) are displayed.
+
+### New Interactive Engineering Features
+10. **Interactive Hypermatter Coupling & Waste-Heat Trade-Study Calculator (`ReactorTab.tsx`, `§03.3 / HW-4 / DR-13`).**
+    Live parametric sliders for decoupling fraction $\log_{10}(1-\eta)$ (`-10` to `-1`), hull radiator temperature $T_{\text{rad}}$ (`300 K–5,800 K`), and recharge cycle (`24 h` DS-1 vs `4 min` DS-2), computing real-time waste heat per shot, blackbody radiative ceiling ($A \sigma T^4$), radiative cooldown duration, required radiator area multiple, and pass/fail status against `DR-13`.
+11. **Appendix B & F Nomenclature Glossary Drawer (`GlossaryDrawer.tsx`, `glossaryAndSources.ts`).**
+    Slide-over searchable modal (`role="dialog"`, `aria-modal="true"`, `Escape`-to-close) indexing physical symbols, Imperial/engineering acronyms, canon hardware designations, and `Appendix F` V&V verification classes (`A`/`I`/`T`/`C`) with one-click navigation to owning subsystem tabs.
+12. **Appendix C Primary Literature Index & Live Citations (`LedgerTab.tsx`, `realWorld2026.ts`, `glossaryAndSources.ts`).**
+    Added primary literature citations and external links (`DOI` / `arXiv` / `NASA` / `LLNL`) to all 8 `REAL_WORLD_2026` analog cards (updated with NASA Psyche's completed May 2026 Mars gravity assist) plus a filterable 14-entry **Primary Source Citations & Literature Index (`Appendix C`)** panel in the Ledger tab.
 
 ---
 
@@ -131,11 +165,11 @@
 - [x] Vite scaffold — package.json / tsconfig / vite.config / index.html / main.tsx all present
 - [x] Print stylesheet — src/styles/print.css
 
-### Still deferred
+### Deferred items resolved in v1.2 (2026-10-26)
 
-- **Full strict TypeScript.** Tab bodies retain implicit-any for callback params and inline handlers. Tightening would require threading types through ~2,000 lines of JSX; scheduled as a cleanup sprint.
-- **Unit / smoke tests.** No testing harness yet; would be the natural next sprint after Phase 3 figure iteration.
-- **Sources panel with live links** in the Ledger tab (currently just natural-language citations).
+- [x] **Full strict TypeScript.** Enabled `"strict": true`, `"noImplicitAny": true`, and `"noUnusedLocals": true` in `tsconfig.json` with zero errors across all 37 modules.
+- [x] **Sources panel with live links** in the Ledger tab (`PRIMARY_SOURCES` Appendix C literature index + live URLs on `REAL_WORLD_2026`).
+- [x] **Automated Vite ↔ CDN HTML synchronization** via `scripts/sync-standalone-html.mjs` (closing Risk R-6).
 
 ---
 

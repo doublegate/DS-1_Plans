@@ -1,23 +1,96 @@
-import React, { useState, useEffect, useRef } from 'react';
-import type { StationDiagramProps } from '../types';
+import React, { useMemo } from 'react';
+import type { StationDiagramProps, TabId } from '../types';
 import { THEME } from '../theme';
 
-export const StationDiagram: React.FC<StationDiagramProps> = ({ buildProgress = 1, firing = 0, showLabels = true, variant = 'DS1', size = 520 }) => {
+// Precomputed normalized geometry tables so 60fps RAF animations do zero redundant trig.
+const LAT_INDICES = Array.from({ length: 11 }, (_, i) => (i + 1) * 15 - 90);
+const MERIDIAN_INDICES = Array.from({ length: 8 }, (_, i) => i);
+const SURFACE_SPECKLES = Array.from({ length: 80 }, (_, i) => {
+  const a = ((i * 137.5) * Math.PI) / 180;
+  const radNorm = 0.2 + (i % 7) * 0.1;
+  return { ux: radNorm * Math.cos(a), uy: radNorm * Math.sin(a) };
+});
+const WEAPON_SPECKLES = Array.from({ length: 120 }, (_, i) => {
+  const seed = i * 2.39996;
+  const rNorm = 0.5 + ((i * 7) % 10) / 28;
+  const ux = rNorm * Math.cos(seed);
+  const uy = rNorm * Math.sin(seed * 1.618);
+  return { ux, uy, valid: Math.hypot(ux, uy) <= 0.95 };
+}).filter(p => p.valid);
+
+const StationDiagramBase: React.FC<StationDiagramProps> = ({
+  buildProgress = 1,
+  firing = 0,
+  showLabels = true,
+  variant = 'DS1',
+  size = 520,
+  onSelectSubsystem,
+}) => {
   const R = size / 2;
   const cx = R;
   const cy = R;
-  const sphereR = R * 0.85;
+  const sphereR = R * 0.82;
   const coreR = sphereR * 0.13;
   const dishR = sphereR * 0.25;
   const dishCx = cx;
   const dishCy = cy - sphereR * 0.42;
 
-  const stage = (threshold) => buildProgress >= threshold;
-
+  const stage = (threshold: number): boolean => buildProgress >= threshold;
   const ds2 = variant === 'DS2';
 
+  const callouts = useMemo(() => {
+    if (!showLabels || !stage(0.65)) return [];
+    return [
+      {
+        id: 'reactor' as TabId,
+        label: 'SUPERLASER DISH · §04',
+        x1: dishCx + dishR * 0.72,
+        y1: dishCy - dishR * 0.25,
+        bx: cx + sphereR * 0.16,
+        by: cy - sphereR * 0.88,
+        bw: sphereR * 0.78,
+        accent: THEME.green,
+      },
+      {
+        id: 'defense' as TabId,
+        label: ds2 ? 'MM-CAPILLARY VENTS · §12' : '2M EXHAUST PORT · §07',
+        x1: cx,
+        y1: cy - sphereR * 0.72,
+        bx: cx - sphereR * 0.96,
+        by: cy - sphereR * 0.88,
+        bw: sphereR * 0.82,
+        accent: THEME.red,
+      },
+      {
+        id: 'reactor' as TabId,
+        label: ds2 ? '3× HYPERMATTER CORES · §12' : 'CR27200 REACTOR · §03',
+        x1: cx + coreR,
+        y1: cy,
+        bx: cx + sphereR * 0.16,
+        by: cy + sphereR * 0.48,
+        bw: sphereR * 0.80,
+        accent: THEME.amber,
+      },
+      {
+        id: 'structure' as TabId,
+        label: 'EQUATORIAL TRENCH · §02',
+        x1: cx - sphereR * 0.55,
+        y1: cy + 2,
+        bx: cx - sphereR * 0.96,
+        by: cy + sphereR * 0.48,
+        bw: sphereR * 0.80,
+        accent: THEME.cyan,
+      },
+    ];
+  }, [showLabels, buildProgress, dishCx, dishCy, dishR, cx, cy, sphereR, coreR, ds2]);
+
   return (
-    <svg viewBox={`0 0 ${size} ${size}`} className="w-full h-full">
+    <svg
+      viewBox={`0 0 ${size} ${size}`}
+      className="w-full h-full"
+      role="img"
+      aria-label={`${variant} Orbital Battle Station cutaway schematic at ${(buildProgress * 100).toFixed(0)}% build completion`}
+    >
       <defs>
         <radialGradient id="hullGrad" cx="0.5" cy="0.35" r="0.7">
           <stop offset="0%" stopColor="#3a4050" />
@@ -57,9 +130,9 @@ export const StationDiagram: React.FC<StationDiagramProps> = ({ buildProgress = 
       {/* Phase 1: Design phase - blueprint overlay (pre-Phase 2) */}
       {buildProgress < 0.05 && (
         <g opacity={1 - buildProgress * 20}>
-          <circle cx={cx} cy={cy} r={sphereR} fill="none" stroke={THEME.cyan} strokeWidth="0.5" strokeDasharray="4 4" />
-          <text x={cx} y={cy} textAnchor="middle" fill={THEME.cyan} fontSize="11" fontFamily="'Chakra Petch'" opacity="0.7">
-            DESIGN PHASE
+          <circle cx={cx} cy={cy} r={sphereR} fill="none" stroke={THEME.cyan} strokeWidth="0.8" strokeDasharray="4 4" />
+          <text x={cx} y={cy} textAnchor="middle" fill={THEME.cyan} fontSize="12" fontFamily="'Chakra Petch'" opacity="0.85">
+            DESIGN PHASE · GEONOSIS / MUSTAFAR
           </text>
         </g>
       )}
@@ -67,15 +140,17 @@ export const StationDiagram: React.FC<StationDiagramProps> = ({ buildProgress = 
       {/* Phase 2: Central truss + reactor core */}
       {stage(0.05) && (
         <g opacity={Math.min((buildProgress - 0.05) * 10, 1)}>
-          <line x1={cx} y1={cy - sphereR * 0.95} x2={cx} y2={cy + sphereR * 0.95} stroke={THEME.amber} strokeWidth="1" opacity="0.6" strokeDasharray="2 4" />
-          {/* Reactor core */}
-          <circle
-            cx={cx}
-            cy={cy}
-            r={coreR}
-            fill="url(#coreGlow)"
-            filter="url(#glowF)"
-          >
+          <line
+            x1={cx}
+            y1={cy - sphereR * 0.95}
+            x2={cx}
+            y2={cy + sphereR * 0.95}
+            stroke={THEME.amber}
+            strokeWidth="1"
+            opacity="0.6"
+            strokeDasharray="2 4"
+          />
+          <circle cx={cx} cy={cy} r={coreR} fill="url(#coreGlow)" filter="url(#glowF)">
             <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite" />
           </circle>
           <circle cx={cx} cy={cy} r={coreR * 0.6} fill={THEME.amberGlow} opacity="0.6">
@@ -87,16 +162,39 @@ export const StationDiagram: React.FC<StationDiagramProps> = ({ buildProgress = 
       {/* Phase 3: Skeletal superstructure - 24 latitudinal rings */}
       {stage(0.15) && (
         <g opacity={Math.min((buildProgress - 0.15) * 8, 1)} stroke={THEME.amber} fill="none" strokeWidth="0.5">
-          {[...Array(11)].map((_, i) => {
-            const lat = (i + 1) * 15 - 90;
-            const y = cy - sphereR * Math.sin(lat * Math.PI / 180);
-            const rAt = sphereR * Math.cos(lat * Math.PI / 180);
-            return <ellipse key={i} cx={cx} cy={y} rx={rAt} ry={rAt * 0.15} stroke={THEME.amber} fill="none" strokeWidth="0.3" opacity="0.4" />;
+          {LAT_INDICES.map((lat, i) => {
+            const y = cy - sphereR * Math.sin((lat * Math.PI) / 180);
+            const rAt = sphereR * Math.cos((lat * Math.PI) / 180);
+            return (
+              <ellipse
+                key={i}
+                cx={cx}
+                cy={y}
+                rx={rAt}
+                ry={rAt * 0.15}
+                stroke={THEME.amber}
+                fill="none"
+                strokeWidth="0.3"
+                opacity="0.4"
+              />
+            );
           })}
-          {/* Meridians */}
-          {[...Array(8)].map((_, i) => {
-            const a = i * Math.PI / 4;
-            return <ellipse key={`m${i}`} cx={cx} cy={cy} rx={sphereR * Math.abs(Math.cos(a))} ry={sphereR} stroke={THEME.amber} fill="none" strokeWidth="0.3" opacity="0.3" transform={`rotate(${i * 22.5} ${cx} ${cy})`} />;
+          {MERIDIAN_INDICES.map(i => {
+            const a = (i * Math.PI) / 4;
+            return (
+              <ellipse
+                key={`m${i}`}
+                cx={cx}
+                cy={cy}
+                rx={sphereR * Math.abs(Math.cos(a))}
+                ry={sphereR}
+                stroke={THEME.amber}
+                fill="none"
+                strokeWidth="0.3"
+                opacity="0.3"
+                transform={`rotate(${i * 22.5} ${cx} ${cy})`}
+              />
+            );
           })}
         </g>
       )}
@@ -104,7 +202,7 @@ export const StationDiagram: React.FC<StationDiagramProps> = ({ buildProgress = 
       {/* Phase 4: Hull plating - solid sphere */}
       {stage(0.4) && (
         <g opacity={Math.min((buildProgress - 0.4) * 5, 1)}>
-          <circle cx={cx} cy={cy} r={sphereR} fill="url(#hullGrad)" stroke={THEME.border} strokeWidth="0.5" />
+          <circle cx={cx} cy={cy} r={sphereR} fill="url(#hullGrad)" stroke={THEME.border} strokeWidth="0.6" />
           {/* Equatorial trench */}
           <ellipse cx={cx} cy={cy + 1} rx={sphereR} ry={4} fill="#0a0a0e" stroke={THEME.amber} strokeWidth="0.5" opacity="0.9" />
           {/* Mid-latitude trenches */}
@@ -118,36 +216,67 @@ export const StationDiagram: React.FC<StationDiagramProps> = ({ buildProgress = 
           />
 
           {/* Surface detail speckle */}
-          {[...Array(80)].map((_, i) => {
-            const a = (i * 137.5) * Math.PI / 180;
-            const rad = sphereR * (0.2 + (i % 7) * 0.1);
-            const x = cx + rad * Math.cos(a);
-            const y = cy + rad * Math.sin(a);
-            return <circle key={i} cx={x} cy={y} r="0.5" fill={THEME.textDim} opacity="0.3" />;
-          })}
+          {SURFACE_SPECKLES.map((pt, i) => (
+            <circle
+              key={i}
+              cx={cx + pt.ux * sphereR}
+              cy={cy + pt.uy * sphereR}
+              r="0.5"
+              fill={THEME.textDim}
+              opacity="0.35"
+            />
+          ))}
 
           {/* Reactor shows through */}
-          <circle cx={cx} cy={cy} r={coreR} fill="url(#coreGlow)" opacity="0.4" />
+          <circle cx={cx} cy={cy} r={coreR} fill="url(#coreGlow)" opacity="0.45" />
         </g>
       )}
 
       {/* Phase 5: Superlaser dish */}
       {stage(0.65) && (
         <g opacity={Math.min((buildProgress - 0.65) * 4, 1)}>
-          {/* Dish bowl - darker concave area */}
-          <circle cx={dishCx} cy={dishCy} r={dishR} fill={firing > 0 ? "url(#dishFiring)" : "url(#dishGrad)"} stroke={THEME.amber} strokeWidth="0.8" />
+          <circle
+            cx={dishCx}
+            cy={dishCy}
+            r={dishR}
+            fill={firing > 0 ? 'url(#dishFiring)' : 'url(#dishGrad)'}
+            stroke={THEME.amber}
+            strokeWidth="0.8"
+          />
           <circle cx={dishCx} cy={dishCy} r={dishR * 0.6} fill="none" stroke={THEME.amber} strokeWidth="0.3" opacity="0.6" />
-          <circle cx={dishCx} cy={dishCy} r={dishR * 0.3} fill={firing > 0 ? THEME.greenGlow : THEME.border} opacity={firing > 0 ? 1 : 0.8}>
-            {firing > 0 && <animate attributeName="r" values={`${dishR * 0.2};${dishR * 0.4};${dishR * 0.2}`} dur="0.6s" repeatCount="indefinite" />}
+          <circle
+            cx={dishCx}
+            cy={dishCy}
+            r={dishR * 0.3}
+            fill={firing > 0 ? THEME.greenGlow : THEME.border}
+            opacity={firing > 0 ? 1 : 0.8}
+          >
+            {firing > 0 && (
+              <animate
+                attributeName="r"
+                values={`${dishR * 0.2};${dishR * 0.4};${dishR * 0.2}`}
+                dur="0.6s"
+                repeatCount="indefinite"
+              />
+            )}
           </circle>
 
           {/* 8 tributary marks (7+1 for DS2) */}
-          {[...Array(ds2 ? 8 : 8)].map((_, i) => {
-            const a = (i * 360 / 8) * Math.PI / 180;
+          {MERIDIAN_INDICES.map(i => {
+            const a = ((i * 360) / 8) * (Math.PI / 180);
             const xx = dishCx + dishR * 0.78 * Math.cos(a);
             const yy = dishCy + dishR * 0.78 * Math.sin(a);
             const isCenter = ds2 && i === 0;
-            return <circle key={i} cx={xx} cy={yy} r={isCenter ? 3 : 2} fill={firing > 0 ? THEME.greenGlow : THEME.amber} opacity={firing > 0 ? 1 : 0.7} />;
+            return (
+              <circle
+                key={i}
+                cx={xx}
+                cy={yy}
+                r={isCenter ? 3 : 2}
+                fill={firing > 0 ? THEME.greenGlow : THEME.amber}
+                opacity={firing > 0 ? 1 : 0.75}
+              />
+            );
           })}
         </g>
       )}
@@ -155,26 +284,23 @@ export const StationDiagram: React.FC<StationDiagramProps> = ({ buildProgress = 
       {/* Phase 6: Weapons batteries (dot speckle) */}
       {stage(0.75) && (
         <g opacity={Math.min((buildProgress - 0.75) * 4, 1)}>
-          {[...Array(120)].map((_, i) => {
-            // seeded deterministic positions
-            const seed = i * 2.39996;
-            const ax = seed;
-            const ay = seed * 1.618;
-            const r = sphereR * (0.5 + ((i * 7) % 10) / 28);
-            const x = cx + r * Math.cos(ax);
-            const y = cy + r * Math.sin(ay);
-            // keep inside visible disk
-            const d = Math.hypot(x - cx, y - cy);
-            if (d > sphereR * 0.95) return null;
-            return <circle key={i} cx={x} cy={y} r="0.6" fill={THEME.cyan} opacity="0.5" />;
-          })}
+          {WEAPON_SPECKLES.map((pt, i) => (
+            <circle
+              key={i}
+              cx={cx + pt.ux * sphereR}
+              cy={cy + pt.uy * sphereR}
+              r="0.65"
+              fill={THEME.cyan}
+              opacity="0.55"
+            />
+          ))}
         </g>
       )}
 
       {/* Phase 7: Operational - power glow */}
       {stage(0.9) && (
         <g opacity={Math.min((buildProgress - 0.9) * 10, 1)}>
-          <circle cx={cx} cy={cy} r={sphereR + 2} fill="none" stroke={THEME.amber} strokeWidth="0.3" opacity="0.4">
+          <circle cx={cx} cy={cy} r={sphereR + 2} fill="none" stroke={THEME.amber} strokeWidth="0.4" opacity="0.4">
             <animate attributeName="r" values={`${sphereR + 1};${sphereR + 6};${sphereR + 1}`} dur="4s" repeatCount="indefinite" />
             <animate attributeName="opacity" values="0.4;0.1;0.4" dur="4s" repeatCount="indefinite" />
           </circle>
@@ -184,8 +310,8 @@ export const StationDiagram: React.FC<StationDiagramProps> = ({ buildProgress = 
       {/* Firing sequence: 8 tributary beams converging */}
       {firing > 0 && firing < 0.6 && stage(0.65) && (
         <g filter="url(#glowF)">
-          {[...Array(8)].map((_, i) => {
-            const a = (i * 45) * Math.PI / 180;
+          {MERIDIAN_INDICES.map(i => {
+            const a = (i * 45 * Math.PI) / 180;
             const x1 = dishCx + dishR * 0.78 * Math.cos(a);
             const y1 = dishCy + dishR * 0.78 * Math.sin(a);
             return (
@@ -228,23 +354,52 @@ export const StationDiagram: React.FC<StationDiagramProps> = ({ buildProgress = 
         </g>
       )}
 
-      {/* Labels */}
-      {showLabels && stage(0.65) && (
-        <g fontSize="8" fontFamily="'JetBrains Mono', monospace" fill={THEME.textMuted}>
-          <line x1={dishCx + dishR + 6} y1={dishCy} x2={dishCx + dishR + 40} y2={dishCy} stroke={THEME.border} strokeWidth="0.5" />
-          <text x={dishCx + dishR + 44} y={dishCy + 3}>SUPERLASER</text>
-
-          <line x1={cx + coreR + 4} y1={cy} x2={cx + sphereR + 40} y2={cy} stroke={THEME.border} strokeWidth="0.5" />
-          <text x={cx + sphereR + 44} y={cy + 3}>REACTOR CORE</text>
-
-          <line x1={cx + sphereR} y1={cy} x2={cx + sphereR + 40} y2={cy + 30} stroke={THEME.border} strokeWidth="0.5" />
-          <text x={cx + sphereR + 44} y={cy + 33}>EQUATORIAL TRENCH</text>
-
-          <line x1={cx} y1={cy - sphereR * 0.4} x2={cx - 60} y2={cy - sphereR * 0.6} stroke={THEME.border} strokeWidth="0.5" />
-          <text x={cx - 140} y={cy - sphereR * 0.6 + 3}>EXHAUST PORT</text>
-        </g>
-      )}
+      {/* Interactive in-bounds callout labels */}
+      {callouts.map((c, idx) => {
+        const anchorX = c.bx < cx ? c.bx + c.bw : c.bx;
+        const anchorY = c.by + 11;
+        return (
+          <g
+            key={idx}
+            onClick={onSelectSubsystem ? () => onSelectSubsystem(c.id) : undefined}
+            style={{ cursor: onSelectSubsystem ? 'pointer' : 'default' }}
+          >
+            <line
+              x1={c.x1}
+              y1={c.y1}
+              x2={anchorX}
+              y2={anchorY}
+              stroke={c.accent}
+              strokeWidth="0.9"
+              strokeDasharray="2 2"
+              opacity="0.85"
+            />
+            <circle cx={c.x1} cy={c.y1} r="2.2" fill={c.accent} />
+            <rect
+              x={c.bx}
+              y={c.by}
+              width={c.bw}
+              height="20"
+              fill="#0a0a0ee6"
+              stroke={c.accent}
+              strokeWidth="0.8"
+            />
+            <text
+              x={c.bx + c.bw / 2}
+              y={c.by + 13}
+              textAnchor="middle"
+              fontSize="10"
+              fontFamily="'Chakra Petch', sans-serif"
+              fontWeight="600"
+              fill={THEME.text}
+            >
+              {c.label}
+            </text>
+          </g>
+        );
+      })}
     </svg>
   );
 };
 
+export const StationDiagram = React.memo(StationDiagramBase);

@@ -1,108 +1,181 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
-import {
-  BarChart, Bar, LineChart, Line, PieChart, Pie, RadarChart, Radar,
-  PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell, XAxis, YAxis,
-  CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area,
-  ComposedChart, ScatterChart, Scatter, ZAxis,
-} from 'recharts';
-import {
-  Activity, Radio, Zap, Shield, Target, Cpu, Gauge, Users,
-  Rocket, Atom, Crosshair, AlertTriangle, Layers, Settings,
-  Building2, Flame, Binary, Waves, Orbit, HardDrive, Radiation,
-  Eye, LineChart as LC, Grid3x3, ChevronRight, Play, Pause,
-  RotateCcw, Info, GitBranch, Ruler, Package, Skull, Search,
-  CircleDot, Triangle, Square, Hexagon, Sigma, FlaskConical,
-  Telescope, AlertOctagon,
-} from 'lucide-react';
+import React, { useEffect } from 'react';
+import { Settings, AlertOctagon } from 'lucide-react';
 import { THEME } from '../theme';
 import {
-  Panel, StatBlock, SectionHeader, Pill,
-  RadialGauge, ScannerLine, StationDiagram,
+  Panel, SectionHeader, Pill,
 } from '../components';
-import { useCountUp } from '../hooks/useCountUp';
-import {
-  MASS_BUDGET, CREW_MANIFEST, WEAPONS_DS1, WEAPONS_DS2,
-  CONSTRUCTION_PHASES, ENERGY_COMPARISONS, REACTOR_OPTIONS,
-  HANDWAVIUM, DERIVED_REQUIREMENTS, FMEA_REGISTER, REAL_WORLD_2026,
-  COST_BREAKDOWN, DS1_VS_DS2, VULNERABILITY_MATRIX, PROPULSION_DATA,
-  ECLSS_DAILY, FIGHTER_COMPLEMENT,
-} from '../data';
-import type { TabPropsWithFiring } from '../types';
+import { HANDWAVIUM } from '../data';
+import type { NavigableTabProps } from '../types';
 
-export const PhysicsTab: React.FC = () => {
+export const PhysicsTab: React.FC<NavigableTabProps> = ({ onNavigate, focusId }) => {
+  useEffect(() => {
+    if (!focusId) return;
+    const el = document.getElementById(focusId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [focusId]);
+
   return (
     <div>
       <SectionHeader
-        kicker="SECTION VII · HANDWAVIUM LEDGER"
+        kicker="§10–11 · HANDWAVIUM LEDGER & MINIMUM-HANDWAVE RECONSTRUCTION"
         title="Physics Walls and Canonical Escapes"
-        description="Ten independent points where canon requires new physics. Accept these concessions and every remaining extrapolation is finite (10–15 orders of magnitude) — unprecedented rather than impossible. Refuse them and the station dissolves."
+        description="Ten independent points where canonical performance exceeds known physics. Accept these bounded concessions (HW-1..HW-10) and every remaining subsystem closes via finite (10–15 order-of-magnitude) engineering extrapolation."
       />
 
       <div className="grid grid-cols-1 gap-3 mb-6">
-        {HANDWAVIUM.map((h, i) => (
-          <Panel key={i} accent={THEME.amber} padding="p-4">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0">
-                <div className="w-16 text-center py-2" style={{ background: THEME.red, color: '#fff', fontFamily: "'Chakra Petch'", fontWeight: 700, fontSize: 14 }}>
-                  {h.id}
+        {HANDWAVIUM.map(h => {
+          const isFocused = focusId === h.id;
+          return (
+            <Panel
+              key={h.id}
+              id={h.id}
+              accent={THEME.red}
+              highlighted={isFocused}
+              padding="p-4"
+            >
+              <div className="flex flex-col md:flex-row md:items-start gap-4">
+                <div className="flex-shrink-0 flex md:flex-col items-center md:items-stretch justify-between gap-2">
+                  <div
+                    className="w-20 text-center py-2"
+                    style={{
+                      background: THEME.red,
+                      color: '#fff',
+                      fontFamily: "'Chakra Petch'",
+                      fontWeight: 700,
+                      fontSize: 14,
+                    }}
+                  >
+                    {h.id}
+                  </div>
+                  <Pill
+                    tone="amber"
+                    onClick={() => onNavigate?.(h.subsystemTab)}
+                    title={`Open ${h.subsystem} tab`}
+                  >
+                    {h.subsystem} ↗
+                  </Pill>
+                </div>
+
+                <div className="flex-grow">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                    <div className="flex items-center gap-2">
+                      <AlertOctagon size={13} style={{ color: THEME.red }} />
+                      <span
+                        className="text-xs uppercase tracking-widest"
+                        style={{ color: THEME.textMuted, fontFamily: "'Chakra Petch'", fontWeight: 600 }}
+                      >
+                        Irreducible Physics Wall
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs" style={{ color: THEME.textDim }}>Citing DRs:</span>
+                      {h.traces.map(dr => (
+                        <Pill
+                          key={dr}
+                          tone="cyan"
+                          onClick={() => onNavigate?.('ledger', dr)}
+                          title={`Inspect ${dr} in V&V Ledger`}
+                        >
+                          {dr} ↗
+                        </Pill>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="text-sm font-semibold mb-3" style={{ color: THEME.text }}>
+                    {h.wall}
+                  </div>
+
+                  <div className="flex items-center gap-2 mb-1">
+                    <Settings size={13} style={{ color: THEME.cyan }} />
+                    <span
+                      className="text-xs uppercase tracking-widest"
+                      style={{ color: THEME.textMuted, fontFamily: "'Chakra Petch'", fontWeight: 600 }}
+                    >
+                      Canonical / Spec Escape Mechanism
+                    </span>
+                  </div>
+                  <div className="text-xs" style={{ color: THEME.cyan, fontFamily: "'JetBrains Mono'" }}>
+                    {h.escape}
+                  </div>
                 </div>
               </div>
-              <div className="flex-grow">
-                <div className="flex items-center gap-2 mb-2">
-                  <AlertOctagon size={12} style={{ color: THEME.red }} />
-                  <span className="text-[10px] uppercase tracking-widest" style={{ color: THEME.textMuted, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>Physics wall</span>
-                </div>
-                <div className="text-sm mb-3" style={{ color: THEME.text }}>{h.wall}</div>
-                <div className="flex items-center gap-2 mb-1">
-                  <Settings size={12} style={{ color: THEME.cyan }} />
-                  <span className="text-[10px] uppercase tracking-widest" style={{ color: THEME.textMuted, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>Canon escape</span>
-                </div>
-                <div className="text-xs" style={{ color: THEME.cyan, fontFamily: "'JetBrains Mono'" }}>{h.escape}</div>
-              </div>
-            </div>
-          </Panel>
-        ))}
+            </Panel>
+          );
+        })}
       </div>
 
-      <Panel title="MINIMUM-HANDWAVE HARD-SF RECONSTRUCTION" accent={THEME.green} code="§10">
+      <Panel title="MINIMUM-HANDWAVE HARD-SF RECONSTRUCTION" accent={THEME.green} code="§11.1–11.5">
         <p className="text-sm mb-4" style={{ color: THEME.textMuted, lineHeight: 1.6 }}>
-          If forced to design the weapon with as little new physics as possible:
+          If tasked to reconstruct the DS-1 primary weapon architecture with the minimum possible departure from relativistic physics:
         </p>
         <div className="space-y-4">
           {[
-            { n: 1, title: 'Reactor', text: '~10¹⁶ kg asteroid-scale inventory of stable condensed matter — magnetically-stabilized neutron-star chunk or Alcubierre-cavity "mass tank" — annihilated at c² specific energy against a matter substrate over 24 hours. Sustained ~3 × 10²⁷ W.' },
-            { n: 2, title: 'Conversion', text: 'Aneutronic-style direct conversion of charged annihilation products to a coherent relativistic particle jet. The beam is the heat sink.' },
-            { n: 3, title: 'Beam', text: 'Not a photon laser. Relativistic (γ ~ 2–5) hadronic jet focused by magnetic quadrupole/solenoid active optics; the 10-km "dish" is a phased magnetic aperture, not a crystal lens.' },
-            { n: 4, title: 'Firing cycle', text: '24-hour recharge matches ~10²⁷ W sustained → 10³² J buffer fill time, if buffer is c²-class.' },
-            { n: 5, title: 'Recoil', text: 'Station mass boosted to ≥10²⁵ kg by dense reactor core; 750 m/s recoil per shot invisible on orbital scales.' },
+            {
+              n: 1,
+              title: 'Condensed-Matter Annihilation Core',
+              text: '~10¹⁶ kg inventory of magnetically stabilized c²-class condensed matter annihilated over a 24-hour recharge cycle (~2.6 × 10²⁷ W sustained thermal power).',
+            },
+            {
+              n: 2,
+              title: 'Direct Magnetohydrodynamic Conversion',
+              text: 'Aneutronic-style direct inductive conversion of charged annihilation products into a coherent relativistic beam; the outbound jet itself carries away the reaction entropy (resolving HW-4).',
+            },
+            {
+              n: 3,
+              title: 'Relativistic Hadronic / Plasma Jet (Not Photon Laser)',
+              text: 'A γ ~ 2–5 relativistic baryonic/leptonic jet focused by a 10-km superconducting magnetic quadrupole/solenoid aperture, penetrating planetary crust via deep hadronic shower rather than surface optical reflection (resolving HW-5).',
+            },
+            {
+              n: 4,
+              title: '24-Hour Buffer Cycle',
+              text: '86,400-second recharge integrates 2.6 × 10²⁷ W sustained output to fill the 2.24 × 10³² J shot buffer without exceeding core containment flux limits.',
+            },
+            {
+              n: 5,
+              title: 'Inertial / Counter-Jet Recoil Compensation',
+              text: 'Either effective gravitational mass is boosted to ≥ 10²⁵ kg by the hypermatter core, or counter-propagating exhaust plumes cancel the 7.5 × 10²³ N·s shot impulse (HW-6 / DR-14).',
+            },
           ].map(s => (
             <div key={s.n} className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center" style={{ background: THEME.green, color: '#000', fontFamily: "'Chakra Petch'", fontWeight: 700, fontSize: 12 }}>
+              <div
+                className="flex-shrink-0 w-8 h-8 flex items-center justify-center"
+                style={{
+                  background: THEME.green,
+                  color: '#000',
+                  fontFamily: "'Chakra Petch'",
+                  fontWeight: 700,
+                  fontSize: 12,
+                }}
+              >
                 {s.n}
               </div>
               <div>
-                <div className="text-sm" style={{ color: THEME.green, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>{s.title}</div>
-                <div className="text-xs mt-1" style={{ color: THEME.text, lineHeight: 1.6 }}>{s.text}</div>
+                <div className="text-sm" style={{ color: THEME.green, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>
+                  {s.title}
+                </div>
+                <div className="text-xs mt-1" style={{ color: THEME.text, lineHeight: 1.6 }}>
+                  {s.text}
+                </div>
               </div>
             </div>
           ))}
         </div>
-        <div className="mt-4 p-3" style={{ background: THEME.bg, border: `1px solid ${THEME.green}40` }}>
+        <div className="mt-4 p-3" style={{ background: THEME.bg, border: `1px solid ${THEME.green}45` }}>
           <div className="text-xs" style={{ color: THEME.text, lineHeight: 1.6 }}>
-            This reduces handwavium to: <strong style={{ color: THEME.green }}>(a) a substrate with ≥c² effective storage density, stable under magnetic confinement</strong>; <strong style={{ color: THEME.green }}>(b) a 10-km magnetic/plasma active optic</strong>. Everything else is extrapolation of existing physics by 10–15 orders of magnitude.
+            This collapses ten concessions down to two core axioms: <strong style={{ color: THEME.green }}>(a) a stable c²-density bulk energy substrate</strong>, and <strong style={{ color: THEME.green }}>(b) a 10-km phased magnetic/plasma active aperture</strong>. Every other structural, thermal, and life-support requirement closes by finite scaling.
           </div>
         </div>
       </Panel>
 
-      <Panel title="DOCTRINAL LESSON" accent={THEME.amber} className="mt-6">
+      <Panel title="DOCTRINAL SYSTEMS-ENGINEERING LESSON" accent={THEME.amber} code="§09.4 / §11.6" className="mt-6">
         <p className="text-sm mb-3" style={{ color: THEME.text, lineHeight: 1.7 }}>
-          The Death Star is coherent as engineering fiction because <strong style={{ color: THEME.amber }}>almost every subsystem except the reactor-weapon pair</strong> maps cleanly onto real or plausibly-extrapolated hardware. Modular sphere construction, equatorial stiffening trenches, Whipple armor, M-type asteroid ISRU, ion-array sublight at milli-g, ECLSS scaled from ISS and submarines, MARAUDER-class plasma-toroid turbolasers, Leonidas-class HPM ion cannons, distributed zone-level C3 — all real today or recognizable extrapolations.
-        </p>
-        <p className="text-sm mb-3" style={{ color: THEME.text, lineHeight: 1.7 }}>
-          The <strong style={{ color: THEME.red }}>reactor-weapon pair is the irreducible concession</strong>. No chain of known physics delivers 2.24 × 10³² J in a 1-second pulse from a 120-km envelope on a 24-hour cycle. Hypermatter is canonically fuel, capacitor, and radiator in one substrate.
+          The Death Star holds together as rigorous engineering fiction because <strong style={{ color: THEME.amber }}>almost every subsystem outside the reactor-weapon pair</strong> maps onto real or defensibly extrapolated hardware: modular spherical pressure hulls, equatorial thermal-expansion trenches, Whipple meteoroid shields, 16-Psyche M-type asteroid ISRU, NEXT-C scaled ion propulsion, ISS/submarine closed-loop ECLSS, MARAUDER compact-toroid turbolasers, and Epirus Leonidas HPM ion cannons.
         </p>
         <p className="text-sm" style={{ color: THEME.text, lineHeight: 1.7 }}>
-          <strong style={{ color: THEME.green }}>The doctrinal takeaway</strong>: megastructures fail not where the physics is hardest but where the redundancy design is softest. The Empire's failure was never imagination — it was redundancy discipline. A civilization that could source 10¹⁸ kg of structural alloy from M-type asteroids and buffer 10³² J in c²-class condensed matter had every capability it needed for fault-tolerant design. It chose the terror doctrine's aesthetic preference for monolithic single-point systems. Two battle stations and several Super Star Destroyers later, the lesson was still unlearned.
+          <strong style={{ color: THEME.green }}>The core takeaway:</strong> Megastructures fail not where the physics is hardest, but where fault-tree redundancy is softest. A civilization capable of refining 10¹⁸ kg of maraging steel from metallic asteroids and buffering 2.24 × 10³² J in hypermatter had every resource needed for N+2 fault tolerance — yet lost two battle stations to single-point architectural vulnerabilities (FMEA E-01 and E-20).
         </p>
       </Panel>
     </div>

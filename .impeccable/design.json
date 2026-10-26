@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-26T00:19:00-04:00",
+  "title": "Design System: DS-1 Orbital Battle Station",
+  "extensions": {
+    "colorMeta": {
+      "imperial-amber": {
+        "role": "primary",
+        "displayName": "Imperial Command Amber",
+        "canonical": "#e8a317",
+        "tonalRamp": ["#2d1d02", "#4d3205", "#734b08", "#9c670c", "#c48411", "#e8a317", "#f5be4f", "#fbe3b0"]
+      },
+      "imperial-amber-glow": {
+        "role": "primary",
+        "displayName": "Imperial Amber Glow",
+        "canonical": "#ffb830",
+        "tonalRamp": ["#332200", "#593c00", "#805700", "#a67200", "#d49411", "#ffb830", "#ffd073", "#ffebb8"]
+      },
+      "telemetry-cyan": {
+        "role": "secondary",
+        "displayName": "Analysis Telemetry Cyan",
+        "canonical": "#0891b2",
+        "tonalRamp": ["#04242e", "#063b4a", "#07556b", "#08728f", "#0891b2", "#22b8cf", "#66d9e8", "#b5f2fa"]
+      },
+      "telemetry-cyan-glow": {
+        "role": "secondary",
+        "displayName": "Telemetry Cyan Glow",
+        "canonical": "#22d3ee",
+        "tonalRamp": ["#052930", "#094652", "#0d697a", "#1493ab", "#1cb5d1", "#22d3ee", "#74e4f5", "#c2f4fc"]
+      },
+      "concession-crimson": {
+        "role": "tertiary",
+        "displayName": "Concession Crimson",
+        "canonical": "#dc2626",
+        "tonalRamp": ["#2e0707", "#520c0c", "#7a1212", "#a81919", "#dc2626", "#ef4444", "#f87171", "#fecaca"]
+      },
+      "concession-crimson-glow": {
+        "role": "tertiary",
+        "displayName": "Concession Crimson Glow",
+        "canonical": "#ff3a3a",
+        "tonalRamp": ["#330505", "#5c0a0a", "#8a1111", "#bd1c1c", "#e62b2b", "#ff3a3a", "#ff7a7a", "#ffc7c7"]
+      },
+      "kyber-green": {
+        "role": "tertiary",
+        "displayName": "Kyber Ignition Green",
+        "canonical": "#16a34a",
+        "tonalRamp": ["#052612", "#09421f", "#0d632e", "#12823c", "#16a34a", "#22c55e", "#6ee799", "#bbf7d0"]
+      },
+      "kyber-green-glow": {
+        "role": "tertiary",
+        "displayName": "Kyber Green Glow",
+        "canonical": "#4ade80",
+        "tonalRamp": ["#062914", "#0b4723", "#126e36", "#1d994d", "#2ec266", "#4ade80", "#86efac", "#d1fae5"]
+      },
+      "comparison-violet": {
+        "role": "tertiary",
+        "displayName": "Comparison Violet",
+        "canonical": "#7c3aed",
+        "tonalRamp": ["#1c093b", "#311066", "#491994", "#6326c2", "#7c3aed", "#9b66f5", "#c09ef9", "#e5d7fd"]
+      },
+      "dossier-cream": {
+        "role": "neutral",
+        "displayName": "Dossier Cream",
+        "canonical": "#f0e6d2",
+        "tonalRamp": ["#29241b", "#473f30", "#695d47", "#8f7f62", "#b5a484", "#d6c8ab", "#f0e6d2", "#faf6ee"]
+      },
+      "horuz-void": {
+        "role": "neutral",
+        "displayName": "Horuz Void",
+        "canonical": "#0a0a0e",
+        "tonalRamp": ["#0a0a0e", "#14161f", "#222634", "#363b4f", "#505770", "#737b96", "#a3abc2", "#dfe3ed"]
+      },
+      "command-surface": {
+        "role": "neutral",
+        "displayName": "Command Surface",
+        "canonical": "#12141a",
+        "tonalRamp": ["#0a0b0f", "#12141a", "#1e222b", "#303645", "#485063", "#69738a", "#99a2b8", "#d9dde8"]
+      },
+      "durasteel-panel": {
+        "role": "neutral",
+        "displayName": "Durasteel Panel",
+        "canonical": "#1a1d26",
+        "tonalRamp": ["#0d0f14", "#1a1d26", "#272c38", "#3a4152", "#535c73", "#758099", "#a3acc2", "#e0e4ed"]
+      },
+      "durasteel-panel-hi": {
+        "role": "neutral",
+        "displayName": "Durasteel Panel High",
+        "canonical": "#222632",
+        "tonalRamp": ["#101218", "#222632", "#313747", "#454d63", "#5f6985", "#828ca8", "#b0b8cc", "#e5e8f0"]
+      },
+      "structural-hairline": {
+        "role": "neutral",
+        "displayName": "Structural Hairline",
+        "canonical": "#2d3340",
+        "tonalRamp": ["#14171d", "#2d3340", "#3e4657", "#535d73", "#6d7994", "#8e9ab3", "#b8c1d4", "#e6eaf2"]
+      },
+      "active-hairline": {
+        "role": "neutral",
+        "displayName": "Active Hairline",
+        "canonical": "#3d4452",
+        "tonalRamp": ["#181b21", "#2a2f3a", "#3d4452", "#545d70", "#707b91", "#929cb0", "#bcc3d1", "#e8ebf0"]
+      },
+      "phosphor-white": {
+        "role": "neutral",
+        "displayName": "Phosphor White",
+        "canonical": "#e8e8ed",
+        "tonalRamp": ["#1c1c21", "#363640", "#545461", "#767685", "#9b9ba8", "#c2c2cc", "#e8e8ed", "#f7f7fa"]
+      },
+      "telemetry-muted": {
+        "role": "neutral",
+        "displayName": "Telemetry Muted",
+        "canonical": "#949aa6",
+        "tonalRamp": ["#181a1d", "#2e3138", "#484c57", "#676c78", "#949aa6", "#aeb3bd", "#d1d4db", "#eff1f5"]
+      },
+      "annotation-dim": {
+        "role": "neutral",
+        "displayName": "Annotation Dim",
+        "canonical": "#828997",
+        "tonalRamp": ["#141619", "#272a30", "#3f434c", "#5a5f6a", "#828997", "#a0a6b2", "#c8ccd4", "#edeef2"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display / Section Title",
+        "purpose": "Top-level view headings in SectionHeader (h2), paired with an amber 0.3em uppercase kicker."
+      },
+      "headline": {
+        "displayName": "Headline / Station Banner",
+        "purpose": "Top sticky command bar title (DS-1 ORBITAL BATTLE STATION)."
+      },
+      "title": {
+        "displayName": "Title / Panel & Tab Chrome",
+        "purpose": "Uppercase panel headers, navigation tabs, and primary/danger command buttons."
+      },
+      "metric": {
+        "displayName": "Metric Readout",
+        "purpose": "Primary tabular-nums numerical readouts inside StatBlock cells."
+      },
+      "body": {
+        "displayName": "Body / Specification Prose",
+        "purpose": "Monospace engineering prose, equations, and dense specification tables."
+      },
+      "label": {
+        "displayName": "Label / Kicker / Pill / Code Stamp",
+        "purpose": "Uppercase section kickers, semantic traceability pills (HW/DR/FMEA), table column headers, and section code stamps."
+      }
+    },
+    "shadows": [
+      {
+        "name": "scrubber-thumb-glow",
+        "value": "0 0 8px #e8a317",
+        "purpose": "Emissive amber glow on the 14x14px square range slider thumb; UI containers and panels never use box-shadow."
+      },
+      {
+        "name": "header-backdrop-blur",
+        "value": "backdrop-filter: blur(6px)",
+        "purpose": "Translucent depth treatment on the sticky top command bar."
+      },
+      {
+        "name": "svg-energy-filter",
+        "value": "filter: url(#glowF) /* feGaussianBlur stdDeviation=4 */",
+        "purpose": "Active reactor core and superlaser beam luminescence inside StationDiagram SVG."
+      }
+    ],
+    "motion": [
+      {
+        "name": "scanner-sweep",
+        "value": "scanMove 4s linear infinite (translateX(-100%) to translateX(400%))",
+        "purpose": "Continuous horizontal telemetry sweep inside ScannerLine dividers."
+      },
+      {
+        "name": "telemetry-pulse",
+        "value": "pulse 2s infinite (opacity 0.7 -> 1.0 -> 0.7)",
+        "purpose": "Active link indicator square pip and SVG emblem core heartbeat."
+      },
+      {
+        "name": "gauge-progress",
+        "value": "stroke-dashoffset 0.8s ease, width 0.5s ease",
+        "purpose": "Smooth analytical transitions for RadialGauge rings and FMEA RPN bars."
+      },
+      {
+        "name": "superlaser-sequence",
+        "value": "requestAnimationFrame 3.5s sequence + 800ms hold",
+        "purpose": "8-tributary beam convergence (0.0-0.6) and primary axial discharge (0.3-1.0)."
+      }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "max-container", "value": "1800px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Command Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Square-cornered Imperial Amber trigger for timeline playback and primary console actions.",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\"><polygon points=\"5 3 19 12 5 21 5 3\"></polygon></svg><span>PLAY SEQUENCE</span></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #e8a317; color: #0a0a0e; font-family: 'Chakra Petch', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 16px; border: 1px solid #e8a317; border-radius: 0; cursor: pointer; transition: background-color 0.15s ease, box-shadow 0.15s ease; } .ds-btn-primary:hover { background: #ffb830; border-color: #ffb830; } .ds-btn-primary:focus-visible { outline: 2px solid #e8a317; outline-offset: 2px; } .ds-btn-primary:active { background: #c48411; }"
+    },
+    {
+      "name": "Superlaser Ignition Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "High-consequence firing trigger in CommandTab and ReactorTab; transitions from Crimson to Kyber Green during firing.",
+      "html": "<button class=\"ds-btn-danger\">COMMENCE PRIMARY IGNITION</button>",
+      "css": ".ds-btn-danger { display: inline-flex; align-items: center; justify-content: center; width: 100%; background: #dc2626; color: #ffffff; font-family: 'Chakra Petch', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 16px; border: 1px solid #dc2626; border-radius: 0; cursor: pointer; transition: background-color 0.15s ease, border-color 0.15s ease; } .ds-btn-danger:hover { background: #ff3a3a; border-color: #ff3a3a; } .ds-btn-danger:focus-visible { outline: 2px solid #e8a317; outline-offset: 2px; } .ds-btn-danger:active { background: #16a34a; border-color: #16a34a; }"
+    },
+    {
+      "name": "Ghost Utility Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Bordered Durasteel Panel utility control for scrubber reset and secondary actions.",
+      "html": "<button class=\"ds-btn-ghost\" aria-label=\"Reset timeline\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path></svg><span>RESET</span></button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #1a1d26; color: #e8e8ed; font-family: 'Chakra Petch', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 16px; border: 1px solid #2d3340; border-radius: 0; cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease; } .ds-btn-ghost:hover { border-color: #e8a317; color: #e8a317; background: #222632; } .ds-btn-ghost:focus-visible { outline: 2px solid #e8a317; outline-offset: 2px; }"
+    },
+    {
+      "name": "Variant Filter Toggle",
+      "kind": "button",
+      "refersTo": "button-filter",
+      "description": "Compact segmented filter control used in the FMEA register to switch between ALL, DS-1, and DS-2.",
+      "html": "<div class=\"ds-filter-group\"><span class=\"ds-filter-label\">VARIANT:</span><button class=\"ds-btn-filter ds-btn-filter-active\">ALL</button><button class=\"ds-btn-filter\">DS-1</button><button class=\"ds-btn-filter\">DS-2</button></div>",
+      "css": ".ds-filter-group { display: inline-flex; align-items: center; gap: 8px; background: #1a1d26; padding: 8px 12px; border: 1px solid #2d3340; } .ds-filter-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8f9a; } .ds-btn-filter { background: transparent; color: #8a8f9a; border: 1px solid #2d3340; border-radius: 0; padding: 2px 8px; font-family: 'Chakra Petch', sans-serif; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.15s ease; } .ds-btn-filter:hover { border-color: #e8a317; color: #e8e8ed; } .ds-btn-filter-active { background: #e8a317; color: #0a0a0e; border-color: #e8a317; font-weight: 600; } .ds-btn-filter:focus-visible { outline: 2px solid #e8a317; outline-offset: 2px; }"
+    },
+    {
+      "name": "Section Navigation Tab Bar",
+      "kind": "nav",
+      "refersTo": "nav-tab",
+      "description": "Command console tab switcher pairing Lucide icons, uppercase Chakra Petch labels, and specification section codes.",
+      "html": "<nav class=\"ds-nav-bar\"><button class=\"ds-nav-tab ds-nav-tab-active\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"></polyline></svg><span>COMMAND</span><span class=\"ds-nav-code\">§0</span></button><button class=\"ds-nav-tab\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polygon points=\"12 2 2 7 12 12 22 7 12 2\"></polygon><polyline points=\"2 17 12 22 22 17\"></polyline><polyline points=\"2 12 12 17 22 12\"></polyline></svg><span>STRUCTURE</span><span class=\"ds-nav-code\">§1</span></button><button class=\"ds-nav-tab\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"14\" y=\"14\" width=\"4\" height=\"6\" rx=\"0\"></rect><rect x=\"6\" y=\"4\" width=\"4\" height=\"6\" rx=\"0\"></rect><path d=\"M6 20h4\"></path><path d=\"M14 10h4\"></path><path d=\"M6 14h2v6\"></path><path d=\"M14 4h2v6\"></path></svg><span>LEDGER</span><span class=\"ds-nav-code\">HW/DR/FMEA</span></button></nav>",
+      "css": ".ds-nav-bar { display: flex; gap: 4px; background: #12141a; padding: 8px 12px; border-bottom: 1px solid #2d3340; } .ds-nav-tab { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: transparent; color: #8a8f9a; border: 1px solid transparent; border-radius: 0; font-family: 'Chakra Petch', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; cursor: pointer; transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease; } .ds-nav-tab:hover { color: #e8e8ed; background: #1a1d26; } .ds-nav-tab-active { background: #1a1d26; color: #e8a317; border-color: #e8a317; font-weight: 600; } .ds-nav-code { font-size: 9px; opacity: 0.6; margin-left: 4px; } .ds-nav-tab:focus-visible { outline: 2px solid #e8a317; outline-offset: 2px; }"
+    },
+    {
+      "name": "Traceability Status Pills",
+      "kind": "chip",
+      "refersTo": "pill-amber",
+      "description": "Semantic verification-class and identifier badges (Concession Red, Analysis Cyan, Inspection Amber, Test Green).",
+      "html": "<div class=\"ds-pill-row\"><span class=\"ds-pill ds-pill-red\">HW-1 · CONCESSION</span><span class=\"ds-pill ds-pill-cyan\">DR-04 · ANALYSIS</span><span class=\"ds-pill ds-pill-amber\">FMEA · DS-1</span><span class=\"ds-pill ds-pill-green\">2026 · TEST ANALOG</span></div>",
+      "css": ".ds-pill-row { display: flex; flex-wrap: wrap; gap: 8px; background: #12141a; padding: 10px; border: 1px solid #2d3340; } .ds-pill { display: inline-flex; align-items: center; padding: 2px 8px; font-family: 'Chakra Petch', sans-serif; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 0; } .ds-pill-amber { color: #e8a317; border: 1px solid #e8a31740; background: #e8a31710; } .ds-pill-cyan { color: #0891b2; border: 1px solid #0891b240; background: #0891b210; } .ds-pill-red { color: #dc2626; border: 1px solid #dc262640; background: #dc262610; } .ds-pill-green { color: #16a34a; border: 1px solid #16a34a40; background: #16a34a10; }"
+    },
+    {
+      "name": "Telemetry Panel & StatBlock",
+      "kind": "card",
+      "refersTo": "panel-card",
+      "description": "Standard bordered instrument container with 6px square status pip, section code stamp, and tabular-nums StatBlock readout.",
+      "html": "<div class=\"ds-panel\"><div class=\"ds-panel-header\"><div class=\"ds-panel-title-wrap\"><span class=\"ds-pip\"></span><span class=\"ds-panel-title\">PRIMARY REACTOR OUTPUT</span></div><span class=\"ds-panel-code\">DOC-001 §3.1</span></div><div class=\"ds-stat\"><span class=\"ds-stat-label\">SUSTAINED POWER</span><div class=\"ds-stat-value-row\"><span class=\"ds-stat-value\">2.60</span><span class=\"ds-stat-unit\">× 10²⁷ W</span></div><span class=\"ds-stat-note\">~6.8 L☉ · 24-hour Alderaan recharge</span></div></div>",
+      "css": ".ds-panel { background: #1a1d26; border: 1px solid #e8a317; padding: 20px; font-family: 'JetBrains Mono', monospace; color: #e8e8ed; } .ds-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #2d3340; } .ds-panel-title-wrap { display: flex; align-items: center; gap: 8px; } .ds-pip { width: 6px; height: 6px; background: #e8a317; display: inline-block; } .ds-panel-title { font-family: 'Chakra Petch', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8f9a; } .ds-panel-code { font-size: 10px; letter-spacing: 0.05em; color: #5a5f6a; } .ds-stat { display: flex; flex-direction: column; padding: 4px 0; } .ds-stat-label { font-family: 'Chakra Petch', sans-serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8f9a; margin-bottom: 4px; } .ds-stat-value-row { display: flex; align-items: baseline; gap: 6px; } .ds-stat-value { font-size: 24px; font-weight: 700; color: #e8a317; font-variant-numeric: tabular-nums; } .ds-stat-unit { font-size: 12px; color: #5a5f6a; } .ds-stat-note { font-size: 10px; color: #5a5f6a; margin-top: 2px; }"
+    },
+    {
+      "name": "Timeline Range Scrubber",
+      "kind": "input",
+      "refersTo": "button-primary",
+      "description": "4px bordered track with an emissive 14x14px square amber thumb for scrubbing the 19-year orbital construction sequence.",
+      "html": "<div class=\"ds-scrubber-wrap\"><div class=\"ds-scrubber-meta\"><span>Y-3 (GEONOSIS)</span><span class=\"ds-scrubber-current\">T = Y+11.4</span><span>Y+19 (YAVIN)</span></div><input type=\"range\" min=\"0\" max=\"1\" step=\"0.01\" value=\"0.65\" class=\"ds-range\" /></div>",
+      "css": ".ds-scrubber-wrap { background: #1a1d26; border: 1px solid #2d3340; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; } .ds-scrubber-meta { display: flex; justify-content: space-between; font-size: 10px; color: #8a8f9a; margin-bottom: 6px; } .ds-scrubber-current { color: #e8a317; font-weight: 600; } .ds-range { width: 100%; -webkit-appearance: none; appearance: none; background: #12141a; border: 1px solid #2d3340; height: 4px; margin: 0; } .ds-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; background: #e8a317; border: 2px solid #0a0a0e; box-shadow: 0 0 8px #e8a317; cursor: pointer; } .ds-range::-moz-range-thumb { width: 14px; height: 14px; background: #e8a317; border: 2px solid #0a0a0e; box-shadow: 0 0 8px #e8a317; border-radius: 0; cursor: pointer; } .ds-range:focus-visible { outline: 2px solid #e8a317; outline-offset: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Imperial PDR Dossier & Telemetry Console",
+    "overview": "This visual system presents a 120-km orbital battle station as a deadpan, forensic systems-engineering artifact—where aerospace blueprint discipline and MIL-STD Preliminary/Critical Design Review documentation meet a live dark-terminal telemetry console. Every screen and page treats impossible orders of magnitude (10¹⁸ kg, 10²⁷ W, 10³² J) with clinical composure: monospace scientific notation, explicit section-code stamps (§0 through §12, Appx A–H), and color-coded traceability badges that separate analytical physics (DR-NN Class A) from irreducible physics concessions (HW-1..10 Class C).\n\nThe aesthetic is forensic, dense, and instrument-grade. Surfaces are constructed from stepped dark slate planes bounded by razor-sharp 1px structural hairlines, square 0px corners, and 6px × 6px hardware status pips. The system strictly rejects rounded consumer SaaS cards, soft ambient drop shadows, playful sci-fi fan-art ornament, and decorative neon cyberpunk gradients. When a surface illuminates—whether an amber timeline scrubber or a green tributary laser convergence—that light represents an explicit physical state or active measurement, never decoration.",
+    "keyCharacteristics": [
+      "Dual-Authority Continuity: Shared token vocabulary across the interactive web console (proj-code/src/theme.ts), the 74-page Typst specification (typeset/template.typ), and the high-contrast A4 print export (proj-code/src/styles/print.css).",
+      "Semantic Traceability Color-Coding: Every accent hue maps to a specific verification or physical role—Amber for baseline command and inspection, Cyan for analysis and CDR deltas, Crimson for physics concessions (HW-ID) and critical RPN failure modes, and Green for real-world 2026 test analogs and superlaser firing sequences.",
+      "Monospace Data First, Geometric Header Chrome: Squared-off Chakra Petch uppercase headers and section tags frame JetBrains Mono prose, equations, and tabular-nums budgets.",
+      "Zero-Radius Hardware Framing: Strict 0px corners across all web panels, buttons, pills, and scrubbers, anchored by 6px square status pips and right-aligned document section codes."
+    ],
+    "rules": [
+      {
+        "name": "The Semantic Signal Rule",
+        "body": "Never assign Amber (#e8a317), Cyan (#0891b2), Crimson (#dc2626), or Green (#16a34a) for arbitrary visual variety; each hue must correspond to its engineering meaning (Command/Inspection, Analysis/CDR, Concession/Danger, or Test-Eligible/Active Ignition).",
+        "section": "colors"
+      },
+      {
+        "name": "The Print Inversion Rule",
+        "body": "When rendering to print (@media print in print.css), all dark surfaces (#0a0a0e, #12141a, #1a1d26) invert deterministically to pure white (#ffffff) with black ink (#000000) and #333333/#555555 hairline borders so exported ledgers sit cleanly beside A4 engineering paperwork.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Exponent Rule",
+        "body": "All numerical readouts, RPN counters, and animated scrubbers must use JetBrains Mono with font-variant-numeric: tabular-nums and proper Unicode superscripts (10¹⁸ kg, 10³² J, never 10^18 caret notation in display prose) so figures never jitter during count-up or scrubbing.",
+        "section": "typography"
+      },
+      {
+        "name": "The Uppercase Chrome Rule",
+        "body": "Chakra Petch is reserved for structural chrome—headers, kickers, tabs, buttons, and pills—almost always in uppercase with 0.08em to 0.3em positive tracking; never set multi-sentence paragraphs in Chakra Petch.",
+        "section": "typography"
+      },
+      {
+        "name": "The Zero-Shadow Chassis Rule",
+        "body": "Never apply box-shadow to a Panel, StatBlock, Pill, or button; hierarchy between containers is communicated by switching the 1px solid border from neutral #2d3340 to a semantic accent (#e8a317, #0891b2, #dc2626, #16a34a) and stepping surface luminance.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do stamp every Panel that represents a specification section or dataset with its corresponding document code (§0–§12, Appx A–H, HW-1 … HW-10, DR-01 … DR-16) in the right-aligned code slot (#5a5f6a, 10px).",
+      "Do use Pill components with semantic tones (red for Class C / HW-ID, cyan for Class A / DR-ID, amber for Class I / DS-1 FMEA, green for Class T / 2026 analogs) so verification status is scannable across both the web console and the Typst PDF.",
+      "Do pair Chakra Petch uppercase structural labels with JetBrains Mono tabular-nums values and explicit SI units (km, kg, W, J, MPa) on every metric and chart axis.",
+      "Do verify that any new table or ledger view degrades gracefully under @media print (print.css) into bordered black-on-white A4 portrait tables."
+    ],
+    "donts": [
+      "Don't introduce border-radius (rounded-md, rounded-lg, rounded-full) on panels, buttons, pills, inputs, or tooltips in the web console; 0px corners are a load-bearing identity invariant.",
+      "Don't apply decorative drop shadows, glassmorphic cards, or multi-stop neon gradients to UI containers; reserve glow strictly for active physical states (StationDiagram core/beam and range slider thumbs).",
+      "Don't use Chakra Petch for body paragraphs, table cells, or mathematical equations; body copy and numeric data must always render in JetBrains Mono.",
+      "Don't mix or repurpose the four semantic signal colors (#e8a317, #0891b2, #dc2626, #16a34a) outside their assigned engineering verification and telemetry roles."
+    ]
+  }
+}

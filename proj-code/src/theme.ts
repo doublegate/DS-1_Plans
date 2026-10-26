@@ -10,8 +10,8 @@ export const THEME = {
   border:    '#2d3340',
   borderHi:  '#3d4452',
   text:      '#e8e8ed',
-  textMuted: '#8a8f9a',
-  textDim:   '#5a5f6a',
+  textMuted: '#949aa6',
+  textDim:   '#828997',
   amber:     '#e8a317',
   amberGlow: '#ffb830',
   red:       '#dc2626',
@@ -24,7 +24,7 @@ export const THEME = {
 } as const;
 
 export type Theme = typeof THEME;
-export type ThemeTone = 'amber' | 'red' | 'cyan' | 'green' | 'default';
+export type ThemeTone = 'amber' | 'red' | 'cyan' | 'green' | 'purple' | 'default';
 
 export const toneColor = (tone: ThemeTone): string => {
   switch (tone) {
@@ -32,6 +32,7 @@ export const toneColor = (tone: ThemeTone): string => {
     case 'red':     return THEME.red;
     case 'cyan':    return THEME.cyan;
     case 'green':   return THEME.green;
+    case 'purple':  return THEME.purple;
     default:        return THEME.textMuted;
   }
 };

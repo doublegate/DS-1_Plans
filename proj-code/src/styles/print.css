@@ -1,7 +1,7 @@
 /* Print stylesheet for the Engineering Console.
- * Primary use: export the Ledger tab as a PDF appendix to sit alongside the
- * Typst-built main PDF. Secondary: any tab can be printed to PDF via the
- * browser print dialog with these rules applied.
+ * Primary use: export the Ledger tab as an A4 dossier appendix to sit alongside
+ * the Typst-built main PDF. Secondary: any tab can be printed to PDF via the
+ * browser print dialog or the in-app PRINT A4 DOSSIER control.
  *
  * Activated via:  window.print()  or  Ctrl/Cmd+P in the browser.
  */
@@ -10,14 +10,14 @@
 
   /* ----- Page setup ----- */
   @page {
-    size: A4 portrait;
-    margin: 1.5cm 1.2cm;
+    size: A4 landscape;
+    margin: 1.2cm 1.2cm;
   }
 
-  /* ----- Global — switch to print-safe palette ----- */
-  html, body, #root {
+  /* ----- Global — switch to print-safe dossier palette ----- */
+  html, body, #root, main, header, footer {
     background: #ffffff !important;
-    color: #000000 !important;
+    color: #0f172a !important;
     font-size: 9pt !important;
   }
 
@@ -32,8 +32,13 @@
     text-shadow: none !important;
   }
 
+  /* Override inline dark backgrounds and light text in print mode */
+  div, section, article, span, p, li, code, strong, em {
+    color: #0f172a !important;
+  }
+
   /* ----- Hide interactive chrome ----- */
-  nav, header nav, [role="navigation"], button, [role="button"],
+  nav, header nav, [role="tablist"], button, [role="button"],
   .no-print, [data-no-print="true"] {
     display: none !important;
   }
@@ -41,58 +46,62 @@
   /* ----- Preserve panel structure ----- */
   .panel, [data-panel="true"] {
     background: #ffffff !important;
-    border: 1px solid #333 !important;
+    border: 1pt solid #334155 !important;
     page-break-inside: avoid;
+    break-inside: avoid;
     margin-bottom: 10pt !important;
+    color: #0f172a !important;
   }
 
   /* ----- Tables ----- */
   table {
     border-collapse: collapse !important;
     width: 100% !important;
-    font-size: 8pt !important;
+    font-size: 8.5pt !important;
     page-break-inside: auto;
   }
   thead { display: table-header-group; }
-  tr    { page-break-inside: avoid; }
+  tr    { page-break-inside: avoid; break-inside: avoid; }
   th, td {
-    border: 0.5pt solid #555 !important;
-    padding: 3pt 5pt !important;
-    color: #000 !important;
+    border: 0.5pt solid #64748b !important;
+    padding: 3.5pt 5pt !important;
+    color: #0f172a !important;
+    background: #ffffff !important;
   }
   th {
-    background: #eee !important;
-    font-weight: 600 !important;
+    background: #f1f5f9 !important;
+    font-weight: 700 !important;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    font-size: 7pt !important;
+    font-size: 7.5pt !important;
   }
 
   /* ----- Pills / badges — render as bordered text ----- */
   [data-pill="true"], .pill {
-    background: transparent !important;
-    border: 0.5pt solid #333 !important;
-    color: #000 !important;
-    padding: 1pt 3pt !important;
+    display: inline-flex !important;
+    background: #f8fafc !important;
+    border: 0.75pt solid #334155 !important;
+    color: #0f172a !important;
+    padding: 1pt 4pt !important;
   }
 
   /* ----- Links — print URL after link text ----- */
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 7pt;
-    color: #555;
+    color: #475569;
   }
 
   /* ----- Headings ----- */
   h1, h2, h3, h4 {
-    color: #000 !important;
+    color: #0f172a !important;
     page-break-after: avoid;
   }
 
-  /* ----- Charts (Recharts) — force grayscale, readable ----- */
+  /* ----- Charts (Recharts) — force readable surface ----- */
   .recharts-wrapper svg,
   .recharts-surface {
-    background: #fff !important;
+    background: #ffffff !important;
   }
 
   /* ----- Images ----- */
@@ -103,11 +112,13 @@
 
   /* ----- Page header printed at top ----- */
   body::before {
-    content: "DS-1 Engineering Console · Ledger Export · as of April 2026";
+    content: "DS-1 ORBITAL BATTLE STATION · PRELIMINARY/CRITICAL DESIGN REVIEW DOSSIER EXPORT · REVISION 2026";
     display: block;
-    font-size: 7pt;
-    color: #888;
-    border-bottom: 0.5pt solid #888;
+    font-size: 7.5pt;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #334155;
+    border-bottom: 0.75pt solid #334155;
     padding-bottom: 4pt;
     margin-bottom: 8pt;
   }

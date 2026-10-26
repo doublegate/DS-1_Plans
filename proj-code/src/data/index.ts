@@ -17,3 +17,4 @@ export { VULNERABILITY_MATRIX } from './vulnerability';
 export { PROPULSION_DATA } from './propulsion';
 export { ECLSS_DAILY } from './eclss';
 export { FIGHTER_COMPLEMENT } from './fighterComplement';
+export { GLOSSARY_ENTRIES, PRIMARY_SOURCES } from './glossaryAndSources';

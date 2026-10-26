@@ -1,0 +1,12 @@
+{
+  "files": [
+    "proj-code/index.html",
+    "proj-code/DS1-Engineering-Console.html"
+  ],
+  "exclude": [
+    "code-artifacts/**"
+  ],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}

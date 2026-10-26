@@ -2,11 +2,15 @@ import { useState, useEffect } from 'react';
 
 /**
  * Animated counter that eases from 0 to `target` over `duration` ms (cubic ease-out).
- * Used by StatBlocks to convey "live telemetry" feel when a tab mounts.
+ * Respects `prefers-reduced-motion: reduce` by resolving immediately.
  */
-export const useCountUp = (target: number, duration = 1500): number => {
-  const [v, setV] = useState(0);
+export const useCountUp = (target: number, duration = 1200): number => {
+  const [v, setV] = useState(target);
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      setV(target);
+      return;
+    }
     let start: number | null = null;
     let raf: number | null = null;
     const step = (ts: number) => {

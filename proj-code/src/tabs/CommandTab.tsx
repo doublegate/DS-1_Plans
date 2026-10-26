@@ -1,182 +1,221 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState } from 'react';
 import {
-  BarChart, Bar, LineChart, Line, PieChart, Pie, RadarChart, Radar,
-  PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell, XAxis, YAxis,
-  CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area,
-  ComposedChart, ScatterChart, Scatter, ZAxis,
+  BarChart, Bar, Cell, XAxis, YAxis,
+  CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
-import {
-  Activity, Radio, Zap, Shield, Target, Cpu, Gauge, Users,
-  Rocket, Atom, Crosshair, AlertTriangle, Layers, Settings,
-  Building2, Flame, Binary, Waves, Orbit, HardDrive, Radiation,
-  Eye, LineChart as LC, Grid3x3, ChevronRight, Play, Pause,
-  RotateCcw, Info, GitBranch, Ruler, Package, Skull, Search,
-  CircleDot, Triangle, Square, Hexagon, Sigma, FlaskConical,
-  Telescope, AlertOctagon,
-} from 'lucide-react';
 import { THEME } from '../theme';
 import {
-  Panel, StatBlock, SectionHeader, Pill,
-  RadialGauge, ScannerLine, StationDiagram,
+  Panel, StatBlock, SectionHeader, Pill, StationDiagram,
 } from '../components';
-import { useCountUp } from '../hooks/useCountUp';
-import {
-  MASS_BUDGET, CREW_MANIFEST, WEAPONS_DS1, WEAPONS_DS2,
-  CONSTRUCTION_PHASES, ENERGY_COMPARISONS, REACTOR_OPTIONS,
-  HANDWAVIUM, DERIVED_REQUIREMENTS, FMEA_REGISTER, REAL_WORLD_2026,
-  COST_BREAKDOWN, DS1_VS_DS2, VULNERABILITY_MATRIX, PROPULSION_DATA,
-  ECLSS_DAILY, FIGHTER_COMPLEMENT,
-} from '../data';
+import { ENERGY_COMPARISONS } from '../data';
 import type { TabPropsWithFiring } from '../types';
 
-export const CommandTab: React.FC<TabPropsWithFiring> = ({ firing, startFire }) => {
-  const alderaan = useCountUp(2.24);
-  const mass = useCountUp(10);
-  const crew = useCountUp(1.7);
-  const dia = useCountUp(120);
+export const CommandTab: React.FC<TabPropsWithFiring> = ({ firing, startFire, onNavigate }) => {
+  const [showLabels, setShowLabels] = useState(true);
 
   return (
     <div>
       <SectionHeader
-        kicker="SECTION I · EXECUTIVE DASHBOARD"
+        kicker="§00–01 · EXECUTIVE SUMMARY & DESIGN BASIS"
         title="DS-1 Orbital Battle Station — Command Overview"
-        description="Spherical battle station. 120 km nominal diameter (ANH reference). Structural mass 10¹⁸ kg. Primary armament: hypermatter-sourced superlaser, Alderaan-class output ≥2.24×10³² J per shot. Hybrid canon / real-physics engineering specification."
+        description="Spherical battle station. 120 km nominal diameter (ANH baseline). Structural design-basis mass 1.0 × 10¹⁸ kg. Primary armament: hypermatter-sourced superlaser delivering ≥ 2.24 × 10³² J per full-power shot."
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-        {/* Key stats panel */}
-        <div className="lg:col-span-2 grid grid-cols-2 md:grid-cols-4 gap-3">
-          <Panel accent={THEME.amber} padding="p-4">
-            <StatBlock label="Diameter" value={dia.toFixed(0)} unit="km" tone="amber" note="ANH canon; 160 km DS-2" />
+        {/* Tiered KPI column: 4 primary hero cards + unified 4-metric secondary envelope panel */}
+        <div className="lg:col-span-2 flex flex-col gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <Panel accent={THEME.amber} padding="p-4" title="PRIMARY GEOMETRY" code="§01.2">
+              <StatBlock label="Diameter" value="120" unit="km" tone="amber" note="ANH baseline (160 km DS-2)" />
+            </Panel>
+            <Panel accent={THEME.red} padding="p-4" title="WEAPON OUTPUT" code="§04.1">
+              <StatBlock label="Alderaan shot" value="2.24" unit="× 10³² J" tone="red" note="Earth gravitational binding" />
+            </Panel>
+            <Panel accent={THEME.cyan} padding="p-4" title="MASS ENVELOPE" code="§02.2">
+              <StatBlock label="Dry mass" value="1.00" unit="× 10¹⁸ kg" tone="cyan" note="1,105 kg/m³ bulk density" />
+            </Panel>
+            <Panel accent={THEME.green} padding="p-4" title="COMPLEMENT" code="§06.1">
+              <StatBlock label="Crew baseline" value="1.7" unit="× 10⁶" tone="green" note="+ 400,000 maintenance droids" />
+            </Panel>
+          </div>
+
+          <Panel
+            accent={THEME.border}
+            title="SECONDARY ENVELOPE & FORCE POSTURE PARAMETERS"
+            code="§01.2–01.4"
+            padding="p-4"
+          >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <StatBlock compact label="Presented area" value="45,200" unit="km²" tone="default" note="4πR² outer hull" />
+              <StatBlock compact label="Interior volume" value="9.05" unit="× 10¹⁴ m³" tone="default" note="357 deck levels" />
+              <StatBlock compact label="TIE complement" value="7,200" unit="craft" tone="default" note="100 tactical wings" />
+              <StatBlock compact label="Orbital build" value="19" unit="years" tone="default" note="Geonosis → Yavin" />
+            </div>
           </Panel>
-          <Panel accent={THEME.red} padding="p-4">
-            <StatBlock label="Alderaan shot" value={alderaan.toFixed(2)} unit="× 10³² J" tone="red" note="Earth binding energy" />
-          </Panel>
-          <Panel accent={THEME.cyan} padding="p-4">
-            <StatBlock label="Dry mass" value={mass.toFixed(0)} unit="× 10¹⁷ kg" tone="cyan" note="~10¹⁸ kg design basis" />
-          </Panel>
-          <Panel accent={THEME.green} padding="p-4">
-            <StatBlock label="Crew" value={crew.toFixed(1)} unit="× 10⁶" tone="green" note="1.7 M personnel" />
-          </Panel>
-          <Panel accent={THEME.border} padding="p-4">
-            <StatBlock label="Surface area" value="45,200" unit="km²" note="4πr² presented" />
-          </Panel>
-          <Panel accent={THEME.border} padding="p-4">
-            <StatBlock label="Volume" value="9.05" unit="× 10¹⁴ m³" note="Interior envelope" />
-          </Panel>
-          <Panel accent={THEME.border} padding="p-4">
-            <StatBlock label="TIE complement" value="7,200" note="~100 wings" />
-          </Panel>
-          <Panel accent={THEME.border} padding="p-4">
-            <StatBlock label="Build time" value="19" unit="years" note="Orbital assembly" />
+
+          <Panel title="EXECUTIVE SUMMARY & TRACEABILITY THESIS" accent={THEME.amber} code="§00.1">
+            <p className="text-sm leading-relaxed mb-3 max-w-[68ch]" style={{ color: THEME.text }}>
+              The DS-1 Orbital Battle Station is <span style={{ color: THEME.amber }}>engineerable-on-paper</span> if, and only if, one accepts a single irreducible physics concession: a bulk-matter substrate with specific energy density at or above c² (canonical{' '}
+              <span style={{ color: THEME.amber }}>hypermatter</span>, 9 × 10¹⁶ J/kg).
+            </p>
+            <p className="text-xs leading-relaxed mb-3 max-w-[70ch]" style={{ color: THEME.textMuted }}>
+              Given that concession, every downstream subsystem — reactor, superlaser, shield, sublight drive, turbolasers, and closed-loop ECLSS — follows as a finite extrapolation of known engineering. Remove hypermatter and the concept collapses across six independent physics walls.
+            </p>
+            <div className="flex flex-wrap items-center gap-2 pt-2" style={{ borderTop: `1px solid ${THEME.border}` }}>
+              <span className="text-xs" style={{ color: THEME.textDim }}>Traceability jump:</span>
+              <Pill tone="red" onClick={() => onNavigate?.('physics', 'HW-1')} title="Inspect HW-1..HW-10 Physics Concessions">
+                HW-1..HW-10 CONCESSIONS ↗
+              </Pill>
+              <Pill tone="cyan" onClick={() => onNavigate?.('ledger', 'DR-01')} title="Inspect DR-01..DR-16 V&V Matrix">
+                DR-01..DR-16 V&amp;V MATRIX ↗
+              </Pill>
+              <Pill tone="amber" onClick={() => onNavigate?.('ledger', 'E-01')} title="Inspect Top-10 RPN Failure Modes">
+                FMEA REGISTER ↗
+              </Pill>
+            </div>
           </Panel>
         </div>
 
         {/* Live diagram */}
-        <Panel accent={THEME.amber} title="STATION SCHEMATIC" code="DS-1 · OPERATIONAL">
+        <Panel accent={THEME.amber} title="STATION CUTAWAY SCHEMATIC" code="DS-1 · OPERATIONAL">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs" style={{ color: THEME.textDim }}>
+              Click callout tags on diagram to inspect subsystem
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowLabels(v => !v)}
+              aria-pressed={showLabels}
+              className="px-2 py-0.5 text-[11px] uppercase tracking-wider"
+              style={{
+                background: showLabels ? `${THEME.amber}20` : THEME.bg,
+                color: showLabels ? THEME.amber : THEME.textMuted,
+                border: `1px solid ${showLabels ? THEME.amber : THEME.border}`,
+                fontFamily: "'Chakra Petch', sans-serif",
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              CALLOUTS: {showLabels ? 'ON' : 'OFF'}
+            </button>
+          </div>
           <div className="aspect-square">
-            <StationDiagram buildProgress={1} firing={firing} showLabels={false} size={360} />
+            <StationDiagram
+              buildProgress={1}
+              firing={firing}
+              showLabels={showLabels}
+              size={360}
+              onSelectSubsystem={tabId => onNavigate?.(tabId)}
+            />
           </div>
           <div className="mt-3 flex gap-2">
             <button
+              type="button"
               onClick={startFire}
               disabled={firing > 0}
-              className="flex-1 py-2 text-xs tracking-widest uppercase transition"
+              className="flex-1 py-2.5 text-xs tracking-widest uppercase transition"
               style={{
                 background: firing > 0 ? THEME.green : THEME.red,
                 color: '#fff',
+                border: `1px solid ${firing > 0 ? THEME.greenGlow : THEME.redGlow}`,
                 fontFamily: "'Chakra Petch', sans-serif",
-                opacity: firing > 0 ? 0.5 : 1,
+                fontWeight: 600,
+                opacity: firing > 0 ? 0.85 : 1,
                 cursor: firing > 0 ? 'default' : 'pointer',
               }}
             >
-              {firing > 0 ? 'FIRING...' : 'COMMENCE PRIMARY IGNITION'}
+              {firing > 0 ? '▶ PRIMARY SUPERLASER FIRING SEQUENCE ACTIVE...' : '◊ COMMENCE PRIMARY IGNITION'}
             </button>
           </div>
         </Panel>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-        <Panel title="EXECUTIVE SUMMARY" accent={THEME.amber} code="DOC-001 §0">
-          <p className="text-sm leading-relaxed mb-3" style={{ color: THEME.text }}>
-            The DS-1 Orbital Battle Station is <span style={{ color: THEME.amber }}>engineerable-on-paper</span> if, and only if, one accepts a single irreducible physics concession: a bulk-matter substrate with specific energy density at or above c² (canonical <span style={{ color: THEME.amber }}>hypermatter</span>).
-          </p>
-          <p className="text-sm leading-relaxed" style={{ color: THEME.textMuted }}>
-            Given that concession, every downstream subsystem — reactor, superlaser, shield, drive, turbolasers — follows as a finite extrapolation of known engineering. Remove hypermatter and the concept collapses across six independent physics walls.
-          </p>
-        </Panel>
-
-        <Panel title="WHAT WORKS" accent={THEME.green} code="§10">
-          <ul className="space-y-2 text-xs" style={{ color: THEME.text }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+        <Panel title="WITHIN EXTRAPOLATED ENGINEERING ENVELOPE" accent={THEME.green} code="§11.1">
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs" style={{ color: THEME.text }}>
             {[
-              'Modular sphere construction',
-              'Equatorial trench as stiffener',
-              'Whipple micrometeoroid shielding',
-              'M-type asteroid ISRU',
-              'Ion-array sublight at milli-g',
-              'ECLSS scaled from ISS + submarine',
-              'MARAUDER-class compact-toroid turbolasers',
-              'HPM ion cannons (Leonidas-class)',
-              'Distributed zone-level C3',
+              'Modular spherical pressure hull (§02)',
+              'Equatorial trench thermal stiffener (§02.4)',
+              'Multi-wall Whipple meteoroid armor (§02.3)',
+              '16-Psyche M-type asteroid ISRU (§02.5)',
+              'NEXT-C scaled milli-g ion array (§05.1)',
+              'ISS/SSN closed-loop ECLSS (§06.2)',
+              'MARAUDER compact-toroid turbolasers (§07.2)',
+              'Epirus Leonidas HPM ion cannons (§07.3)',
+              'Distributed 24-zone C3 lattice (§08.1)',
+              'Overdense plasma-mirror ray shields (§07.5)',
             ].map(x => (
               <li key={x} className="flex items-start gap-2">
-                <div className="mt-1" style={{ width: 5, height: 5, background: THEME.green, flexShrink: 0 }} />
+                <div className="mt-1.5" style={{ width: 5, height: 5, background: THEME.green, flexShrink: 0 }} />
                 <span>{x}</span>
               </li>
             ))}
           </ul>
         </Panel>
 
-        <Panel title="WHAT FAILS" accent={THEME.red} code="§10">
+        <Panel title="IRREDUCIBLE PHYSICS WALLS (HANDWAVIUM REQUIRED)" accent={THEME.red} code="§10.1">
           <ul className="space-y-2 text-xs" style={{ color: THEME.text }}>
             {[
-              ['Superlaser', 'optics + EM-matter coupling gap'],
-              ['Hypermatter reactor', 'c²-class storage'],
-              ['Hyperdrive', 'metric engineering'],
-              ['Tractor beam', 'no pull mechanism'],
-              ['Gravity plates', 'no mechanism'],
-              ['Waste heat at hypermatter scale', '10²⁹ J/shot'],
-            ].map(([x, n]) => (
-              <li key={x} className="flex items-start gap-2">
-                <div className="mt-1" style={{ width: 5, height: 5, background: THEME.red, flexShrink: 0 }} />
-                <div>
-                  <span style={{ color: THEME.text }}>{x}</span>
-                  <span style={{ color: THEME.textDim }}> · {n}</span>
+              ['Superlaser volume coupling', 'Optical skin depth ≪ 1 mm in silicate crust', 'HW-5'],
+              ['Hypermatter reactor core', 'Requires ≥ c² (9 × 10¹⁶ J/kg) stable bulk storage', 'HW-1'],
+              ['Waste heat at 10³² J scale', '10²⁹ J/shot exceeds Stefan-Boltzmann radiator limit', 'HW-4'],
+              ['Hyperdrive 120-km soliton', '~10⁴⁵ J metric field energy (~50 solar rest-masses)', 'HW-7'],
+              ['Deck gravity & inertial plates', 'Static 1 g flat-deck field without rotation', 'HW-8'],
+              ['Tractor beam attractive force', 'Configurable pull on uncharged hulls at 100 km', 'HW-9'],
+            ].map(([x, n, hw]) => (
+              <li key={x} className="flex items-center justify-between gap-2">
+                <div className="flex items-start gap-2">
+                  <div className="mt-1.5" style={{ width: 5, height: 5, background: THEME.red, flexShrink: 0 }} />
+                  <div>
+                    <span style={{ color: THEME.text, fontWeight: 600 }}>{x}</span>
+                    <span style={{ color: THEME.textMuted }}> · {n}</span>
+                  </div>
                 </div>
+                <Pill tone="red" onClick={() => onNavigate?.('physics', hw)}>
+                  {hw}
+                </Pill>
               </li>
             ))}
           </ul>
         </Panel>
       </div>
 
-      {/* Energy scale chart */}
-      <Panel title="ENERGY-SCALE RECONCILIATION" accent={THEME.red} code="§2.1">
+      {/* Energy scale chart — horizontal bar layout so labels never clip */}
+      <Panel title="ENERGY-SCALE RECONCILIATION (LOGARITHMIC)" accent={THEME.red} code="§03.1 / §04.1">
         <p className="text-xs mb-4" style={{ color: THEME.textMuted }}>
-          Alderaan's destruction at 2.24 × 10³² J matches Earth's gravitational binding energy and equals one week of the Sun's total luminosity. Log-scale comparison.
+          Alderaan&apos;s destruction at 2.24 × 10³² J matches Earth&apos;s gravitational binding energy (3GM²/5R) and equals one full week of the Sun&apos;s total bolometric luminosity.
         </p>
-        <div className="h-64">
+        <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={ENERGY_COMPARISONS} layout="horizontal" margin={{ top: 10, right: 20, bottom: 60, left: 20 }}>
-              <CartesianGrid stroke={THEME.border} strokeDasharray="2 2" opacity={0.4} />
+            <BarChart
+              data={ENERGY_COMPARISONS}
+              layout="vertical"
+              margin={{ top: 5, right: 30, bottom: 20, left: 170 }}
+            >
+              <CartesianGrid stroke={THEME.border} strokeDasharray="2 2" opacity={0.4} horizontal={false} />
               <XAxis
-                dataKey="label"
-                tick={{ fill: THEME.textMuted, fontSize: 9, fontFamily: 'JetBrains Mono' }}
-                angle={-35}
-                textAnchor="end"
-                interval={0}
-                stroke={THEME.border}
-                height={80}
-              />
-              <YAxis
+                type="number"
                 scale="log"
                 domain={[1e13, 1e40]}
-                tick={{ fill: THEME.textMuted, fontSize: 9, fontFamily: 'JetBrains Mono' }}
-                tickFormatter={v => v.toExponential(0)}
+                tick={{ fill: THEME.textMuted, fontSize: 12, fontFamily: 'JetBrains Mono' }}
+                tickFormatter={(v: number) => v.toExponential(0)}
+                stroke={THEME.border}
+              />
+              <YAxis
+                type="category"
+                dataKey="label"
+                width={172}
+                tick={{ fill: THEME.text, fontSize: 12, fontFamily: 'JetBrains Mono' }}
                 stroke={THEME.border}
               />
               <Tooltip
-                contentStyle={{ background: THEME.panel, border: `1px solid ${THEME.amber}`, fontSize: 11, fontFamily: 'JetBrains Mono' }}
-                formatter={v => `${v.toExponential(2)} J`}
+                contentStyle={{
+                  background: THEME.panel,
+                  border: `1px solid ${THEME.amber}`,
+                  fontSize: 12,
+                  fontFamily: 'JetBrains Mono',
+                }}
+                formatter={(v) => [`${Number(v ?? 0).toExponential(2)} J`, 'Energy']}
               />
               <Bar dataKey="joules" fill={THEME.amber}>
                 {ENERGY_COMPARISONS.map((e, i) => {
@@ -193,4 +232,3 @@ export const CommandTab: React.FC<TabPropsWithFiring> = ({ firing, startFire }) 
     </div>
   );
 };
-

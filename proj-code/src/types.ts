@@ -5,6 +5,19 @@ import type { ThemeTone } from './theme';
 import type { ReactNode, CSSProperties } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
+export type TabId =
+  | 'command'
+  | 'structure'
+  | 'construction'
+  | 'reactor'
+  | 'drive'
+  | 'defense'
+  | 'ds2'
+  | 'physics'
+  | 'ledger';
+
+export type NavigateFn = (tab: TabId, focusId?: string) => void;
+
 // ---------- Data shapes ----------
 
 export interface MassBudgetRow {
@@ -58,6 +71,7 @@ export interface HandwaviumEntry {
   wall: string;            // the physics wall
   escape: string;          // canonical escape hatch
   subsystem: string;       // owning subsystem doc(s)
+  subsystemTab: TabId;     // target tab in console
   traces: string[];        // DR-IDs that cite this HW
 }
 
@@ -89,8 +103,28 @@ export interface RealWorldProgram {
   program: string;
   citedIn: string;
   thenStatus: string;      // as stated in the ref-doc
-  currentStatus: string;   // current as of April 2026
+  currentStatus: string;   // current as of 2026
   gap: string;
+  citation?: string;
+  url?: string;
+}
+
+export interface ReferenceSource {
+  id: string;
+  category: 'Canon & Legends' | 'Physicist Analyses' | 'Economic Models' | 'Propulsion & FTL' | 'Reactor & Directed Energy' | 'Spacecraft Systems & ISRU';
+  title: string;
+  authorsOrOrg: string;
+  year: string;
+  relevance: string;
+  url?: string;
+}
+
+export interface GlossaryEntry {
+  term: string;
+  category: 'Symbol' | 'Acronym' | 'Canon Hardware' | 'V&V Class';
+  expansion: string;
+  detail: string;
+  relatedTab?: TabId;
 }
 
 export interface CostCategory {
@@ -139,6 +173,9 @@ export interface PanelProps {
   title?: string | null;
   code?: string | null;
   padding?: string;
+  id?: string;
+  highlighted?: boolean;
+  onCodeClick?: () => void;
 }
 
 export interface StatBlockProps {
@@ -147,17 +184,22 @@ export interface StatBlockProps {
   unit?: string;
   tone?: ThemeTone;
   note?: string | null;
+  compact?: boolean;
 }
 
 export interface SectionHeaderProps {
   kicker?: string;
   title: string;
   description?: string;
+  actions?: ReactNode;
 }
 
 export interface PillProps {
   children: ReactNode;
   tone?: ThemeTone;
+  onClick?: () => void;
+  title?: string;
+  active?: boolean;
 }
 
 export interface RadialGaugeProps {
@@ -179,18 +221,27 @@ export interface StationDiagramProps {
   showLabels?: boolean;
   variant?: 'DS1' | 'DS2';
   size?: number;
+  onSelectSubsystem?: (tab: TabId) => void;
 }
 
 export interface TabDef {
-  id: string;
+  id: TabId;
   label: string;
   icon: LucideIcon;
   code: string;
+  group: 'Overview' | 'Subsystems' | 'Verification & Delta';
 }
 
 export interface TabPropsWithFiring {
   firing: number;
   startFire: () => void;
+  onNavigate?: NavigateFn;
+  focusId?: string | null;
+}
+
+export interface NavigableTabProps {
+  onNavigate?: NavigateFn;
+  focusId?: string | null;
 }
 
 // Re-export convenience for tabs that accept inline style

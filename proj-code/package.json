@@ -1,12 +1,13 @@
 {
   "name": "ds1-engineering-console",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "private": true,
   "description": "Interactive engineering console for the DS-1 Orbital Battle Station specification. Companion to the markdown document tree in ../docs/.",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node scripts/sync-standalone-html.mjs",
+    "sync-html": "node scripts/sync-standalone-html.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"
   },

@@ -1,6 +1,6 @@
-# proj-code — DS-1 Engineering Console (Final v1.1)
+# proj-code — DS-1 Engineering Console (Final v1.2)
 
-**Status:** Final v1.1, 2026-04-22 (refactored to Vite + TypeScript module tree)
+**Status:** Final v1.2, 2026-10-26 (strict TypeScript + automated CDN HTML sync + interactive trade-study & glossary/citations)
 **Reference:** synthesized from `../code-artifacts/` + enhancements from `../docs/` and `../to-dos/`
 
 ---
@@ -107,9 +107,9 @@ npm run typecheck   # tsc --noEmit
 
 From the dev build, navigate to the Ledger tab, then Cmd/Ctrl-P. The print stylesheet switches to a print-safe palette (white background, black borders, bordered pills instead of color fills) and gives you a clean portrait-A4 export.
 
-## TypeScript strictness note
+## TypeScript strictness & build parity note
 
-`tsconfig.json` runs with `"strict": false` but `"strictNullChecks": true` and `"strictFunctionTypes": true`. This keeps type safety at the data-table and component-prop boundaries (where it matters most) while tolerating the looser typing in tab bodies — a pragmatic migration stance for a codebase that came in as ~2,500 lines of JSX. Full strict mode is a future sprint.
+`tsconfig.json` runs with full `"strict": true`, `"noImplicitAny": true`, and `"noUnusedLocals": true`. Running `npm run build` executes `tsc --noEmit`, builds the code-split Vite bundle (`../dist/proj-code/`), and runs `scripts/sync-standalone-html.mjs` to regenerate `DS1-Engineering-Console.html` from the 37 `src/` modules with `@babel/standalone@7.26.9` pinned.
 
 ## Numerical baseline (must match spec)
 

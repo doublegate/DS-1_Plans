@@ -1,0 +1,187 @@
+import type { GlossaryEntry, ReferenceSource } from '../types';
+
+// Canonical Nomenclature & V&V Glossary (Appendix B + Appendix F)
+export const GLOSSARY_ENTRIES: readonly GlossaryEntry[] = [
+  // Verification & Validation Classes (Appendix F)
+  {
+    term: 'Class [A] — Analysis',
+    category: 'V&V Class',
+    expansion: 'Verification by Engineering Analysis',
+    detail: 'Quantitative validation via closed-form analytical derivation, thermodynamic balance, or structural scaling law within stated assumptions (6 of 16 DRs).',
+    relatedTab: 'ledger',
+  },
+  {
+    term: 'Class [I] — Inspection',
+    category: 'V&V Class',
+    expansion: 'Verification by Source Inspection',
+    detail: 'Audit and reconciliation against canonical primary authorities (WEG 40008, DK Incredible Cross-Sections, Rogue One UVG) within ±5% inventory tolerance (1 of 16 DRs).',
+    relatedTab: 'ledger',
+  },
+  {
+    term: 'Class [T] — Test-Eligible',
+    category: 'V&V Class',
+    expansion: 'Verification via Real-World Analog Test',
+    detail: 'Subscale empirical validation anchored to active terrestrial programs (NIF, TAE Norm, Epirus Leonidas, HELIOS Mk 5, NASA NEXT-C, NASA Psyche).',
+    relatedTab: 'ledger',
+  },
+  {
+    term: 'Class [C] — Concession',
+    category: 'V&V Class',
+    expansion: 'Verification Waived via Handwavium Ledger',
+    detail: 'Requirement exceeds known physics and is satisfied only by citing an explicit HW-1..HW-10 concession in the Handwavium Register (8 of 16 DRs).',
+    relatedTab: 'physics',
+  },
+  // Symbols & Constants (Appendix B §B.1)
+  {
+    term: 'U₀ = 2.24 × 10³² J',
+    category: 'Symbol',
+    expansion: 'Alderaan Gravitational Binding Energy',
+    detail: 'U = 3GM²/(5R) for an Earth-mass terrestrial target (M = 5.97×10²⁴ kg, R = 6,371 km). Baseline single-shot energy of the Mk I Superlaser.',
+    relatedTab: 'command',
+  },
+  {
+    term: 'P_sus = 2.6 × 10²⁷ W',
+    category: 'Symbol',
+    expansion: 'Sustained Hypermatter Reactor Output',
+    detail: 'Continuous thermal/annihilation power required to recharge 2.24×10³² J over an 86,400 s (24-hour) cycle; equivalent to ~6,800 solar luminosities (L☉).',
+    relatedTab: 'reactor',
+  },
+  {
+    term: 'ε_hyp = 9.0 × 10¹⁶ J/kg',
+    category: 'Symbol',
+    expansion: 'Hypermatter Specific Energy (= c²)',
+    detail: 'Mass-energy equivalence floor required so per-shot fuel consumption (~2.49×10¹⁵ kg) remains a small fraction of the 1.0×10¹⁸ kg station dry mass.',
+    relatedTab: 'reactor',
+  },
+  {
+    term: 'RPN = S × O × D',
+    category: 'Symbol',
+    expansion: 'Risk Priority Number (FMEA)',
+    detail: 'Product of Severity (1–10), Occurrence (1–10), and Detection (1–10) in Appendix E. Values ≥ 300 require architectural mitigation or CCB waiver.',
+    relatedTab: 'ledger',
+  },
+  // Real-World Acronyms (Appendix B §B.3)
+  {
+    term: 'ISRU',
+    category: 'Acronym',
+    expansion: 'In-Situ Resource Utilization',
+    detail: 'Autonomous extraction and refining of M-type metallic asteroid feedstock (16 Psyche analog) at 1.6×10⁹ kg/s over the 19-year orbital build window.',
+    relatedTab: 'structure',
+  },
+  {
+    term: 'ECLSS',
+    category: 'Acronym',
+    expansion: 'Environmental Control and Life Support System',
+    detail: 'Closed-loop atmospheric (O₂/CO₂ Sabatier + OGA) and water recovery (WRS) architecture scaled to 425,000× ISS throughput for 1.7×10⁶ personnel.',
+    relatedTab: 'drive',
+  },
+  {
+    term: 'MARAUDER',
+    category: 'Acronym',
+    expansion: 'Magnetically Accelerated Ring to Achieve Ultra-high Directed Energy and Radiation',
+    detail: 'AFRL Phillips Lab Shiva Star compact-toroid plasma projectile program; closest real-physics analog to Taim & Bak XX-9 / D6 turbolaser bolts.',
+    relatedTab: 'defense',
+  },
+  {
+    term: 'CBC',
+    category: 'Acronym',
+    expansion: 'Coherent Beam Combining',
+    detail: 'Master-oscillator active phase-locking across multi-aperture laser/particle arrays; real-world analog to the 8 tributary kyber induction hyperphase stages.',
+    relatedTab: 'reactor',
+  },
+  // Canon Hardware & Terms (Appendix B §B.4–B.5)
+  {
+    term: 'SFS-CR27200',
+    category: 'Canon Hardware',
+    expansion: 'Sienar Fleet Systems Hypermatter Reactor Core',
+    detail: 'Central spherical annihilation core driving 64 tributary power shafts. Sabotaged under Project Celestial Power (Galen Erso) to require continuous thermal venting.',
+    relatedTab: 'reactor',
+  },
+  {
+    term: 'Isu-Sim SSP06',
+    category: 'Canon Hardware',
+    expansion: 'Class 4 Coherent Hyperdrive Field Generator',
+    detail: '123-node array distributed across the equatorial sector to project a 120-km hyperspace transit envelope (~10⁴⁵ J metric soliton field energy, HW-7).',
+    relatedTab: 'drive',
+  },
+  {
+    term: 'CoMar SLD-26',
+    category: 'Canon Hardware',
+    expansion: 'Endor Moon Planetary Shield Generator (DS-2)',
+    detail: 'Off-station planetary projector protecting the unfinished DS-2 superstructure; eliminated on-hull thermal/volume load but introduced a catastrophic ground SPOF (E-20).',
+    relatedTab: 'ds2',
+  },
+  {
+    term: 'Quadanium / Durasteel',
+    category: 'Canon Hardware',
+    expansion: 'Primary Hull & Structural Alloy Family',
+    detail: 'Maps to 18Ni-300 maraging steel (σ_y = 1,700–2,400 MPa) for outer Whipple armor bumpers, Inconel 718 in high-ΔT zones, and Ti-6Al-4V / CNT laminates internally.',
+    relatedTab: 'structure',
+  },
+];
+
+// Primary Source Citations Index (Appendix C)
+export const PRIMARY_SOURCES: readonly ReferenceSource[] = [
+  {
+    id: 'REF-C1',
+    category: 'Canon & Legends',
+    title: 'Death Star Technical Companion (2nd Ed., WEG 40008)',
+    authorsOrOrg: 'Bill Slavicsek / West End Games',
+    year: '1991',
+    relevance: 'Primary baseline for 120-km diameter, 24 zone bridges, sector layout, and weapon battery tables.',
+    url: 'https://starwars.fandom.com/wiki/Death_Star_Technical_Companion',
+  },
+  {
+    id: 'REF-C2',
+    category: 'Canon & Legends',
+    title: 'Star Wars: Incredible Cross-Sections & Complete Locations',
+    authorsOrOrg: 'Curtis Saxton, Richard Chasemore, Hans Jenssen (DK)',
+    year: '1998–2016',
+    relevance: 'Internal cutaway geometry, 8-tributary kyber amplifier ring, overbridge, and reactor shaft routing.',
+    url: 'https://starwars.fandom.com/wiki/DS-1_Orbital_Battle_Station',
+  },
+  {
+    id: 'REF-P1',
+    category: 'Physicist Analyses',
+    title: 'Gravitational Binding Energy & Debris-Kinetics Upper Bounds',
+    authorsOrOrg: 'Ethan Siegel (Big Think), Mike Wong (StarDestroyer.net), Dave Minton (Purdue)',
+    year: '2000–2022',
+    relevance: 'Establishes the 2.24×10³² J Earth-binding baseline vs. 10³⁸ J relativistic ejecta upper bound.',
+  },
+  {
+    id: 'REF-E1',
+    category: 'Economic Models',
+    title: "It's a Trap: Emperor Palpatine's Poison Pill (arXiv:1511.09054)",
+    authorsOrOrg: 'Zachary Feinstein (Washington Univ. in St. Louis) & Centives / Lehigh Univ.',
+    year: '2012–2015',
+    relevance: '$852 quadrillion steel feedstock valuation and $6.09 sextillion Gross Galactic Product shock model.',
+    url: 'https://arxiv.org/abs/1511.09054',
+  },
+  {
+    id: 'REF-F1',
+    category: 'Propulsion & FTL',
+    title: 'Breaking the Warp Barrier: Hyper-Fast Solitons in Einstein–Maxwell-Plasma Theory',
+    authorsOrOrg: 'Erik W. Lentz (Class. Quantum Grav. 38 075015) & Bobrick/Martire (arXiv:2102.06824)',
+    year: '2021',
+    relevance: 'Positive-energy warp-metric soliton framing for the 123× SSP06 hyperdrive array (HW-7).',
+    url: 'https://arxiv.org/abs/2102.06824',
+  },
+  {
+    id: 'REF-R1',
+    category: 'Reactor & Directed Energy',
+    title: 'First Measurements of p-¹¹B Fusion in a Magnetically Confined Plasma & NIF Ignition',
+    authorsOrOrg: 'R. M. Magee et al. (Nature Comms 14, 783) & LLNL NIF Collaboration',
+    year: '2023–2026',
+    relevance: 'Empirical benchmarks for aneutronic fusion fuel cycles and megajoule-class indirect-drive laser optics.',
+    url: 'https://www.nature.com/articles/s41467-023-36655-1',
+  },
+  {
+    id: 'REF-S1',
+    category: 'Spacecraft Systems & ISRU',
+    title: 'NASA Psyche 16-Psyche Metal Asteroid Characterization & NEXT-C Ion Propulsion',
+    authorsOrOrg: 'NASA JPL / ASU Psyche Team & NASA Glenn Research Center (NTRS 20210024276)',
+    year: '2021–2026',
+    relevance: 'M-type Fe-Ni asteroid feedstock density/mass baseline and 4,190 s Isp sublight thruster scaling.',
+    url: 'https://science.nasa.gov/mission/psyche/',
+  },
+];

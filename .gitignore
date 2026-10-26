@@ -23,6 +23,9 @@ docs/figures/_sources/__pycache__/
 Thumbs.db
 .idea/
 .vscode/
+.codex/
+.cursor/
+.impeccable/config.local.json
 *.swp
 *.swo
 *~

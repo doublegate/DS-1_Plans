@@ -1,102 +1,114 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React from 'react';
 import {
-  BarChart, Bar, LineChart, Line, PieChart, Pie, RadarChart, Radar,
-  PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell, XAxis, YAxis,
-  CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area,
-  ComposedChart, ScatterChart, Scatter, ZAxis,
+  BarChart, Bar, XAxis, YAxis,
+  CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
-import {
-  Activity, Radio, Zap, Shield, Target, Cpu, Gauge, Users,
-  Rocket, Atom, Crosshair, AlertTriangle, Layers, Settings,
-  Building2, Flame, Binary, Waves, Orbit, HardDrive, Radiation,
-  Eye, LineChart as LC, Grid3x3, ChevronRight, Play, Pause,
-  RotateCcw, Info, GitBranch, Ruler, Package, Skull, Search,
-  CircleDot, Triangle, Square, Hexagon, Sigma, FlaskConical,
-  Telescope, AlertOctagon,
-} from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 import { THEME } from '../theme';
 import {
-  Panel, StatBlock, SectionHeader, Pill,
-  RadialGauge, ScannerLine, StationDiagram,
+  Panel, SectionHeader, Pill,
 } from '../components';
-import { useCountUp } from '../hooks/useCountUp';
 import {
-  MASS_BUDGET, CREW_MANIFEST, WEAPONS_DS1, WEAPONS_DS2,
-  CONSTRUCTION_PHASES, ENERGY_COMPARISONS, REACTOR_OPTIONS,
-  HANDWAVIUM, DERIVED_REQUIREMENTS, FMEA_REGISTER, REAL_WORLD_2026,
-  COST_BREAKDOWN, DS1_VS_DS2, VULNERABILITY_MATRIX, PROPULSION_DATA,
-  ECLSS_DAILY, FIGHTER_COMPLEMENT,
+  WEAPONS_DS1, VULNERABILITY_MATRIX,
 } from '../data';
-import type { TabPropsWithFiring } from '../types';
+import type { NavigableTabProps, WeaponRow } from '../types';
 
-export const DefenseTab: React.FC = () => {
+export const DefenseTab: React.FC<NavigableTabProps> = ({ onNavigate }) => {
   return (
     <div>
       <SectionHeader
-        kicker="SECTION VI · DEFENSIVE SYSTEMS"
+        kicker="§07–09 · DEFENSIVE SYSTEMS, C3 & VULNERABILITY ANALYSIS"
         title="Weapons, Shields, and Vulnerability Analysis"
-        description="15,000 turbolaser batteries + 2,500 ion cannons + 768 tractor projectors. Ray-shield + particle-shield dual architecture. Primary vulnerability: single-point 2-m thermal exhaust port (Erso sabotage + genuine thermal-venting necessity)."
+        description="15,000 turbolaser batteries + 2,500 ion cannons + 2,500 laser cannons + 768 tractor projectors. Ray-shield + particle-shield dual architecture. Primary vulnerability: single-point 2-m thermal exhaust port combining Erso containment sabotage with genuine enthalpic venting necessity."
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-        <Panel title="DS-1 WEAPONS COMPLEMENT" accent={THEME.red} code="§6.1">
-          <div className="h-56 mb-3">
-            <ResponsiveContainer>
-              <BarChart data={WEAPONS_DS1} margin={{ top: 10, right: 20, left: 10, bottom: 40 }}>
-                <CartesianGrid stroke={THEME.border} strokeDasharray="2 2" opacity={0.4} />
-                <XAxis dataKey="name" tick={{ fill: THEME.textMuted, fontSize: 9, fontFamily: 'JetBrains Mono' }} angle={-20} textAnchor="end" interval={0} height={60} stroke={THEME.border} />
-                <YAxis tick={{ fill: THEME.textMuted, fontSize: 9, fontFamily: 'JetBrains Mono' }} stroke={THEME.border} />
-                <Tooltip contentStyle={{ background: THEME.panel, border: `1px solid ${THEME.red}`, fontSize: 11, fontFamily: 'JetBrains Mono' }} formatter={(v, n, p) => `${v.toLocaleString()} · ${p.payload.model} · ${p.payload.mode}`} />
+        <Panel title="DS-1 SURFACE WEAPONS COMPLEMENT" accent={THEME.red} code="§07.1 / DR-07">
+          <div className="h-60 mb-3">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={WEAPONS_DS1}
+                layout="vertical"
+                margin={{ top: 5, right: 25, left: 145, bottom: 10 }}
+              >
+                <CartesianGrid stroke={THEME.border} strokeDasharray="2 2" opacity={0.4} horizontal={false} />
+                <XAxis
+                  type="number"
+                  tick={{ fill: THEME.textMuted, fontSize: 11, fontFamily: 'JetBrains Mono' }}
+                  stroke={THEME.border}
+                />
+                <YAxis
+                  type="category"
+                  dataKey="name"
+                  width={140}
+                  tick={{ fill: THEME.text, fontSize: 11, fontFamily: 'JetBrains Mono' }}
+                  stroke={THEME.border}
+                />
+                <Tooltip
+                  contentStyle={{
+                    background: THEME.panel,
+                    border: `1px solid ${THEME.red}`,
+                    fontSize: 12,
+                    fontFamily: 'JetBrains Mono',
+                  }}
+                  formatter={(v, _n, p) => {
+                    const row = p?.payload as WeaponRow | undefined;
+                    return [
+                      `${Number(v ?? 0).toLocaleString()} · ${row?.model ?? ''} · ${row?.mode ?? ''}`,
+                      'Batteries',
+                    ];
+                  }}
+                />
                 <Bar dataKey="count" fill={THEME.red} />
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div className="text-[10px] space-y-1" style={{ color: THEME.textMuted }}>
-            <div>Total batteries: 15,000 turbolaser + ancillaries.</div>
-            <div>Canon reconciliation: WEG + DK + Disney canon all yield ~15 k aggregate.</div>
+          <div className="text-xs flex flex-wrap items-center justify-between gap-2" style={{ color: THEME.textMuted }}>
+            <span>Canon reconciliation (WEG 40008 + DK + Disney canon): 15,000 turbolaser-class + ancillaries (±5%).</span>
+            <Pill tone="amber" onClick={() => onNavigate?.('ledger', 'DR-07')}>DR-07 · INVENTORY [I] ↗</Pill>
           </div>
         </Panel>
 
-        <Panel title="CANON → REAL DEW ANALOGS" accent={THEME.cyan} code="§6.2–6.3">
+        <Panel title="CANON WEAPONS → REAL DEW ANALOGS" accent={THEME.cyan} code="§07.2–07.4">
           <div className="space-y-3">
             {[
               {
-                canon: 'Turbolaser',
+                canon: 'Turbolaser (XX-9 / D6)',
                 real: 'MARAUDER compact plasma toroid',
-                status: 'AFRL Phillips Lab · Shiva Star 9.5 MJ',
-                scale: '3,000–10,000 km/s plasma ring · 5 lb TNT eq.',
+                status: 'AFRL Phillips Lab · Shiva Star 9.5 MJ capacitor bank',
+                scale: '3,000–10,000 km/s magnetically confined plasma ring',
                 color: THEME.red,
               },
               {
-                canon: 'Ion cannon',
-                real: 'Epirus Leonidas HPM',
-                status: 'Operational 2024 · USA CENTCOM',
-                scale: '49-drone single-pulse kill demonstrated',
+                canon: 'Ion cannon (Borstel MS-1)',
+                real: 'Epirus Leonidas IFPC-HPM',
+                status: 'Operational 2024–2026 · US Army RCCTO / Leonidas AGV',
+                scale: '49-drone single-pulse electronic soft-kill demonstrated',
                 color: THEME.cyan,
               },
               {
-                canon: 'Laser cannon',
-                real: 'HELIOS Mk 5 Mod 0',
-                status: 'USS Preble DDG-88 · 2025 operational',
-                scale: '60 kW (scalable 150 kW)',
+                canon: 'Point-defense laser (SB-920)',
+                real: 'HELIOS Mk 5 Mod 0 fiber laser',
+                status: 'USS Preble DDG-88 · Fleet operational 2025–2026',
+                scale: '60 kW continuous wave (scalable to 150 kW)',
                 color: THEME.amber,
               },
               {
-                canon: 'Tractor beam',
-                real: '~None at scale',
-                status: 'Optical tweezers · pN on 100 μm',
-                scale: 'No known configurable attractive force',
+                canon: 'Tractor beam (Phylon Q7)',
+                real: 'No macroscopic attractive analog',
+                status: 'Optical/acoustic tweezers operate at pN on 100 μm scale',
+                scale: 'Requires gravitic concession HW-9 / DR-16 at 100 km',
                 color: THEME.purple,
               },
             ].map((w, i) => (
-              <div key={i} className="p-3" style={{ background: THEME.bg, border: `1px solid ${w.color}40` }}>
+              <div key={i} className="p-3" style={{ background: THEME.bg, border: `1px solid ${w.color}45` }}>
                 <div className="flex items-baseline gap-2 justify-between mb-1">
                   <span className="text-xs" style={{ color: w.color, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>{w.canon}</span>
-                  <span className="text-[10px]" style={{ color: THEME.textDim }}>→</span>
+                  <span className="text-xs" style={{ color: THEME.textDim }}>→</span>
                   <span className="text-xs" style={{ color: THEME.text }}>{w.real}</span>
                 </div>
-                <div className="text-[10px]" style={{ color: THEME.textMuted }}>{w.status}</div>
-                <div className="text-[10px] mt-0.5" style={{ color: THEME.textDim }}>{w.scale}</div>
+                <div className="text-xs" style={{ color: THEME.textMuted }}>{w.status}</div>
+                <div className="text-[11px] mt-0.5" style={{ color: THEME.textDim }}>{w.scale}</div>
               </div>
             ))}
           </div>
@@ -104,91 +116,102 @@ export const DefenseTab: React.FC = () => {
       </div>
 
       {/* Shields */}
-      <Panel title="SHIELD ARCHITECTURE" accent={THEME.cyan} code="§6.5" className="mb-6">
+      <Panel title="DUAL-LAYER SHIELD ARCHITECTURE" accent={THEME.cyan} code="§07.5 / DR-10" className="mb-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
-            <div className="text-[11px] uppercase tracking-widest mb-3" style={{ color: THEME.amber, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>
-              RAY SHIELD · Energy deflection
+            <div className="text-xs uppercase tracking-widest mb-3" style={{ color: THEME.amber, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>
+              RAY SHIELD · Electromagnetic / Coherent Energy Deflection
             </div>
-            <ul className="space-y-2 text-xs" style={{ color: THEME.text }}>
+            <ul className="space-y-2.5 text-xs" style={{ color: THEME.text }}>
               {[
-                ['Plasma-mirror overdense shell', 'Real physics: EM at ω blocked for ωₚ > ω. Ionosphere is everyday example.'],
-                ['Leicester (2014)', 'Journal Phys. Special Topics confirmed plasma-shield principle permissible.'],
-                ['NUDT (2024)', 'Lab-scale plasma shield vs 170 kW microwaves at 3 m range.'],
-                ['Downside', 'Shield blocks sensors, comms, outbound weapons. Explains on-screen intermittent shield-down-to-fire.'],
+                ['Overdense plasma-mirror shell', 'Real physics: EM waves at frequency ω reflect when plasma frequency ωₚ > ω (terrestrial ionosphere analog).'],
+                ['University of Leicester (2014)', 'Toohie et al. (J. Phys. Special Topics) verified magnetic plasma-shell reflection constraints.'],
+                ['NUDT empirical validation (2024)', 'Demonstrated lab-scale plasma shield blocking 170 kW high-power microwave pulses at 3 m.'],
+                ['Operational blind-spot tradeoff', 'Overdense plasma blocks outbound optical/radar sensors, explaining intermittent shield windowing during fire control.'],
               ].map(([h, d], i) => (
                 <li key={i} className="pb-2" style={{ borderBottom: i < 3 ? `1px solid ${THEME.border}50` : 'none' }}>
-                  <div style={{ color: THEME.amber, fontFamily: "'Chakra Petch'" }}>{h}</div>
-                  <div className="text-[10px] mt-0.5" style={{ color: THEME.textMuted }}>{d}</div>
+                  <div style={{ color: THEME.amber, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>{h}</div>
+                  <div className="text-xs mt-0.5" style={{ color: THEME.textMuted }}>{d}</div>
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <div className="text-[11px] uppercase tracking-widest mb-3" style={{ color: THEME.cyan, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>
-              PARTICLE SHIELD · Matter deflection
+            <div className="text-xs uppercase tracking-widest mb-3" style={{ color: THEME.cyan, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>
+              PARTICLE SHIELD · Kinetic &amp; Ordnance Deflection
             </div>
-            <ul className="space-y-2 text-xs" style={{ color: THEME.text }}>
+            <ul className="space-y-2.5 text-xs" style={{ color: THEME.text }}>
               {[
-                ['Magnetic deflection', 'Charged particles only — useless vs photons/neutrals.'],
-                ['Mini-magnetosphere (Bamford et al.)', 'Rutherford Appleton Lab — solar wind deflection at modest B.'],
-                ['Whipple Shields', 'Micrometeoroids to ~10 km/s.'],
-                ['Composite / reactive armor', 'Bulk kinetic penetrators (Chobham/Relikt analog).'],
+                ['Lorentz magnetic deflection', 'Deflects charged particle beams; ineffective against neutral kinetic projectiles or proton torpedoes.'],
+                ['Mini-magnetosphere (Bamford et al.)', 'Rutherford Appleton Lab — demonstrated solar-wind plasma stand-off cavity at modest dipole fields.'],
+                ['Whipple bumper standoff (§02.3)', '5-cm outer Quadanium bumper + 0.5–2 m standoff vaporizes hypervelocity micrometeoroids up to 10 km/s.'],
+                ['Reactive / Chobham-analog armor', 'Required against heavy kinetic penetrators and torpedo warheads across trench apertures.'],
               ].map(([h, d], i) => (
                 <li key={i} className="pb-2" style={{ borderBottom: i < 3 ? `1px solid ${THEME.border}50` : 'none' }}>
-                  <div style={{ color: THEME.cyan, fontFamily: "'Chakra Petch'" }}>{h}</div>
-                  <div className="text-[10px] mt-0.5" style={{ color: THEME.textMuted }}>{d}</div>
+                  <div style={{ color: THEME.cyan, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>{h}</div>
+                  <div className="text-xs mt-0.5" style={{ color: THEME.textMuted }}>{d}</div>
                 </li>
               ))}
             </ul>
           </div>
         </div>
-        <div className="mt-4 p-3" style={{ background: THEME.bg, border: `1px solid ${THEME.red}40` }}>
-          <div className="flex items-start gap-2">
+        <div className="mt-4 p-3 flex flex-wrap items-center justify-between gap-2" style={{ background: THEME.bg, border: `1px solid ${THEME.red}55` }}>
+          <div className="flex items-start gap-2 max-w-4xl">
             <AlertTriangle size={14} style={{ color: THEME.red, marginTop: 2, flexShrink: 0 }} />
-            <div className="text-[11px]" style={{ color: THEME.textMuted, lineHeight: 1.5 }}>
-              <strong style={{ color: THEME.red }}>The gap exploited at Yavin</strong> is precisely ray-without-particle: the 2-m exhaust port was ray-shielded (blocks blaster fire) but particle-penetrable (admits proton torpedoes). Canon explicitly: "the Death Star had to forgo all but the most rudimentary shielding capabilities in order to achieve such destructive power."
+            <div className="text-xs" style={{ color: THEME.textMuted, lineHeight: 1.55 }}>
+              <strong style={{ color: THEME.red }}>The Yavin aperture defect (FMEA E-02 / DR-10):</strong> The 2.0-m thermal exhaust port carried a ray shield (reflecting laser cannon bolts) but omitted a particle shield to permit continuous high-enthalpy gas ejection — admitting MG7-A proton torpedoes.
             </div>
+          </div>
+          <div className="flex gap-1.5">
+            <Pill tone="cyan" onClick={() => onNavigate?.('ledger', 'DR-10')}>DR-10 ↗</Pill>
+            <Pill tone="amber" onClick={() => onNavigate?.('ledger', 'E-02')}>FMEA E-02 ↗</Pill>
           </div>
         </div>
       </Panel>
 
       {/* Vulnerability matrix */}
-      <Panel title="VULNERABILITY MATRIX · DS-1 VS DS-2" accent={THEME.red} code="§8">
+      <Panel title="COMPARATIVE VULNERABILITY MATRIX · DS-1 VS DS-2" accent={THEME.red} code="§09.1">
         <p className="text-xs mb-4" style={{ color: THEME.textMuted }}>
-          Severity 0–5 where 5 = catastrophic/mission-ending. DS-2 fixed some failure modes and introduced others.
+          Severity scored 0–5 (5 = mission-ending single-point catastrophe). DS-2 retired the exhaust-port defect via millimeter microports but introduced a planetary-surface shield SPOF.
         </p>
         <div className="space-y-3">
           {VULNERABILITY_MATRIX.map((v, i) => (
             <div key={i} className="p-3" style={{ background: THEME.bg, border: `1px solid ${THEME.border}` }}>
-              <div className="flex items-baseline gap-3 justify-between mb-2">
+              <div className="flex flex-wrap items-baseline gap-3 justify-between mb-1.5">
                 <span className="text-xs" style={{ color: THEME.text, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>{v.issue}</span>
-                <div className="flex items-center gap-3 text-[10px]" style={{ fontFamily: "'JetBrains Mono'" }}>
-                  <span style={{ color: THEME.textMuted }}>DS-1</span>
-                  <div className="flex gap-0.5">
-                    {[...Array(5)].map((_, j) => (
+                <div className="flex items-center gap-3 text-xs" style={{ fontFamily: "'JetBrains Mono'" }}>
+                  <span style={{ color: THEME.textMuted }}>DS-1 ({v.ds1}/5)</span>
+                  <div className="flex gap-0.5" aria-label={`DS-1 severity ${v.ds1} of 5`}>
+                    {Array.from({ length: 5 }, (_, j) => (
                       <div key={j} style={{ width: 8, height: 12, background: j < v.ds1 ? THEME.red : THEME.border }} />
                     ))}
                   </div>
-                  <span style={{ color: THEME.textMuted }}>DS-2</span>
-                  <div className="flex gap-0.5">
-                    {[...Array(5)].map((_, j) => (
-                      <div key={j} style={{ width: 8, height: 12, background: j < v.ds2 ? (v.ds2 > v.ds1 ? THEME.red : THEME.amber) : THEME.border }} />
+                  <span style={{ color: THEME.textMuted }}>DS-2 ({v.ds2}/5)</span>
+                  <div className="flex gap-0.5" aria-label={`DS-2 severity ${v.ds2} of 5`}>
+                    {Array.from({ length: 5 }, (_, j) => (
+                      <div
+                        key={j}
+                        style={{
+                          width: 8,
+                          height: 12,
+                          background: j < v.ds2 ? (v.ds2 > v.ds1 ? THEME.red : THEME.amber) : THEME.border,
+                        }}
+                      />
                     ))}
                   </div>
                 </div>
               </div>
-              <div className="text-[10px]" style={{ color: THEME.textDim }}>{v.note}</div>
+              <div className="text-xs" style={{ color: THEME.textDim }}>{v.note}</div>
             </div>
           ))}
         </div>
       </Panel>
 
       {/* Exhaust port detail */}
-      <Panel title="THE THERMAL EXHAUST PORT · §6.7" accent={THEME.red} code="YAVIN LOSS" className="mt-6">
+      <Panel title="THE 2.0-METER THERMAL EXHAUST PORT · ROOT-CAUSE ANALYSIS" accent={THEME.red} code="§07.7 / §09.2 / E-01" className="mt-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
-            <svg viewBox="0 0 300 300" className="w-full">
+            <svg viewBox="0 0 300 300" className="w-full max-h-72 mx-auto" role="img" aria-label="2-meter thermal exhaust port cutaway">
               <defs>
                 <radialGradient id="hullG2">
                   <stop offset="0%" stopColor="#3a4050" />
@@ -201,14 +224,14 @@ export const DefenseTab: React.FC = () => {
               <rect x="20" y="130" width="260" height="60" fill="#0a0a0e" />
 
               {/* Ducts */}
-              <rect x="110" y="130" width="10" height="60" fill="#0a0a0e" stroke={THEME.amber} strokeWidth="0.5" />
+              <rect x="110" y="130" width="10" height="60" fill="#0a0a0e" stroke={THEME.amber} strokeWidth="0.6" />
               <line x1="115" y1="190" x2="115" y2="260" stroke={THEME.amber} strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
-              <circle cx="115" cy="270" r="6" fill="url(#rcore)">
+              <circle cx="115" cy="270" r="7" fill={THEME.red}>
                 <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite" />
               </circle>
 
               {/* Exhaust port */}
-              <ellipse cx="115" cy="130" rx="7" ry="3" fill={THEME.red} opacity="0.8">
+              <ellipse cx="115" cy="130" rx="7" ry="3" fill={THEME.red} opacity="0.85">
                 <animate attributeName="opacity" values="0.4;0.9;0.4" dur="1.5s" repeatCount="indefinite" />
               </ellipse>
 
@@ -226,41 +249,45 @@ export const DefenseTab: React.FC = () => {
               </g>
 
               {/* Labels */}
-              <text x="10" y="112" fill={THEME.textMuted} fontSize="9" fontFamily="'JetBrains Mono'">HULL SURFACE</text>
-              <text x="150" y="145" fill={THEME.amber} fontSize="9" fontFamily="'JetBrains Mono'">2-m port</text>
-              <text x="150" y="220" fill={THEME.amber} fontSize="9" fontFamily="'JetBrains Mono'">Heat duct</text>
-              <text x="150" y="282" fill={THEME.red} fontSize="9" fontFamily="'JetBrains Mono'">Main reactor</text>
-              <text x="160" y="32" fill={THEME.cyan} fontSize="9" fontFamily="'JetBrains Mono'">T-65 X-wing torpedo</text>
+              <text x="24" y="116" fill={THEME.textMuted} fontSize="10" fontFamily="'JetBrains Mono'">MERIDIAN TRENCH WALL</text>
+              <text x="145" y="145" fill={THEME.amber} fontSize="10" fontFamily="'JetBrains Mono'">2.0-m port (ray-shielded)</text>
+              <text x="145" y="220" fill={THEME.amber} fontSize="10" fontFamily="'JetBrains Mono'">60-km straight shaft</text>
+              <text x="145" y="282" fill={THEME.red} fontSize="10" fontFamily="'JetBrains Mono'">Main reactor core</text>
+              <text x="145" y="34" fill={THEME.cyan} fontSize="10" fontFamily="'JetBrains Mono'">MG7-A proton torpedo</text>
             </svg>
           </div>
           <div>
             <p className="text-xs mb-3" style={{ color: THEME.text, lineHeight: 1.6 }}>
-              <strong style={{ color: THEME.red }}>Why a hypermatter reactor must vent.</strong> Even at 0.01% thermal-channel efficiency on 10²⁴–10³³ W, waste is 10²⁰–10²⁹ W. No Stefan-Boltzmann radiator at 3,000 K can dispose of 10²⁰ W — would require 10¹⁴ m² (10× station surface). A concentrated aperture venting is <em>not a pure design flaw</em>, it is architecturally necessary.
+              <strong style={{ color: THEME.red }}>Why a hypermatter reactor must vent openly.</strong> Even at 10⁻⁹–10⁻⁴ thermal-channel loss on a 2.24 × 10³² J pulse, open-cycle enthalpic gas dumping is mandatory because blackbody hull radiation cannot clear the entropy before structural melt (HW-4 / DR-13).
             </p>
             <p className="text-xs mb-3" style={{ color: THEME.text, lineHeight: 1.6 }}>
-              <strong style={{ color: THEME.amber }}>The Erso sabotage.</strong> Galen Erso (per <em>Catalyst</em> + <em>Rogue One</em> novelization) coerced a reactor-containment geometry whose shielding reflected too many particles back into the reactor, forcing a single-consolidated-vent architecture with instability propagation. The sabotage converted a necessary feature into a catastrophic one.
+              <strong style={{ color: THEME.amber }}>The Galen Erso containment trap.</strong> Per <em>Catalyst</em> and the <em>Rogue One</em> engineering dossier, Erso specified a reactor-shielding reflection geometry that coupled local dampener overpressure into a whole-core chain instability, forcing a straight, unbaffled emergency relief shaft (FMEA E-01, E-10).
             </p>
-            <div className="text-[11px] uppercase tracking-widest mb-2 mt-4" style={{ color: THEME.green, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>
-              DS-2 Correct Engineering Fix
+            <div className="text-xs uppercase tracking-widest mb-2 mt-4" style={{ color: THEME.green, fontFamily: "'Chakra Petch'", fontWeight: 600 }}>
+              DS-2 Architectural Remediation (§12.5)
             </div>
-            <ul className="space-y-1.5 text-[11px]" style={{ color: THEME.text }}>
+            <ul className="space-y-1.5 text-xs mb-4" style={{ color: THEME.text }}>
               {[
-                'Distributed mm-scale porting (sub-minimum-ordnance geometry)',
-                'Labyrinthine baffles with 90°+ turns denying line-of-sight',
-                'Active blast doors (failure-closed default)',
-                'Particle shields on every external aperture with local CIWS',
-                'Magnetic reactor-buffer cells between vent manifold and core',
+                'Distributed ~1.8 × 10⁷ millimeter-scale effusion capillaries (sub-ordnance bore)',
+                'Non-line-of-sight labyrinthine expansion plenums with ≥ 90° chicane turns',
+                'Fail-closed magnetic blast shutters isolating manifold sectors',
+                'Overlapping particle + ray shields on all external exhaust louvers (DR-10)',
+                'Magnetic buffer cells decoupling vent back-pressure from core containment (E-03)',
               ].map((f, i) => (
                 <li key={i} className="flex items-start gap-2">
-                  <div className="mt-1.5" style={{ width: 4, height: 4, background: THEME.green, flexShrink: 0 }} />
+                  <div className="mt-1.5" style={{ width: 5, height: 5, background: THEME.green, flexShrink: 0 }} />
                   <span>{f}</span>
                 </li>
               ))}
             </ul>
+            <div className="flex flex-wrap gap-1.5">
+              <Pill tone="amber" onClick={() => onNavigate?.('ledger', 'E-01')}>FMEA E-01 (RPN 480) ↗</Pill>
+              <Pill tone="amber" onClick={() => onNavigate?.('ledger', 'E-05')}>FMEA E-05 (RPN 540) ↗</Pill>
+              <Pill tone="amber" onClick={() => onNavigate?.('ledger', 'E-10')}>FMEA E-10 (RPN 300) ↗</Pill>
+            </div>
           </div>
         </div>
       </Panel>
     </div>
   );
 };
-
