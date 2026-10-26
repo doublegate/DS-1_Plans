@@ -32,13 +32,13 @@ import type { TabPropsWithFiring } from '../types';
 export const ConstructionTab: React.FC = () => {
   const [buildProgress, setBuildProgress] = useState(1);
   const [playing, setPlaying] = useState(false);
-  const raf = useRef(null);
+  const raf = useRef<number | null>(null);
 
   useEffect(() => {
     if (playing) {
       const start = performance.now();
       const startProg = buildProgress >= 1 ? 0 : buildProgress;
-      const step = (t) => {
+      const step = (t: number) => {
         const dt = (t - start) / 1000;
         const p = Math.min(startProg + dt / 15, 1);
         setBuildProgress(p);
@@ -47,7 +47,7 @@ export const ConstructionTab: React.FC = () => {
       };
       raf.current = requestAnimationFrame(step);
     }
-    return () => raf.current && cancelAnimationFrame(raf.current);
+    return () => { if (raf.current !== null) cancelAnimationFrame(raf.current); };
   }, [playing]);
 
   // Find active phase

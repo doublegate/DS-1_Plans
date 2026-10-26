@@ -30,7 +30,7 @@ import {
 import type { TabPropsWithFiring } from '../types';
 
 export const StructureTab: React.FC = () => {
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState<(typeof MASS_BUDGET)[number] | null>(null);
 
   return (
     <div>
